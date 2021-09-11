@@ -1,0 +1,9 @@
+{
+  "template": {
+    "projectName": "msh-vision",
+    "gitTeam": "beecode-rs",
+    "npmPackagePrefix": "@beecode/"
+  },
+  "gitZipUrl": "https://github.com/beecode-rs/msh-node-temp/archive/refs/heads/cli.zip"
+}
+
