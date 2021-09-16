@@ -1,0 +1,2 @@
+[{*.ts, *.js}]
+ij_typescript_import_prefer_absolute_path = true

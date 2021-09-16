@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CliApp = void 0;
+const msh_node_app_1 = require("@beecode/msh-node-app");
+const exec_args_as_command_1 = require("src/app/init/exec-args-as-command");
+class CliApp extends msh_node_app_1.App {
+    constructor(args) {
+        super(new exec_args_as_command_1.ExecArgsAsCommand(args));
+    }
+}
+exports.CliApp = CliApp;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpLWFwcC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9hcHAvY2xpLWFwcC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSx3REFBMkM7QUFDM0MsNEVBQXFFO0FBRXJFLE1BQWEsTUFBTyxTQUFRLGtCQUFHO0lBQzdCLFlBQVksSUFBYztRQUN4QixLQUFLLENBQUMsSUFBSSx3Q0FBaUIsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFBO0lBQ3BDLENBQUM7Q0FDRjtBQUpELHdCQUlDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQXBwIH0gZnJvbSAnQGJlZWNvZGUvbXNoLW5vZGUtYXBwJ1xuaW1wb3J0IHsgRXhlY0FyZ3NBc0NvbW1hbmQgfSBmcm9tICdzcmMvYXBwL2luaXQvZXhlYy1hcmdzLWFzLWNvbW1hbmQnXG5cbmV4cG9ydCBjbGFzcyBDbGlBcHAgZXh0ZW5kcyBBcHAge1xuICBjb25zdHJ1Y3RvcihhcmdzOiBzdHJpbmdbXSkge1xuICAgIHN1cGVyKG5ldyBFeGVjQXJnc0FzQ29tbWFuZChhcmdzKSlcbiAgfVxufVxuIl19

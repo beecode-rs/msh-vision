@@ -1,0 +1,140 @@
+{
+  "_moduleAliases": {
+    "src": "./dist"
+  },
+  "author": "Milos Bugarinovic <milos.bugarinovic@gmail.com> (http://milos.bugarinovic.com)",
+  "bin": {
+    "vision": "./bin/start.js"
+  },
+  "bugs": {
+    "url": "https://github.com/beecode-rs/msh-vision/issues"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@beecode/msh-node-app": "0.1.1",
+    "@beecode/msh-node-env": "0.2.4",
+    "@beecode/msh-node-log": "2.0.2",
+    "async-shelljs": "0.1.4",
+    "chalk": "4.1.0",
+    "compare-versions": "3.6.0",
+    "dotenv": "8.2.0",
+    "fast-json-stable-stringify": "2.1.0",
+    "inquirer": "8.0.0",
+    "lodash": "4.17.21",
+    "minimist": "1.2.5",
+    "minimist-options": "4.1.0",
+    "module-alias": "2.2.2",
+    "mz": "2.7.0",
+    "recast": "0.20.5",
+    "source-map-support": "0.5.19"
+  },
+  "description": "MicroService Shell helper",
+  "devDependencies": {
+    "@commitlint/cli": "12.1.1",
+    "@commitlint/config-conventional": "12.1.1",
+    "@commitlint/prompt": "12.1.1",
+    "@istanbuljs/nyc-config-typescript": "1.0.1",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/exec": "5.0.0",
+    "@semantic-release/git": "9.0.0",
+    "@semantic-release/github": "7.2.1",
+    "@semantic-release/release-notes-generator": "9.0.2",
+    "@types/chalk": "2.2.0",
+    "@types/compare-versions": "3.3.0",
+    "@types/dotenv": "8.2.0",
+    "@types/fast-json-stable-stringify": "2.0.0",
+    "@types/inquirer": "7.3.1",
+    "@types/jest": "27.0.1",
+    "@types/lodash": "4.14.168",
+    "@types/minimist": "1.2.1",
+    "@types/minimist-options": "3.0.0",
+    "@types/module-alias": "2.0.0",
+    "@types/mz": "2.7.3",
+    "@types/node": "14.14.41",
+    "@types/shelljs": "0.8.8",
+    "@types/source-map-support": "0.5.3",
+    "@typescript-eslint/eslint-plugin": "4.22.0",
+    "@typescript-eslint/parser": "4.22.0",
+    "codecov": "3.8.1",
+    "commitizen": "4.2.3",
+    "eslint": "7.24.0",
+    "eslint-config-prettier": "8.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "husky": "6.0.0",
+    "jest": "27.1.1",
+    "markdown-toc": "1.2.0",
+    "nyc": "15.1.0",
+    "pinst": "2.1.6",
+    "prettier": "2.2.1",
+    "replace-json-property": "1.6.3",
+    "rimraf": "3.0.2",
+    "semantic-release": "17.4.2",
+    "ts-cleaner": "1.0.5",
+    "ts-jest": "27.0.5",
+    "ts-node": "9.1.1",
+    "tsc-watch-2": "0.0.2",
+    "tsconfig-lint": "0.12.0",
+    "typescript": "4.2.4"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "package-lock.json"
+  ],
+  "homepage": "https://github.com/beecode-rs/msh-vision#readme",
+  "keywords": [],
+  "license": "mit",
+  "main": "./dist/index.js",
+  "name": "@beecode/msh-vision",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beecode-rs/msh-vision.git"
+  },
+  "scripts": {
+    "audit:fix": "npx npm-force-resolutions",
+    "build": "npm run clean && npm run tsc",
+    "build:watch": "npm run tsc:watch -- --preserveWatchOutput --onSuccess \"npm run tsc:cleaner\"",
+    "build:watch:debug": "npm run build:watch -- --onFirstSuccess \"npm run serve:debug\"",
+    "build:watch:serve": "npm run build:watch -- --onFirstSuccess \"npm run serve\"",
+    "bump-version": "rjp package.json version",
+    "clean": "rimraf ./dist/*",
+    "commit": "git-cz",
+    "coverage": "nyc npm run test:unit",
+    "coverage:publish": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "debug": "npm run build:watch:debug",
+    "doc:toc": "npx markdown-toc -i ./README.md",
+    "eslint": "eslint . --ext .ts --quiet",
+    "eslint:fix": "npm run eslint -- --fix",
+    "lint": "npm run eslint && npm run prettier",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "postinstall": "husky install",
+    "postpublish": "pinst --enable",
+    "prepublishOnly": "pinst --disable",
+    "prettier": "prettier --check \"./src/**/*.{ts,json}\"",
+    "prettier:fix": "prettier --write \"./src/**/*.{ts,json}\"",
+    "semantic-release": "semantic-release",
+    "semantic-release:check": "npm run semantic-release -- --dry-run --no-ci",
+    "start": "node ./dist/index.js",
+    "start:ts": "ts-node ./src/index.ts",
+    "tsc": "tsc -p ./tsconfig-build.json",
+    "tsc:check": "npm run tsc -- --noEmit",
+    "tsc:cleaner": "ts-cleaner --dist dist",
+    "tsc:time": "npm run tsc -- --diagnostics",
+    "tsc:watch": "tsc-watch -p tsconfig-build.json",
+    "test": "npm run test:unit && npm run test:int",
+    "test:int": "#mocha ./src/test/{**/,/}*.ts",
+    "test:unit": "jest",
+    "watch": "npm run build:watch"
+  },
+  "version": "0.0.0"
+}

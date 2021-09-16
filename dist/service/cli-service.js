@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.cliService = void 0;
+const help_service_1 = require("src/service/help-service");
+const shell_service_1 = require("src/service/shell-service");
+const constant_1 = require("src/util/constant");
+exports.cliService = {
+    printVersion: () => shell_service_1.shellService.print(`v${constant_1.constant.projectVersion}`),
+    printHelp: () => shell_service_1.shellService.print(help_service_1.helpService.text()),
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpLXNlcnZpY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvc2VydmljZS9jbGktc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSwyREFBc0Q7QUFDdEQsNkRBQXdEO0FBQ3hELGdEQUE0QztBQUUvQixRQUFBLFVBQVUsR0FBRztJQUN4QixZQUFZLEVBQUUsR0FBUyxFQUFFLENBQUMsNEJBQVksQ0FBQyxLQUFLLENBQUMsSUFBSSxtQkFBUSxDQUFDLGNBQWMsRUFBRSxDQUFDO0lBQzNFLFNBQVMsRUFBRSxHQUFTLEVBQUUsQ0FBQyw0QkFBWSxDQUFDLEtBQUssQ0FBQywwQkFBVyxDQUFDLElBQUksRUFBRSxDQUFDO0NBQzlELENBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBoZWxwU2VydmljZSB9IGZyb20gJ3NyYy9zZXJ2aWNlL2hlbHAtc2VydmljZSdcbmltcG9ydCB7IHNoZWxsU2VydmljZSB9IGZyb20gJ3NyYy9zZXJ2aWNlL3NoZWxsLXNlcnZpY2UnXG5pbXBvcnQgeyBjb25zdGFudCB9IGZyb20gJ3NyYy91dGlsL2NvbnN0YW50J1xuXG5leHBvcnQgY29uc3QgY2xpU2VydmljZSA9IHtcbiAgcHJpbnRWZXJzaW9uOiAoKTogdm9pZCA9PiBzaGVsbFNlcnZpY2UucHJpbnQoYHYke2NvbnN0YW50LnByb2plY3RWZXJzaW9ufWApLFxuICBwcmludEhlbHA6ICgpOiB2b2lkID0+IHNoZWxsU2VydmljZS5wcmludChoZWxwU2VydmljZS50ZXh0KCkpLFxufVxuIl19

@@ -1,0 +1,11 @@
+.base-frame-tmp
+.idea/
+bin/
+.nyc_output/
+.semaphore/
+coverage/
+dist/
+node_modules/
+resource/
+package.json
+package-lock.json

@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Generate = void 0;
+class Generate {
+    execute() {
+        return Promise.resolve(undefined);
+    }
+}
+exports.Generate = Generate;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2VuZXJhdGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvc2VydmljZS9jb21tYW5kL2dlbmVyYXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUVBLE1BQWEsUUFBUTtJQUNaLE9BQU87UUFDWixPQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLENBQUE7SUFDbkMsQ0FBQztDQUNGO0FBSkQsNEJBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBFeGVjdXRhYmxlIH0gZnJvbSAnc3JjL3NlcnZpY2UvY29tbWFuZC9leGVjdXRhYmxlJ1xuXG5leHBvcnQgY2xhc3MgR2VuZXJhdGUgaW1wbGVtZW50cyBFeGVjdXRhYmxlIHtcbiAgcHVibGljIGV4ZWN1dGUoKTogUHJvbWlzZTx2b2lkPiB7XG4gICAgcmV0dXJuIFByb21pc2UucmVzb2x2ZSh1bmRlZmluZWQpXG4gIH1cbn1cbiJdfQ==

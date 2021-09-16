@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.constant = void 0;
+const packageJson = require('../../package.json'); // eslint-disable-line
+exports.constant = Object.freeze({
+    projectName: packageJson.name,
+    projectVersion: packageJson.version,
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uc3RhbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdXRpbC9jb25zdGFudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSxNQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsb0JBQW9CLENBQUMsQ0FBQSxDQUFDLHNCQUFzQjtBQUUzRCxRQUFBLFFBQVEsR0FBRyxNQUFNLENBQUMsTUFBTSxDQUFDO0lBQ3BDLFdBQVcsRUFBRSxXQUFXLENBQUMsSUFBSTtJQUM3QixjQUFjLEVBQUUsV0FBVyxDQUFDLE9BQU87Q0FDcEMsQ0FBQyxDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgcGFja2FnZUpzb24gPSByZXF1aXJlKCcuLi8uLi9wYWNrYWdlLmpzb24nKSAvLyBlc2xpbnQtZGlzYWJsZS1saW5lXG5cbmV4cG9ydCBjb25zdCBjb25zdGFudCA9IE9iamVjdC5mcmVlemUoe1xuICBwcm9qZWN0TmFtZTogcGFja2FnZUpzb24ubmFtZSxcbiAgcHJvamVjdFZlcnNpb246IHBhY2thZ2VKc29uLnZlcnNpb24sXG59KVxuIl19

@@ -1,0 +1,10 @@
+.base-frame-tmp
+.idea
+.nyc_output
+.semaphore
+coverage
+bin
+dist
+node_modules
+resource
+test
