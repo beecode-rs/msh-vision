@@ -1,0 +1,14 @@
+{
+  "maxConcurrency": 1,
+  "moduleFileExtensions": ["js", "ts"],
+  "collectCoverage": true,
+  "collectCoverageFrom": ["src/**/*.ts", "!src/**/*.{contract,d}.ts"],
+  "preset": "ts-jest",
+  "roots": ["<rootDir>/test"],
+  "testMatch": ["<rootDir>/test/**/*.test.ts"],
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1"
+  },
+  "testPathIgnorePatterns": ["/node_modules/"]
+}
