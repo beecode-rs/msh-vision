@@ -1,0 +1,13 @@
+@startuml
+folder simple {
+  folder src {
+    class d {
+    }
+    folder util {
+      class g {
+      }
+
+    }
+  }
+}
+@enduml

@@ -1,1 +1,36 @@
-export const fileService = {}
+import { promises as fs } from 'fs'
+import glob from 'glob'
+import path from 'path'
+
+export const fileService = {
+  fileListFromFolder: async ({ folderPath }: { folderPath: string }): Promise<string[]> => {
+    return new Promise<string[]>((resolve, reject) => {
+      glob('**/*', { cwd: folderPath, dot: true, nodir: true, ignore: '*.test.ts' }, (err, files) => {
+        if (err) return reject(err)
+        return resolve(files)
+      })
+    })
+  },
+  makeFolderIfNotExist: async ({ folderPath }: { folderPath: string }): Promise<void> => {
+    if (await fs.stat(folderPath).catch(() => false)) return
+    await fs.mkdir(folderPath)
+  },
+  writeToFile: async ({ filePath, data }: { filePath: string; data: string }): Promise<void> => {
+    await fs.writeFile(filePath, data, 'utf-8')
+  },
+  mkdirAndWriteToFile: async ({
+    folderPath,
+    fileName,
+    data,
+  }: {
+    folderPath: string
+    fileName: string
+    data: string
+  }): Promise<void> => {
+    await fileService.makeFolderIfNotExist({ folderPath })
+    await fileService.writeToFile({ filePath: fileService.joinPaths(folderPath, fileName), data })
+  },
+  joinPaths: (...paths: string[]): string => {
+    return path.join(...paths)
+  },
+}

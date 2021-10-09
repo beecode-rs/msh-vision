@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Entity = void 0;
+class Entity {
+    constructor(partialEntity) {
+        this.exportReference = [];
+        this.importReference = [];
+        if (partialEntity)
+            Object.assign(this, partialEntity, this);
+    }
+}
+exports.Entity = Entity;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW50aXR5LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL21vZGVsL2VudGl0eS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFHQSxNQUFhLE1BQU07SUFDakIsWUFBWSxhQUErQjtRQVFwQyxvQkFBZSxHQUFzQixFQUFFLENBQUE7UUFDdkMsb0JBQWUsR0FBc0IsRUFBRSxDQUFBO1FBUjVDLElBQUksYUFBYTtZQUFFLE1BQU0sQ0FBQyxNQUFNLENBQUMsSUFBSSxFQUFFLGFBQWEsRUFBRSxJQUFJLENBQUMsQ0FBQTtJQUM3RCxDQUFDO0NBUUY7QUFYRCx3QkFXQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEV4cG9ydFJlZmVyZW5jZSB9IGZyb20gJ3NyYy9tb2RlbC9leHBvcnQtcmVmZXJlbmNlJ1xuaW1wb3J0IHsgSW1wb3J0UmVmZXJlbmNlIH0gZnJvbSAnc3JjL21vZGVsL2ltcG9ydC1yZWZlcmVuY2UnXG5cbmV4cG9ydCBjbGFzcyBFbnRpdHkge1xuICBjb25zdHJ1Y3RvcihwYXJ0aWFsRW50aXR5PzogUGFydGlhbDxFbnRpdHk+KSB7XG4gICAgaWYgKHBhcnRpYWxFbnRpdHkpIE9iamVjdC5hc3NpZ24odGhpcywgcGFydGlhbEVudGl0eSwgdGhpcylcbiAgfVxuXG4gIHB1YmxpYyBmaWxlUGF0aDogc3RyaW5nXG4gIHB1YmxpYyBuYW1lOiBzdHJpbmdcbiAgcHVibGljIGlkOiBzdHJpbmdcblxuICBwdWJsaWMgZXhwb3J0UmVmZXJlbmNlOiBFeHBvcnRSZWZlcmVuY2VbXSA9IFtdXG4gIHB1YmxpYyBpbXBvcnRSZWZlcmVuY2U6IEltcG9ydFJlZmVyZW5jZVtdID0gW11cbn1cbiJdfQ==

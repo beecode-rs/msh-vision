@@ -1,26 +1,26 @@
-import { argsService, cliCommands } from 'src/service/args-service'
+import { CliCommands, argsService } from 'src/service/args-service'
 import { cliService } from 'src/service/cli-service'
 import { Executable } from 'src/service/command/executable'
 import { Generate } from 'src/service/command/generate'
 import { PrintHelp } from 'src/service/command/print-help'
 import { PrintVersion } from 'src/service/command/print-version'
 
-export const cliInit = {
+export const cliInitUseCase = {
   execArgsAsCommand: async (args: string[]): Promise<void> => {
-    cliInit.ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args)
-    cliInit.ifNoCommandSelectedThrowErrorAndPrintHelp(args)
-    const command = cliInit.createCommandFromCliArgs(args)
+    cliInitUseCase.ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args)
+    // cliInitUseCase.ifNoCommandSelectedThrowErrorAndPrintHelp(args)
+    const command = cliInitUseCase.createCommandFromCliArgs(args)
     await command.execute()
   },
   createCommandFromCliArgs: (args: string[]): Executable => {
-    const command = argsService.argToObject<cliCommands>({ args, options: argsService.cliCommandOptions })
+    const command = argsService.argToObject<CliCommands>({ args, options: argsService.cliCommandOptions })
     switch (true) {
       case command.version:
         return new PrintVersion()
       case command.help:
         return new PrintHelp()
       default:
-        return new Generate()
+        return new Generate(args)
       // throw new Error(`Unknown command[${JSON.stringify(command)}]`)
     }
   },

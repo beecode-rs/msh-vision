@@ -4,8 +4,8 @@
   "collectCoverage": true,
   "collectCoverageFrom": ["src/**/*.ts", "!src/**/*.{contract,d}.ts"],
   "preset": "ts-jest",
-  "roots": ["<rootDir>/test"],
-  "testMatch": ["<rootDir>/test/**/*.test.ts"],
+  "roots": ["<rootDir>/src"],
+  "testMatch": ["<rootDir>/src/**/*.test.ts"],
   "testEnvironment": "node",
   "moduleNameMapper": {
     "^src/(.*)$": "<rootDir>/src/$1"

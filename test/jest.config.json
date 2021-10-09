@@ -1,0 +1,12 @@
+{
+  "maxConcurrency": 1,
+  "moduleFileExtensions": ["js", "ts"],
+  "preset": "ts-jest",
+  "roots": ["<rootDir>"],
+  "testMatch": ["<rootDir>/**/*.test.ts"],
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/../src/$1"
+  },
+  "testPathIgnorePatterns": ["/node_modules/"]
+}

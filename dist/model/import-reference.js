@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ImportReference = void 0;
+class ImportReference {
+    constructor(partialEntity) {
+        if (partialEntity)
+            Object.assign(this, partialEntity, this);
+    }
+}
+exports.ImportReference = ImportReference;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW1wb3J0LXJlZmVyZW5jZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbC9pbXBvcnQtcmVmZXJlbmNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLE1BQWEsZUFBZTtJQUMxQixZQUFZLGFBQTJDO1FBQ3JELElBQUksYUFBYTtZQUFFLE1BQU0sQ0FBQyxNQUFNLENBQUMsSUFBSSxFQUFFLGFBQWEsRUFBRSxJQUFJLENBQUMsQ0FBQTtJQUM3RCxDQUFDO0NBS0Y7QUFSRCwwQ0FRQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBJbXBvcnRSZWZlcmVuY2U8VCA9IGFueT4ge1xuICBjb25zdHJ1Y3RvcihwYXJ0aWFsRW50aXR5PzogUGFydGlhbDxJbXBvcnRSZWZlcmVuY2U8VD4+KSB7XG4gICAgaWYgKHBhcnRpYWxFbnRpdHkpIE9iamVjdC5hc3NpZ24odGhpcywgcGFydGlhbEVudGl0eSwgdGhpcylcbiAgfVxuICBwdWJsaWMgaWQ6IHN0cmluZ1xuICBwdWJsaWMgZmlsZVBhdGg6IHN0cmluZ1xuICBwdWJsaWMgbmFtZTogc3RyaW5nXG4gIHB1YmxpYyBhbGlhcz86IHN0cmluZ1xufVxuIl19

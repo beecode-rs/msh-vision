@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "lib": ["es2016", "dom", "es2017", "esnext.asynciterable"],
+    "lib": ["dom", "esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
