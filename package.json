@@ -84,7 +84,8 @@
     "ts-node": "9.1.1",
     "tsc-watch-2": "0.0.2",
     "tsconfig-lint": "0.12.0",
-    "typescript": "4.2.4"
+    "typescript": "4.2.4",
+    "typescript-parser": "2.6.1"
   },
   "files": [
     "dist",
@@ -126,14 +127,14 @@
     "semantic-release:check": "npm run semantic-release -- --dry-run --no-ci",
     "start": "node ./dist/index.js",
     "start:ts": "ts-node ./src/index.ts",
+    "test": "npm run test:unit && npm run test:int",
+    "test:int": "#mocha ./src/test/{**/,/}*.ts",
+    "test:unit": "jest",
     "tsc": "tsc -p ./tsconfig-build.json",
     "tsc:check": "npm run tsc -- --noEmit",
     "tsc:cleaner": "ts-cleaner --dist dist",
     "tsc:time": "npm run tsc -- --diagnostics",
     "tsc:watch": "tsc-watch -p tsconfig-build.json",
-    "test": "npm run test:unit && npm run test:int",
-    "test:int": "#mocha ./src/test/{**/,/}*.ts",
-    "test:unit": "jest",
     "watch": "npm run build:watch"
   },
   "version": "0.0.0"

@@ -1,3 +1,5 @@
+import { Entity } from 'src/model/entity'
+
 export interface ConvertStrategy {
-  convert(fileLocation: string): Promise<any>
+  convert(): Promise<Entity>
 }
