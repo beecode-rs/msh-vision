@@ -1,11 +1,11 @@
 @startuml
   folder src {
-    class a {
+    object "index" as index_e4daf83f {
     }
     folder util {
-      class b {
+      object "logger" as logger_d1ee5f1e {
       }
-
+    
     }
   }
 @enduml

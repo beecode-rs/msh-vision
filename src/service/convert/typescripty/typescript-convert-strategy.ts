@@ -2,6 +2,7 @@ import { Entity } from 'src/model/entity'
 import { ConvertStrategy } from 'src/service/convert/convert-strategy'
 import { exportExtractor } from 'src/service/convert/typescripty/export-extractor'
 import { importExtractor } from 'src/service/convert/typescripty/import-extractor'
+import { typescriptEntityService } from 'src/service/convert/typescripty/typescript-entity-service'
 import { fileService } from 'src/service/file-service'
 import { TypescriptParser } from 'typescript-parser'
 
@@ -18,14 +19,14 @@ export class TypescriptConvertStrategy implements ConvertStrategy {
   }
 
   public async convert(): Promise<Entity[]> {
-    const parsedResult = await parser.parseFile(fileService.joinPaths(this._folderPath, this._filePath), this._rootPath)
+    const file = await parser.parseFile(fileService.joinPaths(this._folderPath, this._filePath), this._rootPath)
 
-    // TODO extract entity from parsed result
-    const entity = new Entity({ filePath: this._filePath })
+    const entities = typescriptEntityService.extractEntitiesFromFile(file, this._filePath)
+    entities.forEach((entity) => {
+      entity.importReference.push(...importExtractor.extract(file))
+      entity.exportReference.push(...exportExtractor.extract(file))
+    })
 
-    entity.importReference.push(...importExtractor.extract(parsedResult))
-    entity.exportReference.push(...exportExtractor.extract(parsedResult))
-
-    return [entity]
+    return entities
   }
 }

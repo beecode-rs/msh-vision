@@ -24,6 +24,7 @@
     "@beecode/msh-node-env": "0.2.4",
     "@beecode/msh-node-log": "2.0.2",
     "async-shelljs": "0.1.4",
+    "short-hash": "1.0.0",
     "chalk": "4.1.0",
     "compare-versions": "3.6.0",
     "dotenv": "8.2.0",

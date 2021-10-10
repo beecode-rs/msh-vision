@@ -1,4 +1,4 @@
-import { PumlGroup } from 'src/service/print/puml/puml-group/puml-group'
+import { PumlGroup } from 'src/service/print/puml/group/puml-group'
 
 export const pumlGroupService = {
   printGroups: (groups: { [k: string]: PumlGroup }): string => {

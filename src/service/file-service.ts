@@ -40,4 +40,12 @@ export const fileService = {
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
     return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
   },
+  fileNameFromPath: (filePath: string): string => {
+    const parts = filePath.split('/')
+    const lastPart = parts[parts.length - 1]
+    const nameParts = lastPart.split('.')
+    if (nameParts.length === 1) return nameParts[0]
+    nameParts.pop()
+    return nameParts.join('.')
+  },
 }

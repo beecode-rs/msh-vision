@@ -1,5 +1,5 @@
 import { Printable } from 'src/service/print/printable'
-import { pumlGroupService } from 'src/service/print/puml/puml-group/puml-group-service'
+import { pumlGroupService } from 'src/service/print/puml/group/puml-group-service'
 
 export class PumlGroup extends Printable {
   protected readonly _name: string

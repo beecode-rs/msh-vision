@@ -1,8 +1,8 @@
 import { Entity } from 'src/model/entity'
 import { fileService } from 'src/service/file-service'
 import { PrintStrategy } from 'src/service/print/print-strategy'
-import { PumlGroup } from 'src/service/print/puml/puml-group/puml-group'
-import { pumlPrintableEntityService } from 'src/service/print/puml/puml-printable-entity/puml-printable-entity-service'
+import { PumlGroup } from 'src/service/print/puml/group/puml-group'
+import { pumlPrintableEntityService } from 'src/service/print/puml/printable-entity/puml-printable-entity-service'
 import { PumlTemplate } from 'src/service/print/puml/puml-template'
 
 export class PumlPrintStrategy implements PrintStrategy {

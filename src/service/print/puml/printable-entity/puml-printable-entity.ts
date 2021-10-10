@@ -8,7 +8,7 @@ export class PumlPrintableEntity extends Printable {
     return '}'
   }
   protected _templateStart(): string {
-    return `class ${this._entity.name} {`
+    return `object "${this._entity.name}" as ${this._entity.Id} {`
   }
 
   constructor({ entity }: { entity: Entity }) {
