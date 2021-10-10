@@ -3,7 +3,11 @@
     object "index" as index_e4daf83f {
     }
     folder util {
+      object "errors" as errors_90641da1 {
+      }
       object "logger" as logger_d1ee5f1e {
+      }
+      object "neka-klasa" as neka_klasa_23a56772 {
       }
     
     }
