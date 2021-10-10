@@ -1,13 +1,11 @@
 @startuml
-folder simple {
   folder src {
-    class d {
+    class a {
     }
     folder util {
-      class g {
+      class b {
       }
 
     }
   }
-}
 @enduml

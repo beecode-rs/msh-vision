@@ -8,7 +8,7 @@ export const visionUseCase = {
     const fileList = await fileService.fileListFromFolder({ folderPath: folderPath })
     const convertStrategies = fileList
       .filter((f) => !f.endsWith('test.ts'))
-      .map(convertService.strategyByFile)
+      .map((f) => convertService.strategyByFile({ filePath: f, folderPath: folderPath }))
       .filter(Boolean) as ConvertStrategy[]
     const entities = (await Promise.all(convertStrategies.map((cs) => cs.convert()))).flat()
     if (!entities) return

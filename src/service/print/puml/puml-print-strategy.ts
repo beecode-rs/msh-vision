@@ -29,7 +29,7 @@ export class PumlPrintStrategy implements PrintStrategy {
           prevGroup.addChildren(pumlPrintableEntityService.printableStrategyFromEntity({ entity: e }))
           return
         }
-        const newGroup = groups[p] ?? new PumlGroup({ name: p })
+        const newGroup = groups[p] ?? new PumlGroup({ name: p, level: ix })
         groups[p] = newGroup
         prevGroup = newGroup
       })

@@ -5,7 +5,8 @@ import path from 'path'
 export const fileService = {
   fileListFromFolder: async ({ folderPath }: { folderPath: string }): Promise<string[]> => {
     return new Promise<string[]>((resolve, reject) => {
-      glob('**/*', { cwd: folderPath, dot: true, nodir: true, ignore: '*.test.ts' }, (err, files) => {
+      const cwd = fileService.relativeToAbsPath(folderPath)
+      glob('**/*', { cwd, dot: true, nodir: true, ignore: '*.test.ts' }, (err, files) => {
         if (err) return reject(err)
         return resolve(files)
       })
@@ -32,5 +33,11 @@ export const fileService = {
   },
   joinPaths: (...paths: string[]): string => {
     return path.join(...paths)
+  },
+  isAbsPath: (relativeOrAbsPath: string): boolean => {
+    return relativeOrAbsPath.startsWith('/')
+  },
+  relativeToAbsPath: (relativeOrAbsPath: string): string => {
+    return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
   },
 }

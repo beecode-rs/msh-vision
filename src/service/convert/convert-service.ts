@@ -3,8 +3,8 @@ import { TypescriptConvertStrategy } from 'src/service/convert/typescripty/types
 import { logger } from 'src/util/logger'
 
 export const convertService = {
-  strategyByFile: (filePath: string): ConvertStrategy | undefined => {
-    if (filePath.endsWith('.ts')) return new TypescriptConvertStrategy(filePath)
+  strategyByFile: ({ filePath, folderPath }: { filePath: string; folderPath: string }): ConvertStrategy | undefined => {
+    if (filePath.endsWith('.ts')) return new TypescriptConvertStrategy({ filePath, folderPath })
 
     logger.debug(`Strategy not found for filePath: ${filePath}`)
     return undefined
