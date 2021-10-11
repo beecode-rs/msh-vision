@@ -5,9 +5,20 @@ import { stringUtil } from 'src/util/string-util'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const shortHash = require('short-hash')
 
+export enum EntityType {
+  OBJECT = 'object',
+  CLASS = 'class',
+}
+
 export class Entity {
-  constructor(partialEntity?: Partial<Entity>) {
+  protected readonly _type: EntityType
+  public get Type(): EntityType {
+    return this._type
+  }
+
+  constructor(partialEntity?: Partial<Entity>, type?: EntityType) {
     if (partialEntity) Object.assign(this, partialEntity, this)
+    this._type = type ?? EntityType.OBJECT
   }
 
   public filePath: string

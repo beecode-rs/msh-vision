@@ -7,11 +7,14 @@
       }
       object "logger" as logger_15d2abb3 {
       }
-      object "neka-klasa" as neka_klasa_5b3f669f {
+      class "SomeClass" as some_class_7f27bf30 {
       }
     
     }
   }
+  
+  index_6269cc92 --> some_class_7f27bf30
+  
   
   index_6269cc92 --> logger_15d2abb3
   
