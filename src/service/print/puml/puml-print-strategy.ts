@@ -4,6 +4,7 @@ import { PrintStrategy } from 'src/service/print/print-strategy'
 import { PumlGroup } from 'src/service/print/puml/group/puml-group'
 import { pumlPrintableEntityService } from 'src/service/print/puml/printable-entity/puml-printable-entity-service'
 import { PumlTemplate } from 'src/service/print/puml/puml-template'
+import { pumlRelationService } from 'src/service/print/puml/relation/puml-relation-service'
 
 export class PumlPrintStrategy implements PrintStrategy {
   protected readonly _destinationPath: string
@@ -40,8 +41,8 @@ export class PumlPrintStrategy implements PrintStrategy {
   public async print({ entities }: { entities: Entity[] }): Promise<void> {
     const template = new PumlTemplate()
     this._generateGroups(entities)
-    // Object.values(this._rootGroup.groups).forEach((g) => template.addChildren(g))
     template.addChildren(this._rootGroup)
+    pumlRelationService.generateRelations(entities).forEach((r) => template.addChildren(r))
     await this._writeToFile(template.print())
   }
 }

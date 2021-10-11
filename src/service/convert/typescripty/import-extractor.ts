@@ -17,9 +17,13 @@ export const importExtractor = {
     spec: { specifier: string; alias?: string }
   }): ImportReference => {
     return new ImportReference({
-      filePath: libraryName,
+      filePath: importExtractor._pathCleanup(libraryName),
       name: specifier,
       ...(alias && { alias }),
     })
+  },
+  _pathCleanup: (filePath: string): string => {
+    const cleanCurrFolder = filePath.startsWith('./') ? filePath.slice(2) : filePath
+    return `${cleanCurrFolder}.ts`
   },
 }
