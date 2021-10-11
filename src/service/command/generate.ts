@@ -12,7 +12,7 @@ export class Generate implements Executable {
   public async execute(): Promise<void> {
     const folderPath = this._params.src
     const destinationPath = this._params.dest
-    const printStrategy = new PumlPrintStrategy({ destinationPath })
+    const printStrategy = new PumlPrintStrategy({ destinationPath, appName: 'app' }) // TODO intorduce app name
     await visionUseCase.processFolder({ folderPath, printStrategy })
   }
 }

@@ -1,13 +1,13 @@
 @startuml
-  folder src {
-    object "index" as index_e4daf83f {
+  folder app {
+    object "index" as index_6269cc92 {
     }
     folder util {
-      object "errors" as errors_90641da1 {
+      object "errors" as errors_9c0c198c {
       }
-      object "logger" as logger_d1ee5f1e {
+      object "logger" as logger_15d2abb3 {
       }
-      object "neka-klasa" as neka_klasa_23a56772 {
+      object "neka-klasa" as neka_klasa_5b3f669f {
       }
     
     }

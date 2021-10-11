@@ -8,14 +8,15 @@ import { PumlTemplate } from 'src/service/print/puml/puml-template'
 export class PumlPrintStrategy implements PrintStrategy {
   protected readonly _destinationPath: string
   protected readonly _fileName = 'vision.puml'
-  protected _groups: { [k: string]: PumlGroup } = {}
+  protected _rootGroup: PumlGroup
 
   protected async _writeToFile(data: string): Promise<void> {
     await fileService.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
   }
 
-  constructor({ destinationPath }: { destinationPath: string }) {
+  constructor({ appName, destinationPath }: { appName: string; destinationPath: string }) {
     this._destinationPath = destinationPath
+    this._rootGroup = new PumlGroup({ name: appName, level: 0 })
   }
 
   protected _generateGroups(entities: Entity[]): void {
@@ -23,14 +24,14 @@ export class PumlPrintStrategy implements PrintStrategy {
       const paths = e.filePath.split('/')
       let prevGroup: PumlGroup
       paths.forEach((p, ix, list) => {
-        if (list.length === 1) return
-        const groups = prevGroup ? prevGroup.groups : this._groups
+        const group = prevGroup ? prevGroup : this._rootGroup
         if (ix === list.length - 1) {
-          prevGroup.addChildren(pumlPrintableEntityService.printableStrategyFromEntity({ entity: e }))
+          group.addChildren(pumlPrintableEntityService.printableStrategyFromEntity({ entity: e }))
           return
         }
-        const newGroup = groups[p] ?? new PumlGroup({ name: p, level: ix })
-        groups[p] = newGroup
+        if (list.length === 1) return
+        const newGroup = group.groups[p] ?? new PumlGroup({ name: p, level: ix + 1 })
+        group.groups[p] = newGroup
         prevGroup = newGroup
       })
     })
@@ -39,7 +40,8 @@ export class PumlPrintStrategy implements PrintStrategy {
   public async print({ entities }: { entities: Entity[] }): Promise<void> {
     const template = new PumlTemplate()
     this._generateGroups(entities)
-    Object.values(this._groups).forEach((g) => template.addChildren(g))
+    // Object.values(this._rootGroup.groups).forEach((g) => template.addChildren(g))
+    template.addChildren(this._rootGroup)
     await this._writeToFile(template.print())
   }
 }
