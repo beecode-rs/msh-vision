@@ -6,7 +6,7 @@ import { pumlPrintableEntityService } from 'src/service/print/puml/printable-ent
 import { PumlTemplate } from 'src/service/print/puml/puml-template'
 import { pumlRelationService } from 'src/service/print/puml/relation/puml-relation-service'
 
-export class PumlPrintStrategy implements PrintStrategy {
+export class PumlPrint implements PrintStrategy {
   protected readonly _destinationPath: string
   protected readonly _fileName = 'vision.puml'
   protected _rootGroup: PumlGroup

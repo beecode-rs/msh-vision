@@ -1,0 +1,41 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_1 = __importDefault(require("typescript"));
+const node = typescript_1.default.createSourceFile('x.ts', `
+    import { Component } from '@angular/core';
+    @Component({selector: 'my', template: 'hello me.' })
+    export class MyComponent {}`, typescript_1.default.ScriptTarget.Latest);
+// Get import info.
+let importDecl;
+node.forEachChild((child) => {
+    if (typescript_1.default.SyntaxKind[child.kind] === 'ImportDeclaration') {
+        importDecl = child;
+    }
+});
+const importFiles = importDecl.importClause.namedBindings.elements.map((el) => el.name.escapedText);
+const importLib = importDecl.moduleSpecifier.text;
+// Get decorator info.
+var classDecl;
+node.forEachChild((child) => {
+    if (typescript_1.default.SyntaxKind[child.kind] === 'ClassDeclaration') {
+        classDecl = child;
+    }
+});
+const decoratorName = classDecl.decorators[0].expression.expression.escapedText;
+const decoratorParams = classDecl.decorators[0].expression.arguments.reduce((acc, el) => {
+    el.properties.forEach((prop) => (acc[prop.name.escapedText] = prop.initializer.text));
+    return acc;
+}, {});
+// Get class name
+const className = classDecl.name.escapedText;
+console.log({
+    importFiles,
+    importLib,
+    decoratorName,
+    decoratorParams,
+    className,
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXgtdGVzdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC10ZXN0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsNERBQTJCO0FBRTNCLE1BQU0sSUFBSSxHQUFHLG9CQUFFLENBQUMsZ0JBQWdCLENBQzlCLE1BQU0sRUFDTjs7O2dDQUc4QixFQUM5QixvQkFBRSxDQUFDLFlBQVksQ0FBQyxNQUFNLENBQ3ZCLENBQUE7QUFDRCxtQkFBbUI7QUFDbkIsSUFBSSxVQUFVLENBQUE7QUFDZCxJQUFJLENBQUMsWUFBWSxDQUFDLENBQUMsS0FBSyxFQUFFLEVBQUU7SUFDMUIsSUFBSSxvQkFBRSxDQUFDLFVBQVUsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLEtBQUssbUJBQW1CLEVBQUU7UUFDckQsVUFBVSxHQUFHLEtBQUssQ0FBQTtLQUNuQjtBQUNILENBQUMsQ0FBQyxDQUFBO0FBQ0YsTUFBTSxXQUFXLEdBQUcsVUFBVSxDQUFDLFlBQVksQ0FBQyxhQUFhLENBQUMsUUFBUSxDQUFDLEdBQUcsQ0FBQyxDQUFDLEVBQUUsRUFBRSxFQUFFLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxXQUFXLENBQUMsQ0FBQTtBQUNuRyxNQUFNLFNBQVMsR0FBRyxVQUFVLENBQUMsZUFBZSxDQUFDLElBQUksQ0FBQTtBQUNqRCxzQkFBc0I7QUFDdEIsSUFBSSxTQUFTLENBQUE7QUFDYixJQUFJLENBQUMsWUFBWSxDQUFDLENBQUMsS0FBSyxFQUFFLEVBQUU7SUFDMUIsSUFBSSxvQkFBRSxDQUFDLFVBQVUsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLEtBQUssa0JBQWtCLEVBQUU7UUFDcEQsU0FBUyxHQUFHLEtBQUssQ0FBQTtLQUNsQjtBQUNILENBQUMsQ0FBQyxDQUFBO0FBQ0YsTUFBTSxhQUFhLEdBQUcsU0FBUyxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxVQUFVLENBQUMsVUFBVSxDQUFDLFdBQVcsQ0FBQTtBQUMvRSxNQUFNLGVBQWUsR0FBRyxTQUFTLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQyxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLENBQUMsR0FBRyxFQUFFLEVBQUUsRUFBRSxFQUFFO0lBQ3RGLEVBQUUsQ0FBQyxVQUFVLENBQUMsT0FBTyxDQUFDLENBQUMsSUFBSSxFQUFFLEVBQUUsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQTtJQUNyRixPQUFPLEdBQUcsQ0FBQTtBQUNaLENBQUMsRUFBRSxFQUFFLENBQUMsQ0FBQTtBQUNOLGlCQUFpQjtBQUNqQixNQUFNLFNBQVMsR0FBRyxTQUFTLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQTtBQUM1QyxPQUFPLENBQUMsR0FBRyxDQUFDO0lBQ1YsV0FBVztJQUNYLFNBQVM7SUFDVCxhQUFhO0lBQ2IsZUFBZTtJQUNmLFNBQVM7Q0FDVixDQUFDLENBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgdHMgZnJvbSAndHlwZXNjcmlwdCdcblxuY29uc3Qgbm9kZSA9IHRzLmNyZWF0ZVNvdXJjZUZpbGUoXG4gICd4LnRzJyxcbiAgYFxuICAgIGltcG9ydCB7IENvbXBvbmVudCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuICAgIEBDb21wb25lbnQoe3NlbGVjdG9yOiAnbXknLCB0ZW1wbGF0ZTogJ2hlbGxvIG1lLicgfSlcbiAgICBleHBvcnQgY2xhc3MgTXlDb21wb25lbnQge31gLFxuICB0cy5TY3JpcHRUYXJnZXQuTGF0ZXN0XG4pXG4vLyBHZXQgaW1wb3J0IGluZm8uXG5sZXQgaW1wb3J0RGVjbFxubm9kZS5mb3JFYWNoQ2hpbGQoKGNoaWxkKSA9PiB7XG4gIGlmICh0cy5TeW50YXhLaW5kW2NoaWxkLmtpbmRdID09PSAnSW1wb3J0RGVjbGFyYXRpb24nKSB7XG4gICAgaW1wb3J0RGVjbCA9IGNoaWxkXG4gIH1cbn0pXG5jb25zdCBpbXBvcnRGaWxlcyA9IGltcG9ydERlY2wuaW1wb3J0Q2xhdXNlLm5hbWVkQmluZGluZ3MuZWxlbWVudHMubWFwKChlbCkgPT4gZWwubmFtZS5lc2NhcGVkVGV4dClcbmNvbnN0IGltcG9ydExpYiA9IGltcG9ydERlY2wubW9kdWxlU3BlY2lmaWVyLnRleHRcbi8vIEdldCBkZWNvcmF0b3IgaW5mby5cbnZhciBjbGFzc0RlY2xcbm5vZGUuZm9yRWFjaENoaWxkKChjaGlsZCkgPT4ge1xuICBpZiAodHMuU3ludGF4S2luZFtjaGlsZC5raW5kXSA9PT0gJ0NsYXNzRGVjbGFyYXRpb24nKSB7XG4gICAgY2xhc3NEZWNsID0gY2hpbGRcbiAgfVxufSlcbmNvbnN0IGRlY29yYXRvck5hbWUgPSBjbGFzc0RlY2wuZGVjb3JhdG9yc1swXS5leHByZXNzaW9uLmV4cHJlc3Npb24uZXNjYXBlZFRleHRcbmNvbnN0IGRlY29yYXRvclBhcmFtcyA9IGNsYXNzRGVjbC5kZWNvcmF0b3JzWzBdLmV4cHJlc3Npb24uYXJndW1lbnRzLnJlZHVjZSgoYWNjLCBlbCkgPT4ge1xuICBlbC5wcm9wZXJ0aWVzLmZvckVhY2goKHByb3ApID0+IChhY2NbcHJvcC5uYW1lLmVzY2FwZWRUZXh0XSA9IHByb3AuaW5pdGlhbGl6ZXIudGV4dCkpXG4gIHJldHVybiBhY2Ncbn0sIHt9KVxuLy8gR2V0IGNsYXNzIG5hbWVcbmNvbnN0IGNsYXNzTmFtZSA9IGNsYXNzRGVjbC5uYW1lLmVzY2FwZWRUZXh0XG5jb25zb2xlLmxvZyh7XG4gIGltcG9ydEZpbGVzLFxuICBpbXBvcnRMaWIsXG4gIGRlY29yYXRvck5hbWUsXG4gIGRlY29yYXRvclBhcmFtcyxcbiAgY2xhc3NOYW1lLFxufSlcbiJdfQ==

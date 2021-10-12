@@ -40,6 +40,9 @@ export const fileService = {
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
     return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
   },
+  removeDotSlashFromRelativePath: (relativeOrAbsPath: string): string => {
+    return relativeOrAbsPath.startsWith('./') ? relativeOrAbsPath.slice(2) : relativeOrAbsPath
+  },
   fileNameFromPath: (filePath: string): string => {
     const parts = filePath.split('/')
     const lastPart = parts[parts.length - 1]

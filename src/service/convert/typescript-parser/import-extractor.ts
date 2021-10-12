@@ -1,4 +1,5 @@
 import { ImportReference } from 'src/model/import-reference'
+import { fileService } from 'src/service/file-service'
 import { File, Import } from 'typescript-parser'
 import { NamedImport } from 'typescript-parser/imports/NamedImport'
 
@@ -7,7 +8,11 @@ export const importExtractor = {
     return file.imports.map(importExtractor._parseImports).flat()
   },
   _parseImports: (imp: Import): ImportReference[] => {
-    return (imp as NamedImport).specifiers.map((spec) => importExtractor._importRefFromSpecifier({ imp, spec }))
+    // return (imp as NamedImport).specifiers.map((spec) => importExtractor._importRefFromSpecifier({ imp, spec }))
+    const specifiers = (imp as NamedImport).specifiers ?? []
+    return specifiers.map((spec) => {
+      return importExtractor._importRefFromSpecifier({ imp, spec })
+    })
   },
   _importRefFromSpecifier: ({
     imp: { libraryName },
@@ -23,7 +28,7 @@ export const importExtractor = {
     })
   },
   _pathCleanup: (filePath: string): string => {
-    const cleanCurrFolder = filePath.startsWith('./') ? filePath.slice(2) : filePath
+    const cleanCurrFolder = fileService.removeDotSlashFromRelativePath(filePath)
     return `${cleanCurrFolder}.ts`
   },
 }

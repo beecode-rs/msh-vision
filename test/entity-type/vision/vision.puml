@@ -1,0 +1,19 @@
+@startuml
+  folder app {
+    object "default-function" as default_function_de6148c8 {
+    }
+    object "obj" as obj_9b0d92df {
+    }
+    object "obj" as obj_9b0d92df {
+    }
+    object "ReturnFnType" as return_fn_type_a3a1e936 {
+    }
+    object "fn1" as fn1_a3a1e936 {
+    }
+    object "fn2" as fn2_a3a1e936 {
+    }
+    object "objectExport" as object_export_e2d117b0 {
+    }
+  
+  }
+@enduml

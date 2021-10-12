@@ -1,6 +1,6 @@
+import { PumlPrint } from '../print/puml/puml-print'
 import { CmdGenerateParams, argsService } from 'src/service/args-service'
 import { Executable } from 'src/service/command/executable'
-import { PumlPrintStrategy } from 'src/service/print/puml/puml-print-strategy'
 import { visionUseCase } from 'src/use-case/vision-use-case'
 
 export class Generate implements Executable {
@@ -12,7 +12,7 @@ export class Generate implements Executable {
   public async execute(): Promise<void> {
     const folderPath = this._params.src
     const destinationPath = this._params.dest
-    const printStrategy = new PumlPrintStrategy({ destinationPath, appName: 'app' }) // TODO intorduce app name
+    const printStrategy = new PumlPrint({ destinationPath, appName: 'app' }) // TODO intorduce app name
     await visionUseCase.processFolder({ folderPath, printStrategy })
   }
 }

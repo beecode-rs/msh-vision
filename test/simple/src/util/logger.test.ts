@@ -1,19 +1,15 @@
-import { TypescriptConvertStrategy } from 'src/service/convert/typescripty/typescript-convert-strategy'
+import { TypescriptParserConvert } from '../../../../src/service/convert/typescript-parser/typescript-parser-convert'
 
-describe('Simple', () => {
-  const file = './test/simple/src/util/logger.ts'
-  const result = [
-    {
-      filePath: './test/simple/src/util/logger.ts',
-      importReference: [],
-      exportReference: [
-        {
-          name: 'logger',
-        },
-      ],
-    },
-  ]
-  it('should pass ' + file, async () => {
-    expect(await new TypescriptConvertStrategy(file).convert()).toEqual(result)
-  })
+const filePath = './util/logger.ts'
+const folderPath = './test/simple/src'
+const result = [
+  {
+    _type: 'object',
+    filePath: 'util/logger.ts',
+    importReference: [],
+    name: 'logger',
+  },
+]
+it('should pass ' + filePath, async () => {
+  expect(await new TypescriptParserConvert({ filePath, folderPath }).convert()).toEqual(result)
 })
