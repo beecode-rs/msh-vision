@@ -1,21 +1,5 @@
 @startuml
   folder app {
-    object "index" as index_6269cc92 {
-    }
-    folder util {
-      object "errors" as errors_9c0c198c {
-      }
-      object "logger" as logger_15d2abb3 {
-      }
-      class "SomeClass" as some_class_7f27bf30 {
-      }
-    
-    }
+  
   }
-  
-  index_6269cc92 --> some_class_7f27bf30
-  
-  
-  index_6269cc92 --> logger_15d2abb3
-  
 @enduml

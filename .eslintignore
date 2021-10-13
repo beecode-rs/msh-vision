@@ -8,3 +8,4 @@ dist
 node_modules
 resource
 test
+src/module/ts.ts

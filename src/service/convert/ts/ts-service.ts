@@ -1,6 +1,6 @@
 import { fs } from 'mz'
+import ts from 'src/module/ts'
 import { fileService } from 'src/service/file-service'
-import ts from 'typescript'
 
 // https://allenhwkim.medium.com/how-to-parse-typescript-from-source-643387971f4e
 // https://ts-ast-viewer.com/#code/JYWwDg9gTgLgBAbzgYQuCA7Aph+BfOAMyjTgHIABAQwwHMBXAGyqgHoBjaLMgbgCgKqdNlwAKBHzhwAzlkZZ2MaAC5yIAJ5kANJLgws4ZvtVkAFnMYQ4ILADoyfPAEo+WAB6RYcds2nS4ALLqQpAi8BJ4QA

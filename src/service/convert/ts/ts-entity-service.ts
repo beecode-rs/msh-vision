@@ -1,23 +1,13 @@
-import { Entity, EntityType } from 'src/model/entity'
-import ts from 'typescript'
+import { Entity } from 'src/model/entity'
+import ts from 'src/module/ts'
+import { tsStatementEntityService } from 'src/service/convert/ts/statement-entity/ts-statement-entity-service'
 
 export const tsEntityService = {
   extractEntities: ({ node, filePath }: { node: ts.SourceFile; filePath: string }): Entity[] => {
     // const entities: Entity[] = []
 
-    const entities = node.statements
-      .map((s) => tsEntityService._returnEntityByKind(ts.SyntaxKind[s.kind], s, filePath))
-      .filter(Boolean) as Entity[]
+    const statementEntities = node.statements.map(tsStatementEntityService.factory)
 
-    return entities
-  },
-  _returnEntityByKind: (kind: string, nodeObject: ts.Node | any, filePath: string): Entity | undefined => {
-    switch (kind) {
-      case 'ImportDeclaration':
-        break
-      case 'TypeAliasDeclaration':
-        return new Entity({ filePath, name: nodeObject.name.escapedText }, EntityType.TYPE)
-    }
-    return undefined
+    return []
   },
 }
