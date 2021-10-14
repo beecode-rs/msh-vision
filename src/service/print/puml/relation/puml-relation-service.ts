@@ -8,7 +8,7 @@ export const pumlRelationService = {
     return entities.map((entity) => pumlRelationService._findRelations({ entity, entities })).flat()
   },
   _findRelations: ({ entity, entities }: { entity: Entity; entities: Entity[] }): PumlRelation[] => {
-    return entity.importReference
+    return entity.importReferences
       .map((imp) => pumlRelationService._findImportedExports({ imp, entities, entityId: entity.Id }))
       .flat()
   },

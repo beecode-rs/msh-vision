@@ -6,19 +6,19 @@ const result = [
   {
     _type: 'type',
     filePath: 'module.ts',
-    importReference: [],
+    importReferences: [],
     name: 'ReturnFnType',
   },
   {
     _type: 'object',
     filePath: 'module.ts',
-    importReference: [],
+    importReferences: [],
     name: 'fn1',
   },
   {
     _type: 'object',
     filePath: 'module.ts',
-    importReference: [],
+    importReferences: [],
     name: 'fn2',
   },
 ]

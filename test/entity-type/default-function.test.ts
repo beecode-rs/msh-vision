@@ -6,7 +6,7 @@ const result = [
   {
     _type: 'object',
     filePath: 'default-function.ts',
-    importReference: [],
+    importReferences: [],
     name: 'default-function',
   },
 ]

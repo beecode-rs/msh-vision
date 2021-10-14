@@ -2,11 +2,11 @@ import { TypescriptParserConvert } from '../../../src/service/convert/typescript
 
 const filePath = './index.ts'
 const folderPath = './test/simple/src'
-const result = [
+const expectedResult = [
   {
     _type: 'object',
     filePath: 'index.ts',
-    importReference: [
+    importReferences: [
       {
         filePath: 'util/some-class.ts',
         name: 'SomeClass',
@@ -20,5 +20,6 @@ const result = [
   },
 ]
 it('should pass ' + filePath, async () => {
-  expect(await new TypescriptParserConvert({ filePath, folderPath }).convert()).toEqual(result)
+  const result = await new TypescriptParserConvert({ filePath, folderPath }).convert()
+  expect(result).toEqual(expectedResult)
 })

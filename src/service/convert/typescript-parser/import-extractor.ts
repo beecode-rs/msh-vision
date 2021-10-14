@@ -28,7 +28,7 @@ export const importExtractor = {
     })
   },
   _pathCleanup: (filePath: string): string => {
-    const cleanCurrFolder = fileService.removeDotSlashFromRelativePath(filePath)
+    const cleanCurrFolder = fileService.cleanupPath(filePath)
     return `${cleanCurrFolder}.ts`
   },
 }

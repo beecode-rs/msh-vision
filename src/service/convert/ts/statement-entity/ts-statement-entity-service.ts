@@ -1,23 +1,26 @@
+import { EntityType } from 'src/model/entity'
 import ts from 'src/module/ts'
-import { TsStatementEntity, TsStatementEntityType } from 'src/service/convert/ts/statement-entity/ts-statement-entity'
-// import { logger } from 'src/util/logger'
+import { TsStatementEntity } from 'src/service/convert/ts/statement-entity/ts-statement-entity'
+import { fileService } from 'src/service/file-service'
 
 const self = {
-  factory: (statement: ts.Statement): TsStatementEntity => {
+  factory: (statement: ts.Statement, fileName: string): TsStatementEntity => {
     const entityType = self.entityTypeByStatementKind(statement.kind)
     const isExported = statement.modifiers ? self.isExported(statement.modifiers) : false
-    const data = self.parserByType(entityType)(statement)
+    const { name = fileName, ...data } = self.parserByType(entityType)(statement)
 
-    return new TsStatementEntity({ entityType, statement, isExported, name: data.name, properties: data.properties })
+    return new TsStatementEntity({ entityType, statement, isExported, name, ...data })
   },
-  entityTypeByStatementKind: (kind: ts.SyntaxKind): TsStatementEntityType => {
+  entityTypeByStatementKind: (kind: ts.SyntaxKind): EntityType => {
     switch (kind) {
       case ts.SyntaxKind.ImportDeclaration:
-        return TsStatementEntityType.IMPORT
+        return EntityType.IMPORT
       case ts.SyntaxKind.TypeAliasDeclaration:
-        return TsStatementEntityType.TYPE
+        return EntityType.TYPE
+      case ts.SyntaxKind.ClassDeclaration:
+        return EntityType.CLASS
       default:
-        return TsStatementEntityType.OBJECT
+        return EntityType.OBJECT
     }
   },
   isExported: (modifiers: ts.ModifiersArray): boolean => {
@@ -35,12 +38,18 @@ const self = {
     }
   },
   propertiesFromInitializer: (initializer: any): string[] => {
-    return initializer.properties.map((p) => p.name.escapedText)
+    return (initializer.properties ?? []).map((p) => p.name.escapedText)
   },
-  parserByType: (entityType: TsStatementEntityType): ((statement: ts.Statement) => any) => {
+  parserByType: (entityType: EntityType): ((statement: ts.Statement) => any) => {
     switch (entityType) {
-      case TsStatementEntityType.OBJECT:
+      case EntityType.OBJECT:
         return self.objectParser
+      case EntityType.IMPORT:
+        return self.importParser
+      case EntityType.TYPE:
+        return self.typeParser
+      case EntityType.CLASS:
+        return self.classParser
       default:
         return (_: any): any => {
           return {}
@@ -57,6 +66,23 @@ const self = {
       name,
       properties,
     }
+  },
+  importParser: (statement: ts.Statement): any => {
+    // TODO what to do if there is more then one import??
+    const name = statement['importClause'].namedBindings.elements.find((e) => e.name).name.escapedText
+    const path = `${statement['moduleSpecifier'].text}.ts`
+    // const path = `${fileService.cleanupPath(statement['moduleSpecifier'].text)}.ts`
+    return { path, name }
+  },
+  typeParser: (statement: ts.Statement): any => {
+    const name = statement['name'].escapedText
+    return { name }
+  },
+  classParser: (statement: ts.Statement): any => {
+    const name = statement['name'].escapedText
+    const properties = statement['members'].map((m) => m.name.escapedText)
+
+    return { name, properties }
   },
 }
 export const tsStatementEntityService = self

@@ -20,11 +20,11 @@ export class TypescriptParserConvert implements ConvertStrategy {
   public async convert(): Promise<Entity[]> {
     const file = await parser.parseFile(fileService.joinPaths(this._folderPath, this._filePath), this._rootPath)
 
-    const cleanRelativeFilePath = fileService.removeDotSlashFromRelativePath(this._filePath)
+    const cleanRelativeFilePath = fileService.cleanupPath(this._filePath)
     const entities = typescriptParserEntityService.extractEntities({ file, filePath: cleanRelativeFilePath })
 
     entities.forEach((entity) => {
-      entity.importReference.push(...importExtractor.extract(file))
+      entity.importReferences.push(...importExtractor.extract(file))
     })
 
     return entities

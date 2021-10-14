@@ -6,7 +6,7 @@ const result = [
   {
     _type: 'object',
     filePath: 'default-object.ts',
-    importReference: [],
+    importReferences: [],
     name: 'obj',
   },
 ]

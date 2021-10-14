@@ -40,8 +40,26 @@ export const fileService = {
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
     return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
   },
-  removeDotSlashFromRelativePath: (relativeOrAbsPath: string): string => {
-    return relativeOrAbsPath.startsWith('./') ? relativeOrAbsPath.slice(2) : relativeOrAbsPath
+  cleanupPath: (relativeOrAbsPath: string): string => {
+    return path.join(relativeOrAbsPath)
+    // return relativeOrAbsPath.startsWith('./') ? relativeOrAbsPath.slice(2) : relativeOrAbsPath
+  },
+  lastFolderFromPath: (filePath: string): string => {
+    const pathSplit = filePath.split('/')
+    if (pathSplit[pathSplit.length - 1].includes('.')) pathSplit.pop()
+    return pathSplit.join('/')
+  },
+  importPathFind: (filePathImportedFrom: string, importPath: string): string => {
+    const importedFromPath = fileService.lastFolderFromPath(filePathImportedFrom)
+    const importPathSplit = importPath.split('/')
+    const importedFromPathReverseSplit = importedFromPath.split('/').reverse()
+    let equalPathSplitCount = 0
+    for (const [ix, split] of Object.entries(importPathSplit)) {
+      if (importedFromPathReverseSplit[ix] !== split) break
+      equalPathSplitCount = +ix + 1
+    }
+    const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join('/')
+    return fileService.joinPaths(importedFromPath, cleanImportPath)
   },
   fileNameFromPath: (filePath: string): string => {
     const parts = filePath.split('/')

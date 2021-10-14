@@ -5,8 +5,11 @@ import { stringUtil } from 'src/util/string-util'
 const shortHash = require('short-hash')
 
 export enum EntityType {
+  FILE = 'file',
+  IMPORT = 'import',
   OBJECT = 'object',
   CLASS = 'class',
+  ENUM = 'enum',
   TYPE = 'type',
 }
 
@@ -31,5 +34,5 @@ export class Entity {
 
   public entities: Entity[]
 
-  public importReference: ImportReference[] = []
+  public importReferences: ImportReference[] = []
 }

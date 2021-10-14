@@ -15,7 +15,7 @@ export class TsConvert implements ConvertStrategy {
 
   public async convert(): Promise<Entity[]> {
     const node = await tsService.parseFile(fileService.joinPaths(this._folderPath, this._filePath))
-    const cleanRelativeFilePath = fileService.removeDotSlashFromRelativePath(this._filePath)
+    const cleanRelativeFilePath = fileService.cleanupPath(this._filePath)
     const entities = tsEntityService.extractEntities({ node, filePath: cleanRelativeFilePath })
 
     return entities

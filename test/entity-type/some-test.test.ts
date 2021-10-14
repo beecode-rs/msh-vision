@@ -6,7 +6,7 @@ const result = [
   {
     _type: 'type',
     filePath: 'some-test.ts',
-    importReference: [],
+    importReferences: [],
     name: 'SomeType',
   },
 ]

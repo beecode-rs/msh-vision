@@ -6,7 +6,7 @@ const result = [
   {
     _type: 'object',
     filePath: 'util/logger.ts',
-    importReference: [],
+    importReferences: [],
     name: 'logger',
   },
 ]
