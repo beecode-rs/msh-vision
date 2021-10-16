@@ -1,4 +1,6 @@
 import { EntityClass } from 'src/model/entity-class'
+import { Property } from 'src/model/property'
+import { PumlPrintableProperty } from 'src/service/print/puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 import { PumlRelation } from 'src/service/print/puml/puml-relation'
 
@@ -9,7 +11,7 @@ export class PumlPrintableClass extends PumlEntity {
     return '}'
   }
   protected _templateStart(): string {
-    return `class "${this._entity.Name}" as ${this._entity.Id} {`
+    return `${this._entity.IsAbstract ? 'abstract' : 'class'} "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
   constructor({ entity }: { entity: EntityClass }) {
@@ -19,6 +21,10 @@ export class PumlPrintableClass extends PumlEntity {
   }
 
   protected _print(): string[] {
-    return []
+    return this._entity.Properties.map((p) => this._printProperty(p)).filter(Boolean)
+  }
+
+  protected _printProperty(property: Property): string {
+    return new PumlPrintableProperty({ property }).print()
   }
 }

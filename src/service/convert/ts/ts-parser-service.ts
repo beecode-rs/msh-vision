@@ -1,9 +1,21 @@
+import { PropertyAccessLevelType } from 'src/model/property'
 import ts from 'src/module/ts'
 
 const self = {
   isExported: (modifiers?: ts.ModifiersArray): boolean => {
     if (!modifiers) return false
     return !!modifiers.find((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+  },
+  isAbstract: (modifiers?: ts.ModifiersArray): boolean => {
+    if (!modifiers) return false
+    return !!modifiers.find((m) => m.kind === ts.SyntaxKind.AbstractKeyword)
+  },
+  accessLevel: (modifiers?: ts.ModifiersArray): PropertyAccessLevelType => {
+    if (!modifiers) return PropertyAccessLevelType.NO_MODIFIER
+    if (modifiers.find((m) => m.kind === ts.SyntaxKind.PublicKeyword)) return PropertyAccessLevelType.PUBLIC
+    if (modifiers.find((m) => m.kind === ts.SyntaxKind.PrivateKeyword)) return PropertyAccessLevelType.PRIVATE
+    if (modifiers.find((m) => m.kind === ts.SyntaxKind.ProtectedKeyword)) return PropertyAccessLevelType.PROTECTED
+    return PropertyAccessLevelType.NO_MODIFIER
   },
   propertiesFromInitializer: (initializer: ts.Expression | any): string[] => {
     return (initializer.properties ?? []).map((p) => p.name.escapedText)

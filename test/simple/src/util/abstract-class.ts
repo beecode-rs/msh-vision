@@ -1,3 +1,3 @@
 export abstract class AbstractClass {
-  public abstract test(): number
+  public abstract test(someParam: string): number
 }

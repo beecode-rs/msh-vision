@@ -3,7 +3,8 @@
       rectangle "index.ts" as index_ts_e4daf83f {
       }
       folder "util" as util_28bcbc6c {
-        class "AbstractClass" as abstract_class_48ddc9a9 {
+        abstract "AbstractClass" as abstract_class_48ddc9a9 {
+          + {abstract} test(someParam: string): number
         }
         object "errors" as errors_90641da1 {
         }
@@ -12,6 +13,7 @@
         interface "OtherInterface" as other_interface_9bbef566 {
         }
         class "SomeClass" as some_class_3e48ea5d {
+          + test: number
         }
         interface "SomeInterface" as some_interface_7947f676 {
         }
