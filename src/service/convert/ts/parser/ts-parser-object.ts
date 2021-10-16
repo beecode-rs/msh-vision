@@ -45,9 +45,10 @@ export class TsParserObject implements Parsable {
     return properties.map((property) => {
       const name = property.name.escapedText
       const accessLevel = this._accessLevel(name)
-      const returnType = property.initializer.type.getText(this._parsedSource)
+      // const returnType = property.initializer.type.getText(this._parsedSource)
+      const returnType = this._returnTypeValue(property)
       const functionParams =
-        property.initializer.parameters.length === 0
+        (property.initializer.parameters ?? []).length === 0
           ? undefined
           : property.initializer.parameters.map((p) => p.getText(this._parsedSource)).join(', ')
       return new Property({
@@ -63,5 +64,11 @@ export class TsParserObject implements Parsable {
     if (propName.startsWith('__')) return PropertyAccessLevelType.PRIVATE
     if (propName.startsWith('_')) return PropertyAccessLevelType.PROTECTED
     return PropertyAccessLevelType.PUBLIC
+  }
+
+  protected _returnTypeValue(property: any): string {
+    if (property.initializer?.type) return property.initializer.type.getText(this._parsedSource)
+    if (property.initializer?.expression) return property.initializer.expression.getText(this._parsedSource)
+    return ''
   }
 }

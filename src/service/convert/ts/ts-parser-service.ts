@@ -1,5 +1,9 @@
+import { ReferenceType } from 'src/enum/reference-type'
 import { PropertyAccessLevelType } from 'src/model/property'
+import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
+import { TsParserImport } from 'src/service/convert/ts/parser/ts-parser-import'
+import { logger } from 'src/util/logger'
 
 const self = {
   isExported: (modifiers?: ts.ModifiersArray): boolean => {
@@ -41,6 +45,44 @@ const self = {
       ts.SyntaxKind.VariableStatement,
       ts.SyntaxKind.VariableDeclarationList,
     ].includes(kind)
+  },
+  findClassRelations: ({
+    statement,
+    parsedSource,
+    inProjectPath,
+  }: {
+    statement: ts.Statement
+    parsedSource: ts.SourceFile
+    inProjectPath: string
+  }): Reference[] => {
+    const extendImplements = (statement['heritageClauses'] ?? [])
+      .map((heritage) => {
+        const type = heritage.getText(parsedSource).split(' ')[0]
+        return (heritage.types ?? []).map((t) => ({ type, name: t.expression.escapedText }))
+      })
+      .flat() as { type: 'implements' | 'extends'; name: string }[]
+    if (extendImplements.length === 0) return []
+
+    const fileImports = parsedSource.statements
+      .map((statement) => new TsParserImport({ statement, inProjectPath }).parse())
+      .flat()
+
+    return extendImplements
+      .map((ei) => {
+        const fileImport = fileImports.find((fi) => {
+          return fi.name === ei.name
+        })
+        if (!fileImport) {
+          logger.warn(`Import not found for ${JSON.stringify(ei)}`)
+          return
+        }
+        return new Reference({
+          name: ei.name,
+          type: ei.type === 'implements' ? ReferenceType.IMPLEMENTATION : ReferenceType.INHERITANCE,
+          inProjectPath: fileImport.inProjectPath,
+        })
+      })
+      .filter(Boolean) as Reference[]
   },
 }
 

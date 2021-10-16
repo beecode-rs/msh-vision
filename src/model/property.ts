@@ -11,6 +11,8 @@ export class Property {
   protected readonly _accessLevel: PropertyAccessLevelType
   protected readonly _isAbstract: boolean
   protected readonly _functionParams: string | undefined
+  // TODO implement readonly
+  // TODO implement getter/setter
 
   constructor({
     name,

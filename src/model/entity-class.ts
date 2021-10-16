@@ -32,16 +32,16 @@ export class EntityClass extends Entity implements Exportable, Referencable {
     this._properties = properties ?? []
   }
 
-  public get References(): Reference[] {
-    return this._references
-  }
-
   public get IsExported(): boolean {
     return this._isExported
   }
 
   public get IsAbstract(): boolean {
     return this._isAbstract
+  }
+
+  public get References(): Reference[] {
+    return this._references
   }
 
   public get Properties(): Property[] {

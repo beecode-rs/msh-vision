@@ -13,11 +13,15 @@
           + debug(msg: string): void
         }
         interface "OtherInterface" as other_interface_9bbef566 {
+          + test: number
         }
         class "SomeClass" as some_class_3e48ea5d {
+          # _constParam: string
+          + constructor(constParam: string)
           + test: number
         }
         interface "SomeInterface" as some_interface_7947f676 {
+          + test: number
         }
       }
     }
