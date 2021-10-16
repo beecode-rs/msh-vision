@@ -16,6 +16,8 @@ export type CliCommands = minimist.ParsedArgs & {
 export type CmdGenerateParams = minimist.ParsedArgs & {
   src: string
   dest: string
+  appName: string
+  tsConfig: string
 }
 
 export const argsService = {
@@ -32,11 +34,15 @@ export const argsService = {
   cmdGenerateParams: {
     src: {
       type: 'string',
-      default: process.cwd(),
     },
     dest: {
       type: 'string',
-      default: `${process.cwd()}/vision/`,
+    },
+    appName: {
+      type: 'string',
+    },
+    tsConfig: {
+      type: 'string',
     },
   } as Options,
   selectedCommandCount: ({ args, options }: ArgsServiceParams): number => {

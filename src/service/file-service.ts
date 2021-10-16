@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import glob from 'glob'
 import path from 'path'
+import { tsConfigFileService } from 'src/service/convert/ts/ts-config-file-service'
 import { constant } from 'src/util/constant'
 
 export const fileService = {
@@ -9,7 +10,7 @@ export const fileService = {
       const cwd = fileService.relativeToAbsPath(folderPath)
       glob('**/*', { cwd, dot: true, nodir: true, ignore: '*.test.ts' }, (err, files) => {
         if (err) return reject(err)
-        return resolve(files)
+        return resolve(files.map((f) => fileService.joinPaths(folderPath, f)))
       })
     })
   },
@@ -46,7 +47,6 @@ export const fileService = {
   },
   cleanupPath: (relativeOrAbsPath: string): string => {
     return path.join(relativeOrAbsPath)
-    // return relativeOrAbsPath.startsWith('./') ? relativeOrAbsPath.slice(2) : relativeOrAbsPath
   },
   lastFolderFromPath: (filePath: string): string => {
     const pathSplit = filePath.split(constant.folderSep)
@@ -54,8 +54,9 @@ export const fileService = {
     return pathSplit.join(constant.folderSep)
   },
   importPathFind: (filePathImportedFrom: string, importPath: string): string => {
+    const resolvedImportPath = tsConfigFileService.moduleAliasResolve(importPath)
     const importedFromPath = fileService.lastFolderFromPath(filePathImportedFrom)
-    const importPathSplit = importPath.split(constant.folderSep)
+    const importPathSplit = resolvedImportPath.split(constant.folderSep)
     const importedFromPathReverseSplit = importedFromPath.split(constant.folderSep).reverse()
     let equalPathSplitCount = 0
     for (const [ix, split] of Object.entries(importPathSplit)) {

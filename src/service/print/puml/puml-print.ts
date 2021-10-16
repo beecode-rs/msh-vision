@@ -27,9 +27,14 @@ export class PumlPrint implements PrintStrategy {
     await fileService.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
   }
 
-  constructor({ appName, destinationPath }: { appName: string; destinationPath: string }) {
+  constructor({ appName, destinationPath }: { appName?: string; destinationPath: string }) {
+    const fallbackAppName = appName ?? ''
     this._destinationPath = destinationPath
-    this._rootGroup = new PumlGroup({ name: appName, type: PumlGroupType.FICTIVE, groupPath: appName })
+    this._rootGroup = new PumlGroup({
+      name: fallbackAppName,
+      type: appName ? PumlGroupType.RECTANGLE : PumlGroupType.FICTIVE,
+      groupPath: fallbackAppName,
+    })
   }
 
   protected _generateGroups(entities: Entity[]): void {

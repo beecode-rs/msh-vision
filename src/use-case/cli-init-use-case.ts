@@ -14,13 +14,14 @@ export const cliInitUseCase = {
   },
   createCommandFromCliArgs: (args: string[]): Executable => {
     const command = argsService.argToObject<CliCommands>({ args, options: argsService.cliCommandOptions })
+
     switch (true) {
       case command.version:
         return new PrintVersion()
       case command.help:
         return new PrintHelp()
       default:
-        return new Generate(args)
+        return new Generate()
       // throw new Error(`Unknown command[${JSON.stringify(command)}]`)
     }
   },

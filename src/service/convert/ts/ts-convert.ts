@@ -2,8 +2,9 @@ import { Entity } from 'src/model/entity'
 import ts from 'src/module/ts'
 import { ConvertStrategy } from 'src/service/convert/convert-strategy'
 import { TsParserFile } from 'src/service/convert/ts/parser/ts-parser-file'
+import { tsConfigFileService } from 'src/service/convert/ts/ts-config-file-service'
 import { TsEntityParser } from 'src/service/convert/ts/ts-entity-parser'
-import { tsEntityService } from 'src/service/convert/ts/ts-entity-service'
+import { tsParserService } from 'src/service/convert/ts/ts-parser-service'
 import { fileService } from 'src/service/file-service'
 
 export class TsConvert implements ConvertStrategy {
@@ -16,11 +17,11 @@ export class TsConvert implements ConvertStrategy {
   }
 
   public async convert(): Promise<Entity[]> {
-    const filePath = fileService.joinPaths(this._folderPath, this._filePath)
-    const fileName = fileService.fileNameFromPath(filePath, { withExtension: true })
-    const parsedSource = await this._parseFile(filePath, fileName)
+    await tsConfigFileService.init()
+    const fileName = fileService.fileNameFromPath(this._filePath, { withExtension: true })
+    const parsedSource = await this._parseFile(this._filePath, fileName)
 
-    const hasExportsInFile = tsEntityService.checkIfThereAreAnyExports({ parsedSource })
+    const hasExportsInFile = tsParserService.checkIfThereAreAnyExports({ parsedSource })
     const inProjectPath = fileService.cleanupPath(this._filePath)
     if (!hasExportsInFile) return new TsParserFile({ parsedSource, fileName, inProjectPath }).parse()
 

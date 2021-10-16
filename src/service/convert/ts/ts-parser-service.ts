@@ -1,6 +1,6 @@
 import ts from 'src/module/ts'
 
-export const tsParserService = {
+const self = {
   isExported: (modifiers?: ts.ModifiersArray): boolean => {
     if (!modifiers) return false
     return !!modifiers.find((m) => m.kind === ts.SyntaxKind.ExportKeyword)
@@ -19,4 +19,19 @@ export const tsParserService = {
       declaration: decl,
     }
   },
+  checkIfThereAreAnyExports: ({ parsedSource }: { parsedSource: ts.SourceFile }): boolean => {
+    return !!parsedSource.statements.find((s) => self._isViableExportableStatementKind(s.kind) && self.isExported(s.modifiers))
+  },
+  _isViableExportableStatementKind: (kind: number): boolean => {
+    return [
+      ts.SyntaxKind.TypeAliasDeclaration,
+      ts.SyntaxKind.ClassDeclaration,
+      ts.SyntaxKind.InterfaceDeclaration,
+      ts.SyntaxKind.VariableDeclaration,
+      ts.SyntaxKind.VariableStatement,
+      ts.SyntaxKind.VariableDeclarationList,
+    ].includes(kind)
+  },
 }
+
+export const tsParserService = self

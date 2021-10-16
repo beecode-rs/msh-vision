@@ -1,5 +1,5 @@
 import { SomeClass } from './util/some-class'
-import { logger } from './util/logger'
+import { logger } from 'src/util/logger'
 
 logger.debug('test')
 

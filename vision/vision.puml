@@ -1,44 +1,60 @@
 @startuml
-  rectangle "application" as application_97208b5f {
     rectangle "index.ts" as index_ts_6269cc92 {
     }
-    folder "app" as app_b8770c4 {
+    folder "app" as app_a8039b31 {
       class "CliApp" as cli_app_6c2f2528 {
       }
       object "app" as app_e4dabcfc {
       }
-      folder "init" as init_32171df1 {
+      folder "init" as init_61709104 {
         class "ExecArgsAsCommand" as exec_args_as_command_f1e47953 {
         }
         
       }
     }
-    folder "dal" as dal_b873fec {
-      object "ExecResult" as exec_result_fd4c3230 {
-      }
+    folder "dal" as dal_407cd159 {
       object "shellDal" as shell_dal_fd4c3230 {
       }
       
     }
-    folder "model" as model_a58ed8a {
-      class "Entity" as entity_91a0e537 {
+    folder "enum" as enum_6eb1a43 {
+      rectangle "puml-group-type.ts" as puml_group_type_ts_bf4cc633 {
       }
-      class "ImportReference" as import_reference_30d19bd7 {
+      rectangle "reference-type.ts" as reference_type_ts_8da7d56e {
       }
       
     }
-    folder "module" as module_45878c7f {
+    folder "model" as model_f99a517f {
+      class "EntityClass" as entity_class_a46bc114 {
+      }
+      class "EntityEnum" as entity_enum_7a751249 {
+      }
+      class "EntityFile" as entity_file_b7c4115c {
+      }
+      class "EntityInterface" as entity_interface_fbd810df {
+      }
+      class "EntityObject" as entity_object_726f13cf {
+      }
+      class "EntityType" as entity_type_95fb9502 {
+      }
+      class "Entity" as entity_91a0e537 {
+      }
+      interface "Exportable" as exportable_86d3462 {
+      }
+      interface "Locatable" as locatable_ca77b0f3 {
+      }
+      interface "Referencable" as referencable_536a5808 {
+      }
+      class "Reference" as reference_484c2c07 {
+      }
+      
+    }
+    folder "module" as module_66df848a {
       rectangle "ts.ts" as ts_ts_e991f5e {
       }
       
     }
-    folder "service" as service_e5e0e198 {
-      object "ArgsServiceParams" as args_service_params_9de50b29 {
-      }
-      object "CliCommands" as cli_commands_9de50b29 {
-      }
-      object "CmdGenerateParams" as cmd_generate_params_9de50b29 {
-      }
+    folder "service" as service_c15a056d {
       object "argsService" as args_service_9de50b29 {
       }
       object "cliService" as cli_service_78084628 {
@@ -47,12 +63,10 @@
       }
       object "helpService" as help_service_eb5e7b3f {
       }
-      object "PrintStdMessage" as print_std_message_f120d930 {
-      }
       object "shellService" as shell_service_f120d930 {
       }
-      folder "command" as command_2a794330 {
-        rectangle "executable.ts" as executable_ts_52d7d0c6 {
+      folder "command" as command_e61b1f05 {
+        interface "Executable" as executable_52d7d0c6 {
         }
         class "Generate" as generate_2344c2dd {
         }
@@ -62,124 +76,158 @@
         }
         
       }
-      folder "convert" as convert_12278480 {
+      folder "convert" as convert_d463a275 {
         object "convertService" as convert_service_3ce98fc1 {
         }
-        rectangle "convert-strategy.ts" as convert_strategy_ts_f6692c87 {
+        interface "ConvertStrategy" as convert_strategy_f6692c87 {
         }
-        folder "ts" as ts_2a1b2388 {
+        folder "ts" as ts_3f50c77d {
           class "TsConvert" as ts_convert_cbb8a473 {
+          }
+          class "TsEntityParser" as ts_entity_parser_7c9a08b5 {
           }
           object "self" as self_d27817cf {
           }
           object "tsEntityService" as ts_entity_service_d27817cf {
           }
-          object "tsService" as ts_service_325486d9 {
+          object "tsParserService" as ts_parser_service_f934a93 {
           }
-          folder "statement-entity" as statement_entity_1f7d3a74 {
-            object "tsStatementEntityService" as ts_statement_entity_service_6f09511b {
+          folder "parser" as parser_ab04d355 {
+            interface "Parsable" as parsable_fa92107c {
             }
-            object "TsMetaObject" as ts_meta_object_8f050d6b {
+            class "TsParserClass" as ts_parser_class_5262a4e8 {
             }
-            object "TsMetaClass" as ts_meta_class_8f050d6b {
+            class "TsParserFile" as ts_parser_file_d83fca0 {
             }
-            object "TsMetaImport" as ts_meta_import_8f050d6b {
+            class "TsParserImport" as ts_parser_import_303bb93b {
             }
-            object "TsMetaType" as ts_meta_type_8f050d6b {
+            class "TsParserInterface" as ts_parser_interface_93e54043 {
             }
-            object "TsMetaEnum" as ts_meta_enum_8f050d6b {
+            class "TsParserObject" as ts_parser_object_d264a153 {
             }
-            object "TsMeta" as ts_meta_8f050d6b {
-            }
-            object "TsStatementEntity" as ts_statement_entity_8f050d6b {
-            }
-            rectangle "ts-statement-entity.ts" as ts_statement_entity_ts_8f050d6b {
-            }
-            folder "parser" as parser_65a3181c {
-              object "tsParserClass" as ts_parser_class_64f52814 {
-              }
-              object "tsParserImport" as ts_parser_import_a071ab67 {
-              }
-              object "tsParserObject" as ts_parser_object_70ee294f {
-              }
-              object "tsParserService" as ts_parser_service_1365a407 {
-              }
-              object "tsParserType" as ts_parser_type_11d02802 {
-              }
-              
-            }
-          }
-        }
-        folder "typescript-parser" as typescript_parser_98e20b52 {
-          object "importExtractor" as import_extractor_e95fa6b4 {
-          }
-          class "TypescriptParserConvert" as typescript_parser_convert_c7090573 {
-          }
-          object "typescriptParserEntityService" as typescript_parser_entity_service_fa9124cf {
-          }
-          
-        }
-      }
-      folder "print" as print_22892ee6 {
-        rectangle "print-strategy.ts" as print_strategy_ts_5ec3c47 {
-        }
-        class "Printable" as printable_9580899b {
-        }
-        folder "puml" as puml_a8f74ced {
-          class "PumlPrint" as puml_print_3457d353 {
-          }
-          class "PumlTemplate" as puml_template_f0711fd2 {
-          }
-          folder "group" as group_78ebcdbd {
-            object "pumlGroupService" as puml_group_service_17932e5d {
-            }
-            class "PumlGroup" as puml_group_b48e88ad {
+            class "TsParserType" as ts_parser_type_9c7333be {
             }
             
           }
-          folder "printable-entity" as printable_entity_2c7e384f {
+        }
+      }
+      folder "print" as print_cc10bc53 {
+        interface "PrintStrategy" as print_strategy_5ec3c47 {
+        }
+        folder "puml" as puml_17686618 {
+          class "PumlDocument" as puml_document_bb3b71cd {
+          }
+          class "PumlEntity" as puml_entity_c1aa58b9 {
+          }
+          class "PumlGroup" as puml_group_7884f7fd {
+          }
+          class "PumlPrint" as puml_print_3457d353 {
+          }
+          class "PumlRelation" as puml_relation_58f69104 {
+          }
+          folder "printable-entity" as printable_entity_10c203fa {
             class "PumlPrintableClass" as puml_printable_class_68644af8 {
-            }
-            object "pumlPrintableEntityService" as puml_printable_entity_service_a873edfd {
             }
             class "PumlPrintableFile" as puml_printable_file_7ebc32b0 {
             }
+            class "PumlPrintableInterface" as puml_printable_interface_583c8a73 {
+            }
             class "PumlPrintableObject" as puml_printable_object_2f522563 {
             }
-            
-          }
-          folder "relation" as relation_1f6d2ac4 {
-            object "pumlRelationService" as puml_relation_service_3d5a51bd {
-            }
-            class "PumlRelation" as puml_relation_51da0e0d {
+            class "PumlPrintableWrapper" as puml_printable_wrapper_4574fc85 {
             }
             
           }
         }
       }
     }
-    folder "use-case" as use_case_5dae941f {
+    folder "use-case" as use_case_fabd4e2a {
       object "cliInitUseCase" as cli_init_use_case_e074087f {
       }
       object "visionUseCase" as vision_use_case_e3840bea {
       }
       
     }
-    folder "util" as util_7c6f1d01 {
+    folder "util" as util_24c07134 {
+      object "env" as env_36b4f26d {
+      }
       object "config" as config_36b4f26d {
+      }
+      object "packageJson" as package_json_e60a4099 {
       }
       object "constant" as constant_e60a4099 {
       }
       object "logger" as logger_15d2abb3 {
       }
+      object "shortHash" as short_hash_6730c0db {
+      }
+      object "self" as self_6730c0db {
+      }
       object "stringUtil" as string_util_6730c0db {
       }
       
     }
-  }
-  exec_args_as_command_f1e47953 -up-> cli_init_use_case_e074087f
-  generate_2344c2dd -up-> puml_print_3457d353
-  puml_printable_class_68644af8 -up-> printable_9580899b
-  puml_printable_file_7ebc32b0 -up-> printable_9580899b
-  puml_printable_object_2f522563 -up-> printable_9580899b
+  
+  
+  
+  
+  
+  
+  index_ts_6269cc92 -up-> logger_d1ee5f1e
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  ts_ts_e991f5e -up-> ts_71c661ae
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 @enduml
