@@ -1,5 +1,6 @@
 import { EntityClass } from 'src/model/entity-class'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
+import { PumlRelation } from 'src/service/print/puml/puml-relation'
 
 export class PumlPrintableClass extends PumlEntity {
   protected readonly _entity: EntityClass
@@ -14,6 +15,7 @@ export class PumlPrintableClass extends PumlEntity {
   constructor({ entity }: { entity: EntityClass }) {
     super()
     this._entity = entity
+    this._relations = entity.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))
   }
 
   protected _print(): string[] {

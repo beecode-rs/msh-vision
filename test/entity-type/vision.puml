@@ -1,0 +1,22 @@
+@startuml
+    folder "src" as src_b874d07 {
+      rectangle "default-function.ts" as default_function_ts_4bf8de65 {
+      }
+      rectangle "default-object.ts" as default_object_ts_bb31c332 {
+      }
+      rectangle "index.ts" as index_ts_e4daf83f {
+      }
+      object "fn1" as fn1_82e12db {
+      }
+      object "fn2" as fn2_82e12db {
+      }
+      object "objectExport" as object_export_8fea82dd {
+      }
+      class "TestClass" as test_class_8fea82dd {
+      }
+    }
+  index_ts_e4daf83f -up-> default_object_bb31c332
+  index_ts_e4daf83f -up-> default_function_4bf8de65
+  index_ts_e4daf83f -up-> module_82e12db
+  index_ts_e4daf83f -up-> object_export_8fea82dd
+@enduml

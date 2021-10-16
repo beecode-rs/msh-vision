@@ -1,0 +1,205 @@
+@startuml
+    folder "src" as src_b874d07 {
+      rectangle "index.ts" as index_ts_e4daf83f {
+      }
+      folder "app" as app_6faf0769 {
+        class "CliApp" as cli_app_8bf9ca45 {
+        }
+        object "app" as app_1d92d491 {
+        }
+        folder "init" as init_837dc15c {
+          class "ExecArgsAsCommand" as exec_args_as_command_d74becbe {
+          }
+        }
+      }
+      folder "dal" as dal_fba75381 {
+        object "shellDal" as shell_dal_4f6edd5d {
+        }
+      }
+      folder "enum" as enum_1eea471b {
+        rectangle "puml-group-type.ts" as puml_group_type_ts_87f1b99e {
+        }
+        rectangle "reference-type.ts" as reference_type_ts_1f38c983 {
+        }
+      }
+      folder "model" as model_40d91327 {
+        class "EntityClass" as entity_class_87e50b39 {
+        }
+        class "EntityEnum" as entity_enum_f7c58024 {
+        }
+        class "EntityFile" as entity_file_33f169f1 {
+        }
+        class "EntityInterface" as entity_interface_590b4132 {
+        }
+        class "EntityObject" as entity_object_784a4022 {
+        }
+        class "EntityType" as entity_type_a3fb7caf {
+        }
+        class "Entity" as entity_9581579a {
+        }
+        interface "Exportable" as exportable_2ac9ab8f {
+        }
+        interface "Locatable" as locatable_b011d3de {
+        }
+        interface "Referencable" as referencable_31799d25 {
+        }
+        class "Reference" as reference_aaef6aea {
+        }
+      }
+      folder "module" as module_9f6f6c52 {
+        rectangle "ts.ts" as ts_ts_eabf7773 {
+        }
+      }
+      folder "service" as service_c83a6ab5 {
+        object "argsService" as args_service_d268d804 {
+        }
+        object "cliService" as cli_service_317b6b45 {
+        }
+        object "fileService" as file_service_3f424ea5 {
+        }
+        object "helpService" as help_service_20a1eb92 {
+        }
+        object "shellService" as shell_service_db3f045d {
+        }
+        folder "command" as command_7ebc6e5d {
+          interface "Executable" as executable_a85166eb {
+          }
+          class "Generate" as generate_eb5ef3b0 {
+          }
+          class "PrintHelp" as print_help_2c3c3bf6 {
+          }
+          class "PrintVersion" as print_version_dc92b85d {
+          }
+        }
+        folder "convert" as convert_2b710bad {
+          object "convertService" as convert_service_b2b4bfac {
+          }
+          interface "ConvertStrategy" as convert_strategy_2898ab6a {
+          }
+          folder "ts" as ts_42a428a5 {
+            object "___tsConfigFileJson" as ts_config_file_json_715f0c18 {
+            }
+            object "self" as self_715f0c18 {
+            }
+            object "tsConfigFileService" as ts_config_file_service_715f0c18 {
+            }
+            class "TsConvert" as ts_convert_87a0875e {
+            }
+            class "TsEntityParser" as ts_entity_parser_d73e1a98 {
+            }
+            object "self" as self_e67f4e7e {
+            }
+            object "tsParserService" as ts_parser_service_e67f4e7e {
+            }
+            folder "parser" as parser_a64afe8d {
+              interface "Parsable" as parsable_1dc7e811 {
+              }
+              class "TsParserClass" as ts_parser_class_5b693985 {
+              }
+              class "TsParserFile" as ts_parser_file_f26663cd {
+              }
+              class "TsParserImport" as ts_parser_import_edaa2a96 {
+              }
+              class "TsParserInterface" as ts_parser_interface_8936afae {
+              }
+              class "TsParserObject" as ts_parser_object_cba014be {
+              }
+              class "TsParserType" as ts_parser_type_46289b53 {
+              }
+            }
+          }
+        }
+        folder "print" as print_8fa2e50b {
+          interface "PrintStrategy" as print_strategy_5e9faaaa {
+          }
+          folder "puml" as puml_bc87e940 {
+            class "PumlDocument" as puml_document_ebf39ea0 {
+            }
+            class "PumlEntity" as puml_entity_cc3a6994 {
+            }
+            class "PumlGroup" as puml_group_a2149850 {
+            }
+            class "PumlPrint" as puml_print_77dc46be {
+            }
+            class "PumlRelation" as puml_relation_24365729 {
+            }
+            folder "printable-entity" as printable_entity_3657a4a2 {
+              class "PumlPrintableClass" as puml_printable_class_46ef6395 {
+              }
+              class "PumlPrintableFile" as puml_printable_file_11eb1ddd {
+              }
+              class "PumlPrintableInterface" as puml_printable_interface_dfa76d5e {
+              }
+              class "PumlPrintableObject" as puml_printable_object_2cf1044e {
+              }
+              class "PumlPrintableWrapper" as puml_printable_wrapper_b8ea5ae8 {
+              }
+            }
+          }
+        }
+      }
+      folder "use-case" as use_case_fcef54f2 {
+        object "cliInitUseCase" as cli_init_use_case_9439e852 {
+        }
+        object "visionUseCase" as vision_use_case_dd084107 {
+        }
+      }
+      folder "util" as util_28bcbc6c {
+        object "env" as env_939c4ec0 {
+        }
+        object "config" as config_939c4ec0 {
+        }
+        object "visionConfig" as vision_config_939c4ec0 {
+        }
+        object "packageJson" as package_json_6be721f4 {
+        }
+        object "constant" as constant_6be721f4 {
+        }
+        object "logger" as logger_d1ee5f1e {
+        }
+        object "shortHash" as short_hash_20f7f236 {
+        }
+        object "self" as self_20f7f236 {
+        }
+        object "stringUtil" as string_util_20f7f236 {
+        }
+      }
+    }
+  cli_app_8bf9ca45 -up-|> app_1b39ef38
+  exec_args_as_command_d74becbe -up-|> initiate_759d1eed
+  index_ts_e4daf83f -up-> logger_d1ee5f1e
+  entity_class_87e50b39 -up-|> entity_f33c33fa
+  entity_class_87e50b39 .up.|> exportable_ed4cefaf
+  entity_class_87e50b39 .up.|> referencable_f95d8bc5
+  entity_enum_f7c58024 -up-|> entity_f33c33fa
+  entity_enum_f7c58024 .up.|> exportable_ed4cefaf
+  entity_file_33f169f1 -up-|> entity_f33c33fa
+  entity_file_33f169f1 .up.|> referencable_f95d8bc5
+  entity_interface_590b4132 -up-|> entity_f33c33fa
+  entity_interface_590b4132 .up.|> exportable_ed4cefaf
+  entity_object_784a4022 -up-|> entity_f33c33fa
+  entity_object_784a4022 .up.|> exportable_ed4cefaf
+  entity_type_a3fb7caf -up-|> entity_f33c33fa
+  entity_type_a3fb7caf .up.|> exportable_ed4cefaf
+  entity_9581579a .up.|> locatable_3f9f71be
+  reference_aaef6aea .up.|> locatable_3f9f71be
+  ts_ts_eabf7773 -up-> ts_cc414543
+  generate_eb5ef3b0 .up.|> executable_289f98b1
+  print_help_2c3c3bf6 .up.|> executable_289f98b1
+  print_version_dc92b85d .up.|> executable_289f98b1
+  ts_parser_class_5b693985 .up.|> parsable_26bdd71b
+  ts_parser_file_f26663cd .up.|> parsable_26bdd71b
+  ts_parser_import_edaa2a96 .up.|> parsable_26bdd71b
+  ts_parser_interface_8936afae .up.|> parsable_26bdd71b
+  ts_parser_object_cba014be .up.|> parsable_26bdd71b
+  ts_parser_type_46289b53 .up.|> parsable_26bdd71b
+  ts_convert_87a0875e .up.|> convert_strategy_4efa74a8
+  puml_printable_class_46ef6395 -up-|> puml_entity_72331cf1
+  puml_printable_file_11eb1ddd -up-|> puml_entity_72331cf1
+  puml_printable_interface_dfa76d5e -up-|> puml_entity_72331cf1
+  puml_printable_object_2cf1044e -up-|> puml_entity_72331cf1
+  puml_printable_wrapper_b8ea5ae8 -up-|> puml_entity_72331cf1
+  puml_document_ebf39ea0 -up-|> puml_entity_62372633
+  puml_group_a2149850 -up-|> puml_entity_62372633
+  puml_print_77dc46be .up.|> print_strategy_906c034d
+@enduml

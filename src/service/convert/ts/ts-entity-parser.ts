@@ -47,7 +47,7 @@ export class TsEntityParser {
       case ts.SyntaxKind.TypeAliasDeclaration:
         return new TsParserType({ statement, inProjectPath: this._inProjectPath })
       case ts.SyntaxKind.ClassDeclaration:
-        return new TsParserClass({ statement, inProjectPath: this._inProjectPath })
+        return new TsParserClass({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
       case ts.SyntaxKind.InterfaceDeclaration:
         return new TsParserInterface({ statement, inProjectPath: this._inProjectPath })
       case ts.SyntaxKind.VariableDeclaration:
