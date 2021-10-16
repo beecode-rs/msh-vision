@@ -3,8 +3,6 @@ import { Printable } from 'src/service/print/printable'
 export class PumlRelation extends Printable {
   protected readonly _from: string
   protected readonly _to: string
-  // protected readonly _note: string | undefined
-  // protected _type: string
 
   constructor({ from, to }: { from: string; to: string; type?: string }) {
     super()
@@ -12,15 +10,15 @@ export class PumlRelation extends Printable {
     this._to = to
   }
 
-  protected _print(): string[] {
-    return [`${this._from} --> ${this._to}`]
+  protected _templateStart(): string {
+    return `${this._from} -up-> ${this._to}`
   }
 
   protected _templateEnd(): string {
     return ''
   }
 
-  protected _templateStart(): string {
-    return ''
+  protected _print(): string[] {
+    return []
   }
 }

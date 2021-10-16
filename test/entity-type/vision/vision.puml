@@ -1,10 +1,10 @@
 @startuml
   folder app {
-    object "default-function" as default_function_de6148c8 {
+    rectangle "default-function.ts" as default_function_ts_de6148c8 {
     }
-    object "obj" as obj_9b0d92df {
+    rectangle "default-object.ts" as default_object_ts_9b0d92df {
     }
-    object "obj" as obj_9b0d92df {
+    rectangle "index.ts" as index_ts_6269cc92 {
     }
     object "ReturnFnType" as return_fn_type_a3a1e936 {
     }
@@ -12,8 +12,15 @@
     }
     object "fn2" as fn2_a3a1e936 {
     }
+    object "SomeType" as some_type_e2d117b0 {
+    }
     object "objectExport" as object_export_e2d117b0 {
+    }
+    class "TestClass" as test_class_e2d117b0 {
     }
   
   }
+  
+  index_ts_6269cc92 --> object_export_e2d117b0
+  
 @enduml

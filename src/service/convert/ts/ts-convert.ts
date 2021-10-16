@@ -14,10 +14,10 @@ export class TsConvert implements ConvertStrategy {
   }
 
   public async convert(): Promise<Entity[]> {
-    const node = await tsService.parseFile(fileService.joinPaths(this._folderPath, this._filePath))
-    const cleanRelativeFilePath = fileService.cleanupPath(this._filePath)
-    const entities = tsEntityService.extractEntities({ node, filePath: cleanRelativeFilePath })
-
-    return entities
+    const filePath = fileService.joinPaths(this._folderPath, this._filePath)
+    const fileName = fileService.fileNameFromPath(filePath, { withExtension: true })
+    const node = await tsService.parseFile(filePath)
+    const diagramFilePath = fileService.cleanupPath(this._filePath)
+    return tsEntityService.extractEntities({ node, fileName, filePath: diagramFilePath })
   }
 }

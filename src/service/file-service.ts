@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import glob from 'glob'
 import path from 'path'
+import { constant } from 'src/util/constant'
 
 export const fileService = {
   fileListFromFolder: async ({ folderPath }: { folderPath: string }): Promise<string[]> => {
@@ -35,7 +36,7 @@ export const fileService = {
     return path.join(...paths)
   },
   isAbsPath: (relativeOrAbsPath: string): boolean => {
-    return relativeOrAbsPath.startsWith('/')
+    return relativeOrAbsPath.startsWith(constant.folderSep)
   },
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
     return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
@@ -45,25 +46,26 @@ export const fileService = {
     // return relativeOrAbsPath.startsWith('./') ? relativeOrAbsPath.slice(2) : relativeOrAbsPath
   },
   lastFolderFromPath: (filePath: string): string => {
-    const pathSplit = filePath.split('/')
+    const pathSplit = filePath.split(constant.folderSep)
     if (pathSplit[pathSplit.length - 1].includes('.')) pathSplit.pop()
-    return pathSplit.join('/')
+    return pathSplit.join(constant.folderSep)
   },
   importPathFind: (filePathImportedFrom: string, importPath: string): string => {
     const importedFromPath = fileService.lastFolderFromPath(filePathImportedFrom)
-    const importPathSplit = importPath.split('/')
-    const importedFromPathReverseSplit = importedFromPath.split('/').reverse()
+    const importPathSplit = importPath.split(constant.folderSep)
+    const importedFromPathReverseSplit = importedFromPath.split(constant.folderSep).reverse()
     let equalPathSplitCount = 0
     for (const [ix, split] of Object.entries(importPathSplit)) {
       if (importedFromPathReverseSplit[ix] !== split) break
       equalPathSplitCount = +ix + 1
     }
-    const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join('/')
+    const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join(constant.folderSep)
     return fileService.joinPaths(importedFromPath, cleanImportPath)
   },
-  fileNameFromPath: (filePath: string): string => {
-    const parts = filePath.split('/')
+  fileNameFromPath: (filePath: string, options: { withExtension?: boolean } = {}): string => {
+    const parts = filePath.split(constant.folderSep)
     const lastPart = parts[parts.length - 1]
+    if (options.withExtension) return lastPart
     const nameParts = lastPart.split('.')
     if (nameParts.length === 1) return nameParts[0]
     nameParts.pop()

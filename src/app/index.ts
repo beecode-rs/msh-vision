@@ -35,7 +35,7 @@ export const app = {
     await app._server.initiate()
   },
   _onError: async (err: Error): Promise<void> => {
-    logger.error(err.message)
+    logger.error(err.message, { err })
     await app._stop()
     process.exit(1)
   },

@@ -1,9 +1,6 @@
 import { ImportReference } from 'src/model/import-reference'
 import { stringUtil } from 'src/util/string-util'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const shortHash = require('short-hash')
-
 export enum EntityType {
   FILE = 'file',
   IMPORT = 'import',
@@ -11,6 +8,7 @@ export enum EntityType {
   CLASS = 'class',
   ENUM = 'enum',
   TYPE = 'type',
+  INTERFACE = 'interface',
 }
 
 export class Entity {
@@ -22,7 +20,7 @@ export class Entity {
   }
 
   public get Id(): string {
-    return `${stringUtil.snakeCase(this.name)}_${shortHash(this.filePath)}`
+    return `${stringUtil.snakeCase(this.name)}_${stringUtil.stringToHash(this.filePath)}`
   }
 
   public get Type(): EntityType {
@@ -31,8 +29,6 @@ export class Entity {
 
   public name: string
   public filePath: string
-
-  public entities: Entity[]
 
   public importReferences: ImportReference[] = []
 }

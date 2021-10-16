@@ -1,14 +1,32 @@
 import { EntityType } from 'src/model/entity'
 import ts from 'src/module/ts'
 
-export class TsStatementEntity {
-  constructor(partialEntity: Partial<TsStatementEntity>) {
-    if (partialEntity) Object.assign(this, partialEntity, this)
-  }
-  public entityType: EntityType
-  public statement: ts.Statement
-  public isExported = false
-  public name: string
-  public properties: string[]
-  public path: string
+export type TsMetaObject = {
+  properties: string[]
+  isExported: boolean
+}
+
+export type TsMetaClass = TsMetaObject
+
+export type TsMetaImport = {
+  path: string
+}
+export type TsMetaType = {
+  isExported: boolean
+}
+export type TsMetaEnum = {
+  isExported: boolean
+  properties: string[]
+}
+export type TsMetaInterface = {
+  isExported: boolean
+}
+
+type TsMeta = TsMetaObject | TsMetaClass | TsMetaImport | TsMetaType | TsMetaEnum | TsMetaImport
+
+export type TsStatementEntity<T extends TsMeta> = {
+  entityType: EntityType
+  statement: ts.Statement
+  name: string
+  meta: T
 }

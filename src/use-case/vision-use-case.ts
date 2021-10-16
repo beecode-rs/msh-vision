@@ -5,10 +5,10 @@ import { PrintStrategy } from 'src/service/print/print-strategy'
 
 export const visionUseCase = {
   processFolder: async ({ folderPath, printStrategy }: { folderPath: string; printStrategy: PrintStrategy }): Promise<void> => {
-    const fileList = await fileService.fileListFromFolder({ folderPath: folderPath })
+    const fileList = await fileService.fileListFromFolder({ folderPath })
     const convertStrategies = fileList
-      .filter((f) => !f.endsWith('test.ts'))
-      .map((f) => convertService.strategyByFile({ filePath: f, folderPath: folderPath }))
+      .filter((f) => !f.endsWith('test.ts')) // TODO implement some mechanism to ignore files
+      .map((f) => convertService.strategyByFile({ filePath: f, folderPath }))
       .filter(Boolean) as ConvertStrategy[]
     const entities = (await Promise.all(convertStrategies.map((cs) => cs.convert()))).flat()
     if (!entities) return

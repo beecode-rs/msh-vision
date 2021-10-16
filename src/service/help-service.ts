@@ -1,3 +1,5 @@
+import { constant } from 'src/util/constant'
+
 export const helpService = {
   text: (): string => {
     return [
@@ -9,6 +11,6 @@ export const helpService = {
       '   -v | --version          Display version',
       '',
       '   -h | --help             Display this help',
-    ].join('\n')
+    ].join(constant.newRow)
   },
 }

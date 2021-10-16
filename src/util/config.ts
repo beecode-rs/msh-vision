@@ -11,7 +11,7 @@ dotenv.config()
 
 export const config = Object.freeze({
   env: env('NODE_ENV').string.default('dev').required,
-  logLevel: (env('LOG_LEVEL').string.default('error').required as 'error' | 'warn' | 'info' | 'debug') as
+  logLevel: (env('LOG_LEVEL').string.default('info').required as 'error' | 'warn' | 'info' | 'debug') as
     | 'error'
     | 'warn'
     | 'info'

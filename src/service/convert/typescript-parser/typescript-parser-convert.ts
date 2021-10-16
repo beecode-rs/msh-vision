@@ -3,6 +3,7 @@ import { ConvertStrategy } from 'src/service/convert/convert-strategy'
 import { importExtractor } from 'src/service/convert/typescript-parser/import-extractor'
 import { typescriptParserEntityService } from 'src/service/convert/typescript-parser/typescript-parser-entity-service'
 import { fileService } from 'src/service/file-service'
+import { constant } from 'src/util/constant'
 import { TypescriptParser } from 'typescript-parser'
 
 const parser = new TypescriptParser()
@@ -13,7 +14,7 @@ export class TypescriptParserConvert implements ConvertStrategy {
   protected readonly _folderPath: string
   constructor({ filePath, folderPath, rootPath }: { filePath: string; folderPath: string; rootPath?: string }) {
     this._filePath = filePath
-    this._rootPath = rootPath ?? '/'
+    this._rootPath = rootPath ?? constant.folderSep
     this._folderPath = folderPath
   }
 
