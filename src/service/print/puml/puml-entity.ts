@@ -11,7 +11,7 @@ export abstract class PumlEntity {
 
   public print(): string {
     const bodyTemplate: string[] = []
-    bodyTemplate.push(...this._children.map((c) => c.print()))
+    bodyTemplate.push(...this._children.map((c) => c.print()).filter(Boolean))
     bodyTemplate.push(...this._print())
 
     const template: string[] = []
@@ -37,7 +37,7 @@ export abstract class PumlEntity {
 
   public printRelations(): string {
     const template: string[] = []
-    template.push(...this._relations.map((r) => r.print()))
+    template.push(...this._relations.map((r) => r.print()).filter(Boolean))
     return template.join(constant.newRow)
   }
 }

@@ -20,12 +20,13 @@ export class PumlGroup extends PumlEntity {
   }
 
   protected _print(): string[] {
-    return [this._printGroups(this.groups)]
+    return [this._printGroups(this.groups)].filter(Boolean)
   }
 
   protected _printGroups(groups: { [k: string]: PumlGroup }): string {
     return Object.values(groups)
       .map((pg) => pg.print())
+      .filter(Boolean)
       .join(constant.newRow)
   }
 
