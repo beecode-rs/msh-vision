@@ -7,8 +7,10 @@
           + {abstract} test(someParam: string): number
         }
         object "errors" as errors_90641da1 {
+          + debug(msg: string): void
         }
         object "logger" as logger_d1ee5f1e {
+          + debug(msg: string): void
         }
         interface "OtherInterface" as other_interface_9bbef566 {
         }

@@ -1,4 +1,6 @@
 import { EntityObject } from 'src/model/entity-object'
+import { Property } from 'src/model/property'
+import { PumlPrintableProperty } from 'src/service/print/puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 
 export class PumlPrintableObject extends PumlEntity {
@@ -17,6 +19,10 @@ export class PumlPrintableObject extends PumlEntity {
   }
 
   protected _print(): string[] {
-    return []
+    return this._entity.Properties.map((p) => this._printProperty(p)).filter(Boolean)
+  }
+
+  protected _printProperty(property: Property): string {
+    return new PumlPrintableProperty({ property }).print()
   }
 }

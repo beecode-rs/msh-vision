@@ -53,7 +53,7 @@ export class TsEntityParser {
       case ts.SyntaxKind.VariableDeclaration:
       case ts.SyntaxKind.VariableStatement:
       case ts.SyntaxKind.VariableDeclarationList:
-        return new TsParserObject({ statement, inProjectPath: this._inProjectPath })
+        return new TsParserObject({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
       case ts.SyntaxKind.ImportDeclaration:
         return undefined
       default:

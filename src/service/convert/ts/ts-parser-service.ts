@@ -17,9 +17,7 @@ const self = {
     if (modifiers.find((m) => m.kind === ts.SyntaxKind.ProtectedKeyword)) return PropertyAccessLevelType.PROTECTED
     return PropertyAccessLevelType.NO_MODIFIER
   },
-  propertiesFromInitializer: (initializer: ts.Expression | any): string[] => {
-    return (initializer.properties ?? []).map((p) => p.name.escapedText)
-  },
+
   nameFromDeclarationsList: (
     declarationList: ts.VariableDeclarationList
   ): { name: string; declaration: ts.VariableDeclaration } | undefined => {
