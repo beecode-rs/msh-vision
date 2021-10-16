@@ -1,5 +1,4 @@
 import { Entity } from 'src/model/entity'
-import { EntityFile } from 'src/model/entity-file'
 import ts from 'src/module/ts'
 import { ConvertStrategy } from 'src/service/convert/convert-strategy'
 import { TsParserFile } from 'src/service/convert/ts/parser/ts-parser-file'

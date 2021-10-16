@@ -1,5 +1,4 @@
 import { EntityFile } from 'src/model/entity-file'
-import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserImport, TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
@@ -34,10 +33,13 @@ export class TsParserFile implements Parsable {
   }
 
   protected _importsFromStatements(): TsParserImportParseResult[] {
-    return this._parsedSource.statements.map(this._importsFromStatement).filter(Boolean).flat() as TsParserImportParseResult[]
+    return this._parsedSource.statements
+      .map((s) => this._importsFromStatement(s))
+      .filter(Boolean)
+      .flat()
   }
   protected _importsFromStatement(statement: ts.Statement): TsParserImportParseResult[] {
     if (statement.kind != ts.SyntaxKind.ImportDeclaration) return []
-    return new TsParserImport({ statement }).parse()
+    return new TsParserImport({ statement, inProjectPath: this._inProjectPath }).parse()
   }
 }

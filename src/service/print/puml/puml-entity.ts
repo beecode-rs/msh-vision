@@ -1,7 +1,9 @@
+import { PumlRelation } from 'src/service/print/puml/puml-relation'
 import { constant } from 'src/util/constant'
 
 export abstract class PumlEntity {
   protected _children: PumlEntity[] = []
+  protected _relations: PumlRelation[] = []
 
   protected abstract _templateEnd(): string
   protected abstract _templateStart(): string
@@ -31,5 +33,11 @@ export abstract class PumlEntity {
 
   public addChildren(printable: PumlEntity): void {
     this._children.push(printable)
+  }
+
+  public printRelations(): string {
+    const template: string[] = []
+    template.push(...this._relations.map((r) => r.print()))
+    return template.join(constant.newRow)
   }
 }

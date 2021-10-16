@@ -22,4 +22,7 @@ export class Reference implements Locatable {
   public get InProjectPath(): string {
     return this._inProjectPath
   }
+  public get Type(): ReferenceType {
+    return this._type
+  }
 }

@@ -1,6 +1,6 @@
 import { PumlGroupType } from 'src/enum/puml-group-type'
-import { pumlGroupService } from 'src/service/print/puml/group/puml-group-service'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
+import { constant } from 'src/util/constant'
 import { stringUtil } from 'src/util/string-util'
 
 export class PumlGroup extends PumlEntity {
@@ -20,7 +20,13 @@ export class PumlGroup extends PumlEntity {
   }
 
   protected _print(): string[] {
-    return [pumlGroupService.printGroups(this.groups)]
+    return [this._printGroups(this.groups)]
+  }
+
+  protected _printGroups(groups: { [k: string]: PumlGroup }): string {
+    return Object.values(groups)
+      .map((pg) => pg.print())
+      .join(constant.newRow)
   }
 
   constructor({ name, type, groupPath }: { name: string; type: PumlGroupType; groupPath: string }) {
