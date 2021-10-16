@@ -1,34 +1,22 @@
-import { ImportReference } from 'src/model/import-reference'
+import { Locatable } from 'src/model/locatable'
 import { stringUtil } from 'src/util/string-util'
 
-export enum EntityType {
-  FILE = 'file',
-  IMPORT = 'import',
-  OBJECT = 'object',
-  CLASS = 'class',
-  ENUM = 'enum',
-  TYPE = 'type',
-  INTERFACE = 'interface',
-}
+export abstract class Entity implements Locatable {
+  protected readonly _name: string
+  protected readonly _inProjectPath: string
 
-export class Entity {
-  protected readonly _type: EntityType
-
-  constructor(partialEntity?: Partial<Entity>, type?: EntityType) {
-    if (partialEntity) Object.assign(this, partialEntity, this)
-    this._type = type ?? EntityType.OBJECT
+  protected constructor({ name, inProjectPath }: { name: string; inProjectPath: string }) {
+    this._name = name
+    this._inProjectPath = inProjectPath
   }
 
   public get Id(): string {
-    return `${stringUtil.snakeCase(this.name)}_${stringUtil.stringToHash(this.filePath)}`
+    return stringUtil.uniqueEntityHash(this.Name, this.InProjectPath)
   }
-
-  public get Type(): EntityType {
-    return this._type
+  public get Name(): string {
+    return this._name
   }
-
-  public name: string
-  public filePath: string
-
-  public importReferences: ImportReference[] = []
+  public get InProjectPath(): string {
+    return this._inProjectPath
+  }
 }

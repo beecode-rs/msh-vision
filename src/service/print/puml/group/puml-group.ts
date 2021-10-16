@@ -1,22 +1,21 @@
-import { Printable } from 'src/service/print/printable'
+import { PumlGroupType } from 'src/enum/puml-group-type'
 import { pumlGroupService } from 'src/service/print/puml/group/puml-group-service'
+import { PumlEntity } from 'src/service/print/puml/puml-entity'
 import { stringUtil } from 'src/util/string-util'
 
-export enum PumlGroupType {
-  FOLDER = 'folder',
-  RECTANGLE = 'rectangle',
-}
-
-export class PumlGroup extends Printable {
+export class PumlGroup extends PumlEntity {
   protected readonly _name: string
+  protected readonly _type: PumlGroupType
+  protected readonly _groupPath: string
   public groups: { [k: string]: PumlGroup } = {}
-  public readonly _type: PumlGroupType
-  public readonly _fullGroupPath: string
+
   protected _templateEnd(): string {
+    if (this.Type === PumlGroupType.FICTIVE) return ''
     return '}'
   }
 
   protected _templateStart(): string {
+    if (this.Type === PumlGroupType.FICTIVE) return ''
     return `${this._type} "${this.Name}" as ${this.Id} {`
   }
 
@@ -24,18 +23,26 @@ export class PumlGroup extends Printable {
     return [pumlGroupService.printGroups(this.groups)]
   }
 
-  constructor({ name, type, fullGroupPath }: { name: string; type?: PumlGroupType; fullGroupPath: string }) {
+  constructor({ name, type, groupPath }: { name: string; type: PumlGroupType; groupPath: string }) {
     super()
     this._name = name
-    this._type = type ?? PumlGroupType.FOLDER
-    this._fullGroupPath = fullGroupPath
+    this._type = type
+    this._groupPath = groupPath
   }
 
   public get Id(): string {
-    return `${stringUtil.snakeCase(this._name)}_${stringUtil.stringToHash(this._fullGroupPath)}`
+    return stringUtil.uniqueEntityHash(this.Name, this._groupPath)
   }
 
   public get Name(): string {
     return this._name
+  }
+
+  public get GroupPath(): string {
+    return this._groupPath
+  }
+
+  public get Type(): string {
+    return this._type
   }
 }

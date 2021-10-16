@@ -1,6 +1,6 @@
-import { Printable } from 'src/service/print/printable'
+import { PumlEntity } from '../puml-entity'
 
-export class PumlRelation extends Printable {
+export class PumlRelation extends PumlEntity {
   protected readonly _from: string
   protected readonly _to: string
 
@@ -10,15 +10,15 @@ export class PumlRelation extends Printable {
     this._to = to
   }
 
-  protected _templateStart(): string {
+  protected get _TemplateStart(): string {
     return `${this._from} -up-> ${this._to}`
   }
 
-  protected _templateEnd(): string {
+  protected get _TemplateEnd(): string {
     return ''
   }
 
-  protected _print(): string[] {
+  protected get _Print(): string[] {
     return []
   }
 }

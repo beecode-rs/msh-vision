@@ -20,6 +20,9 @@ export const fileService = {
   writeToFile: async ({ filePath, data }: { filePath: string; data: string }): Promise<void> => {
     await fs.writeFile(filePath, data, 'utf-8')
   },
+  readFile: async (filePath: string): Promise<string> => {
+    return fs.readFile(filePath, 'utf8')
+  },
   mkdirAndWriteToFile: async ({
     folderPath,
     fileName,

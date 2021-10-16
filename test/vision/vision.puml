@@ -1,22 +1,15 @@
 @startuml
-  rectangle "application" as application_97208b5f {
     rectangle "index.ts" as index_ts_6269cc92 {
     }
-    folder "util" as util_7c6f1d01 {
+    folder "util" as util_24c07134 {
       object "errors" as errors_9c0c198c {
       }
       object "logger" as logger_15d2abb3 {
       }
       class "SomeClass" as some_class_7f27bf30 {
       }
-      object "SomeInterface" as some_interface_d80ef49b {
-      }
-      rectangle "some-interface.ts" as some_interface_ts_d80ef49b {
+      interface "SomeInterface" as some_interface_d80ef49b {
       }
       
     }
-  }
-  index_ts_6269cc92 -up-> some_class_7f27bf30
-  index_ts_6269cc92 -up-> logger_15d2abb3
-  some_class_7f27bf30 -up-> some_interface_d80ef49b
 @enduml

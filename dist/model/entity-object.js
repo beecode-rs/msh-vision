@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EntityObject = void 0;
+const entity_1 = require("src/model/entity");
+class EntityObject extends entity_1.Entity {
+    constructor({ name, inProjectPath, isExported }) {
+        super({ name, inProjectPath });
+        this._isExported = isExported ?? false;
+    }
+    get IsExported() {
+        return this._isExported;
+    }
+}
+exports.EntityObject = EntityObject;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW50aXR5LW9iamVjdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbC9lbnRpdHktb2JqZWN0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLDZDQUF5QztBQUd6QyxNQUFhLFlBQWEsU0FBUSxlQUFNO0lBR3RDLFlBQVksRUFBRSxJQUFJLEVBQUUsYUFBYSxFQUFFLFVBQVUsRUFBaUU7UUFDNUcsS0FBSyxDQUFDLEVBQUUsSUFBSSxFQUFFLGFBQWEsRUFBRSxDQUFDLENBQUE7UUFDOUIsSUFBSSxDQUFDLFdBQVcsR0FBRyxVQUFVLElBQUksS0FBSyxDQUFBO0lBQ3hDLENBQUM7SUFFRCxJQUFXLFVBQVU7UUFDbkIsT0FBTyxJQUFJLENBQUMsV0FBVyxDQUFBO0lBQ3pCLENBQUM7Q0FDRjtBQVhELG9DQVdDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRW50aXR5IH0gZnJvbSAnc3JjL21vZGVsL2VudGl0eSdcbmltcG9ydCB7IEV4cG9ydGFibGUgfSBmcm9tICdzcmMvbW9kZWwvZXhwb3J0YWJsZSdcblxuZXhwb3J0IGNsYXNzIEVudGl0eU9iamVjdCBleHRlbmRzIEVudGl0eSBpbXBsZW1lbnRzIEV4cG9ydGFibGUge1xuICBwcm90ZWN0ZWQgcmVhZG9ubHkgX2lzRXhwb3J0ZWQ6IGJvb2xlYW5cblxuICBjb25zdHJ1Y3Rvcih7IG5hbWUsIGluUHJvamVjdFBhdGgsIGlzRXhwb3J0ZWQgfTogeyBuYW1lOiBzdHJpbmc7IGluUHJvamVjdFBhdGg6IHN0cmluZzsgaXNFeHBvcnRlZD86IGJvb2xlYW4gfSkge1xuICAgIHN1cGVyKHsgbmFtZSwgaW5Qcm9qZWN0UGF0aCB9KVxuICAgIHRoaXMuX2lzRXhwb3J0ZWQgPSBpc0V4cG9ydGVkID8/IGZhbHNlXG4gIH1cblxuICBwdWJsaWMgZ2V0IElzRXhwb3J0ZWQoKTogYm9vbGVhbiB7XG4gICAgcmV0dXJuIHRoaXMuX2lzRXhwb3J0ZWRcbiAgfVxufVxuIl19

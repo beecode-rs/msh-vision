@@ -2,7 +2,7 @@ import { camelCase, snakeCase } from 'change-case'
 
 const shortHash = require('short-hash') // eslint-disable-line @typescript-eslint/no-var-requires
 
-export const stringUtil = {
+const self = {
   camelCase: (name: string): string => {
     return camelCase(name)
   },
@@ -12,4 +12,11 @@ export const stringUtil = {
   stringToHash: (text: string): string => {
     return shortHash(text)
   },
+  uniqueEntityHash: (name: string, inProjectPath: string): string => {
+    const cleanName = self.snakeCase(name)
+    const hashPath = self.stringToHash(inProjectPath)
+    return `${cleanName}_${hashPath}`
+  },
 }
+
+export const stringUtil = self
