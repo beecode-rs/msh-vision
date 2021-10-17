@@ -40,7 +40,7 @@ export class TsParserImport implements Parsable<TsParserImportParseResult[]> {
   }
 
   protected _importedFileInProjectAbsPath(importPath: string): string {
-    if (fileService.isAbsPath(importPath)) return importPath
+    if (!fileService.isDotPath(importPath)) return importPath
     return fileService.importPathFind(this._inProjectPath, importPath)
   }
 }

@@ -11,8 +11,10 @@
       object "fn2" as fn2_82e12db {
       }
       object "objectExport" as object_export_8fea82dd {
+        + test: SomeType
       }
       class "TestClass" as test_class_8fea82dd {
+        + test: string
       }
     }
   index_ts_e4daf83f -up-> default_object_bb31c332

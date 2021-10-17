@@ -1,15 +1,19 @@
 import { PumlGroupType } from 'src/enum/puml-group-type'
 import { Entity } from 'src/model/entity'
 import { EntityClass } from 'src/model/entity-class'
+import { EntityEnum } from 'src/model/entity-enum'
 import { EntityFile } from 'src/model/entity-file'
 import { EntityInterface } from 'src/model/entity-interface'
 import { EntityObject } from 'src/model/entity-object'
+import { EntityType } from 'src/model/entity-type'
 import { fileService } from 'src/service/file-service'
 import { PrintStrategy } from 'src/service/print/print-strategy'
 import { PumlPrintableClass } from 'src/service/print/puml/printable-entity/puml-printable-class'
+import { PumlPrintableEnum } from 'src/service/print/puml/printable-entity/puml-printable-enum'
 import { PumlPrintableFile } from 'src/service/print/puml/printable-entity/puml-printable-file'
 import { PumlPrintableInterface } from 'src/service/print/puml/printable-entity/puml-printable-interface'
 import { PumlPrintableObject } from 'src/service/print/puml/printable-entity/puml-printable-object'
+import { PumlPrintableType } from 'src/service/print/puml/printable-entity/puml-printable-type'
 import { PumlPrintableWrapper } from 'src/service/print/puml/printable-entity/puml-printable-wrapper'
 import { PumlDocument } from 'src/service/print/puml/puml-document'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
@@ -71,6 +75,10 @@ export class PumlPrint implements PrintStrategy {
         return new PumlPrintableObject({ entity: entity as EntityObject })
       case entity instanceof EntityInterface:
         return new PumlPrintableInterface({ entity: entity as EntityInterface })
+      case entity instanceof EntityType:
+        return new PumlPrintableType({ entity: entity as EntityType })
+      case entity instanceof EntityEnum:
+        return new PumlPrintableEnum({ entity: entity as EntityEnum })
       default:
         logger.warn(`Unknown entity type ${entity.constructor.name}`)
     }

@@ -1,6 +1,6 @@
 @startuml
     folder "src" as src_b874d07 {
-      rectangle "index.ts" as index_ts_e4daf83f {
+      artifact "index.ts" as index_ts_e4daf83f {
       }
       folder "app" as app_6faf0769 {
         class "CliApp" as cli_app_8bf9ca45 {
@@ -25,6 +25,8 @@
         }
       }
       folder "dal" as dal_fba75381 {
+        card "T: ExecResult" as exec_result_4f6edd5d {
+        }
         object "shellDal" as shell_dal_4f6edd5d {
           + exec(cmd: string): Promise<ExecResult>
           + print(message: string): void
@@ -33,9 +35,18 @@
         }
       }
       folder "enum" as enum_1eea471b {
-        rectangle "puml-group-type.ts" as puml_group_type_ts_87f1b99e {
+        enum "PumlGroupType" as puml_group_type_87f1b99e {
+          FOLDER = 'folder'
+          RECTANGLE = 'rectangle'
+          FICTIVE = 'fictive'
         }
-        rectangle "reference-type.ts" as reference_type_ts_1f38c983 {
+        enum "ReferenceType" as reference_type_1f38c983 {
+          ASSOCIATION = 'association'
+          INHERITANCE = 'inheritance'
+          IMPLEMENTATION = 'implementation'
+          DEPENDENCY = 'dependency'
+          AGGREGATION = 'aggregation'
+          COMPOSITION = 'composition'
         }
       }
       folder "model" as model_40d91327 {
@@ -66,8 +77,20 @@
         }
         class "EntityEnum" as entity_enum_f7c58024 {
           # _isExported: boolean
-          constructor({ name, inProjectPath, isExported }: { name: string; inProjectPath: string; isExported?: boolean })
+          # _properties: string[]
+          constructor({
+              name,
+              inProjectPath,
+              isExported,
+              properties,
+            }: {
+              name: string
+              inProjectPath: string
+              isExported?: boolean
+              properties: string[]
+            })
           + IsExported: boolean
+          + Properties: string[]
         }
         class "EntityFile" as entity_file_33f169f1 {
           # _references: Reference[]
@@ -98,20 +121,24 @@
         }
         class "EntityObject" as entity_object_784a4022 {
           # _isExported: boolean
+          # _aliasReference: string
           # _properties: Property[]
           constructor({
               name,
               inProjectPath,
               isExported,
               properties,
+              aliasReference,
             }: {
               name: string
               inProjectPath: string
               isExported?: boolean
               properties?: Property[]
+              aliasReference?: string
             })
           + IsExported: boolean
           + Properties: Property[]
+          + AliasReference: string
         }
         class "EntityType" as entity_type_a3fb7caf {
           # _isExported: boolean
@@ -125,6 +152,7 @@
           + Id: string
           + Name: string
           + InProjectPath: string
+          + renameEntity(name: string): void
         }
         interface "Exportable" as exportable_2ac9ab8f {
           + IsExported: boolean
@@ -133,6 +161,12 @@
           + Id: string
           + Name: string
           + InProjectPath: string
+        }
+        enum "PropertyAccessLevelType" as property_access_level_type_d5a84d26 {
+          PUBLIC = 'public'
+          PRIVATE = 'private'
+          PROTECTED = 'protected'
+          NO_MODIFIER = 'no-modifier'
         }
         class "Property" as property_d5a84d26 {
           # _name: string
@@ -174,10 +208,16 @@
         }
       }
       folder "module" as module_9f6f6c52 {
-        rectangle "ts.ts" as ts_ts_eabf7773 {
+        artifact "ts.ts" as ts_ts_eabf7773 {
         }
       }
       folder "service" as service_c83a6ab5 {
+        card "T: ArgsServiceParams" as args_service_params_d268d804 {
+        }
+        card "T: CliCommands" as cli_commands_d268d804 {
+        }
+        card "T: CmdGenerateParams" as cmd_generate_params_d268d804 {
+        }
         object "argsService" as args_service_d268d804 {
           + cliCommandOptions: Options
           + cmdGenerateParams: Options
@@ -204,6 +244,7 @@
             }): Promise<void>
           + joinPaths(...paths: string[]): string
           + isAbsPath(relativeOrAbsPath: string): boolean
+          + isDotPath(path: string): boolean
           + relativeToAbsPath(relativeOrAbsPath: string): string
           + cleanupPath(relativeOrAbsPath: string): string
           + lastFolderFromPath(filePath: string): string
@@ -212,6 +253,8 @@
         }
         object "helpService" as help_service_20a1eb92 {
           + text: string
+        }
+        card "T: PrintStdMessage" as print_std_message_db3f045d {
         }
         object "shellService" as shell_service_db3f045d {
           + exec: shellDal
@@ -244,16 +287,16 @@
             + convert: Promise<Entity[]>
           }
           folder "ts" as ts_42a428a5 {
+            card "T: TsConfigFileType" as ts_config_file_type_715f0c18 {
+            }
             object "___tsConfigFileJson" as ts_config_file_json_715f0c18 {
             }
-            object "self" as self_715f0c18 {
+            object "tsConfigFileService" as ts_config_file_service_715f0c18 {
               + init: Promise<void>
               # _getFileJson: TsConfigFileType
               # _cleanReplacePaths: { startsWith: string; replaceWith: string }[]
               # _cleanReplaceWith(path: string): string
               + moduleAliasResolve(path: string): string
-            }
-            object "tsConfigFileService" as ts_config_file_service_715f0c18 {
             }
             class "TsConvert" as ts_convert_87a0875e {
               # _filePath: string
@@ -279,8 +322,9 @@
               # _parseStatements: Entity[]
               # _parseStatement(statement: ts.Statement): Entity[]
               # _parserByStatementKind(statement: ts.Statement): Parsable | undefined
+              # _joinEntitiesByAliasReference(entities: Entity[]): Entity[]
             }
-            object "self" as self_e67f4e7e {
+            object "tsParserService" as ts_parser_service_e67f4e7e {
               + isExported(modifiers?: ts.ModifiersArray): boolean
               + isAbstract(modifiers?: ts.ModifiersArray): boolean
               + accessLevel(modifiers?: ts.ModifiersArray): PropertyAccessLevelType
@@ -296,8 +340,6 @@
                   parsedSource: ts.SourceFile
                   inProjectPath: string
                 }): Reference[]
-            }
-            object "tsParserService" as ts_parser_service_e67f4e7e {
             }
             folder "parser" as parser_a64afe8d {
               interface "Parsable" as parsable_1dc7e811 {
@@ -320,6 +362,21 @@
                 # _findProperties: Property[]
                 # _returnTypeValue(member: any): string
               }
+              class "TsParserEnum" as ts_parser_enum_2a645d78 {
+                # _statement: ts.Statement
+                # _inProjectPath: string
+                # _parsedSource: ts.SourceFile
+                constructor({
+                    parsedSource,
+                    statement,
+                    inProjectPath,
+                  }: {
+                    parsedSource: ts.SourceFile
+                    statement: ts.Statement
+                    inProjectPath: string
+                  })
+                + parse: EntityEnum[]
+              }
               class "TsParserFile" as ts_parser_file_f26663cd {
                 # _parsedSource: ts.SourceFile
                 # _inProjectPath: string
@@ -336,6 +393,8 @@
                 + parse: EntityFile[]
                 # _importsFromStatements: TsParserImportParseResult[]
                 # _importsFromStatement(statement: ts.Statement): TsParserImportParseResult[]
+              }
+              card "T: TsParserImportParseResult" as ts_parser_import_parse_result_edaa2a96 {
               }
               class "TsParserImport" as ts_parser_import_edaa2a96 {
                 # _statement: ts.Statement
@@ -453,6 +512,13 @@
                 # _print: string[]
                 # _printProperty(property: Property): string
               }
+              class "PumlPrintableEnum" as puml_printable_enum_9f4c4448 {
+                # _entity: EntityEnum
+                # _templateEnd: string
+                # _templateStart: string
+                constructor({ entity }: { entity: EntityEnum })
+                # _print: string[]
+              }
               class "PumlPrintableFile" as puml_printable_file_11eb1ddd {
                 # _entity: EntityFile
                 # _templateEnd: string
@@ -486,6 +552,13 @@
                 # _abstractAttribute: string
                 # _accessLevel: string
               }
+              class "PumlPrintableType" as puml_printable_type_21bec203 {
+                # _entity: EntityType
+                # _templateEnd: string
+                # _templateStart: string
+                constructor({ entity }: { entity: EntityType })
+                # _print: string[]
+              }
               class "PumlPrintableWrapper" as puml_printable_wrapper_b8ea5ae8 {
                 # _templateEnd: string
                 # _templateStart: string
@@ -512,6 +585,8 @@
         }
         object "config" as config_939c4ec0 {
         }
+        card "T: VisionConfigReturn" as vision_config_return_939c4ec0 {
+        }
         object "visionConfig" as vision_config_939c4ec0 {
         }
         object "packageJson" as package_json_6be721f4 {
@@ -522,52 +597,53 @@
         }
         object "shortHash" as short_hash_20f7f236 {
         }
-        object "self" as self_20f7f236 {
+        object "stringUtil" as string_util_20f7f236 {
           + camelCase(name: string): string
           + snakeCase(name: string): string
           + stringToHash(text: string): string
           + uniqueEntityHash(name: string, inProjectPath: string): string
         }
-        object "stringUtil" as string_util_20f7f236 {
-        }
       }
     }
-  cli_app_8bf9ca45 -up-|> app_1b39ef38
-  exec_args_as_command_d74becbe -up-|> initiate_759d1eed
+  cli_app_8bf9ca45 -up-|> app_d815df3b
+  exec_args_as_command_d74becbe -up-|> initiate_d815df3b
   index_ts_e4daf83f -up-> logger_d1ee5f1e
-  entity_class_87e50b39 -up-|> entity_f33c33fa
-  entity_class_87e50b39 .up.|> exportable_ed4cefaf
-  entity_class_87e50b39 .up.|> referencable_f95d8bc5
-  entity_enum_f7c58024 -up-|> entity_f33c33fa
-  entity_enum_f7c58024 .up.|> exportable_ed4cefaf
-  entity_file_33f169f1 -up-|> entity_f33c33fa
-  entity_file_33f169f1 .up.|> referencable_f95d8bc5
-  entity_interface_590b4132 -up-|> entity_f33c33fa
-  entity_interface_590b4132 .up.|> exportable_ed4cefaf
-  entity_object_784a4022 -up-|> entity_f33c33fa
-  entity_object_784a4022 .up.|> exportable_ed4cefaf
-  entity_type_a3fb7caf -up-|> entity_f33c33fa
-  entity_type_a3fb7caf .up.|> exportable_ed4cefaf
-  entity_9581579a .up.|> locatable_3f9f71be
-  reference_aaef6aea .up.|> locatable_3f9f71be
-  ts_ts_eabf7773 -up-> ts_cc414543
-  generate_eb5ef3b0 .up.|> executable_289f98b1
-  print_help_2c3c3bf6 .up.|> executable_289f98b1
-  print_version_dc92b85d .up.|> executable_289f98b1
-  ts_parser_class_5b693985 .up.|> parsable_26bdd71b
-  ts_parser_file_f26663cd .up.|> parsable_26bdd71b
-  ts_parser_import_edaa2a96 .up.|> parsable_26bdd71b
-  ts_parser_interface_8936afae .up.|> parsable_26bdd71b
-  ts_parser_object_cba014be .up.|> parsable_26bdd71b
-  ts_parser_type_46289b53 .up.|> parsable_26bdd71b
-  ts_convert_87a0875e .up.|> convert_strategy_4efa74a8
-  puml_printable_class_46ef6395 -up-|> puml_entity_72331cf1
-  puml_printable_file_11eb1ddd -up-|> puml_entity_72331cf1
-  puml_printable_interface_dfa76d5e -up-|> puml_entity_72331cf1
-  puml_printable_object_2cf1044e -up-|> puml_entity_72331cf1
-  puml_printable_property_739e371c -up-|> puml_entity_72331cf1
-  puml_printable_wrapper_b8ea5ae8 -up-|> puml_entity_72331cf1
-  puml_document_ebf39ea0 -up-|> puml_entity_62372633
-  puml_group_a2149850 -up-|> puml_entity_62372633
-  puml_print_77dc46be .up.|> print_strategy_906c034d
+  entity_class_87e50b39 -up-|> entity_9581579a
+  entity_class_87e50b39 .up.|> exportable_2ac9ab8f
+  entity_class_87e50b39 .up.|> referencable_31799d25
+  entity_enum_f7c58024 -up-|> entity_9581579a
+  entity_enum_f7c58024 .up.|> exportable_2ac9ab8f
+  entity_file_33f169f1 -up-|> entity_9581579a
+  entity_file_33f169f1 .up.|> referencable_31799d25
+  entity_interface_590b4132 -up-|> entity_9581579a
+  entity_interface_590b4132 .up.|> exportable_2ac9ab8f
+  entity_object_784a4022 -up-|> entity_9581579a
+  entity_object_784a4022 .up.|> exportable_2ac9ab8f
+  entity_type_a3fb7caf -up-|> entity_9581579a
+  entity_type_a3fb7caf .up.|> exportable_2ac9ab8f
+  entity_9581579a .up.|> locatable_b011d3de
+  reference_aaef6aea .up.|> locatable_b011d3de
+  ts_ts_eabf7773 -up-> ts_88927a5b
+  generate_eb5ef3b0 .up.|> executable_a85166eb
+  print_help_2c3c3bf6 .up.|> executable_a85166eb
+  print_version_dc92b85d .up.|> executable_a85166eb
+  ts_parser_class_5b693985 .up.|> parsable_1dc7e811
+  ts_parser_enum_2a645d78 .up.|> parsable_1dc7e811
+  ts_parser_file_f26663cd .up.|> parsable_1dc7e811
+  ts_parser_import_edaa2a96 .up.|> parsable_1dc7e811
+  ts_parser_interface_8936afae .up.|> parsable_1dc7e811
+  ts_parser_object_cba014be .up.|> parsable_1dc7e811
+  ts_parser_type_46289b53 .up.|> parsable_1dc7e811
+  ts_convert_87a0875e .up.|> convert_strategy_2898ab6a
+  puml_printable_class_46ef6395 -up-|> puml_entity_cc3a6994
+  puml_printable_enum_9f4c4448 -up-|> puml_entity_cc3a6994
+  puml_printable_file_11eb1ddd -up-|> puml_entity_cc3a6994
+  puml_printable_interface_dfa76d5e -up-|> puml_entity_cc3a6994
+  puml_printable_object_2cf1044e -up-|> puml_entity_cc3a6994
+  puml_printable_property_739e371c -up-|> puml_entity_cc3a6994
+  puml_printable_type_21bec203 -up-|> puml_entity_cc3a6994
+  puml_printable_wrapper_b8ea5ae8 -up-|> puml_entity_cc3a6994
+  puml_document_ebf39ea0 -up-|> puml_entity_cc3a6994
+  puml_group_a2149850 -up-|> puml_entity_cc3a6994
+  puml_print_77dc46be .up.|> print_strategy_5e9faaaa
 @enduml

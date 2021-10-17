@@ -40,7 +40,11 @@ export const fileService = {
     return path.join(...paths)
   },
   isAbsPath: (relativeOrAbsPath: string): boolean => {
+    // return !relativeOrAbsPath.startsWith(`.${constant.folderSep}`)
     return relativeOrAbsPath.startsWith(constant.folderSep)
+  },
+  isDotPath: (path: string): boolean => {
+    return path.startsWith('.')
   },
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
     return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)

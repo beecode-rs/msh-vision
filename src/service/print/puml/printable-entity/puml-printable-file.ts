@@ -9,7 +9,7 @@ export class PumlPrintableFile extends PumlEntity {
     return '}'
   }
   protected _templateStart(): string {
-    return `rectangle "${this._entity.Name}" as ${this._entity.Id} {`
+    return `artifact "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
   constructor({ entity }: { entity: EntityFile }) {

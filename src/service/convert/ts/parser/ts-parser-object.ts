@@ -29,6 +29,8 @@ export class TsParserObject implements Parsable {
     const { name, declaration } = result
     const properties = this._findProperties(declaration?.initializer?.['properties'])
     const isExported = tsParserService.isExported(this._statement.modifiers)
+    const aliasReference =
+      declaration.initializer?.kind === ts.SyntaxKind.Identifier ? declaration.initializer['escapedText'] : ''
 
     return [
       new EntityObject({
@@ -36,6 +38,7 @@ export class TsParserObject implements Parsable {
         inProjectPath: this._inProjectPath,
         isExported,
         properties,
+        aliasReference,
       }),
     ]
   }
@@ -45,7 +48,6 @@ export class TsParserObject implements Parsable {
     return properties.map((property) => {
       const name = property.name.escapedText
       const accessLevel = this._accessLevel(name)
-      // const returnType = property.initializer.type.getText(this._parsedSource)
       const returnType = this._returnTypeValue(property)
       const functionParams =
         (property.initializer.parameters ?? []).length === 0

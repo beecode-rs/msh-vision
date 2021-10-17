@@ -44,6 +44,7 @@ const self = {
       ts.SyntaxKind.VariableDeclaration,
       ts.SyntaxKind.VariableStatement,
       ts.SyntaxKind.VariableDeclarationList,
+      ts.SyntaxKind.EnumDeclaration,
     ].includes(kind)
   },
   findClassRelations: ({
