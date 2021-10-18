@@ -1,4 +1,7 @@
+import { ReferenceType } from 'src/enum/reference-type'
+import { Entity } from 'src/model/entity'
 import { EntityFile } from 'src/model/entity-file'
+import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
@@ -22,15 +25,19 @@ export class TsParserFile implements Parsable {
     this._importParseResults = importParseResults
   }
 
-  public parse(): EntityFile[] {
-    const entityFile = new EntityFile({
-      name: this._fileName,
-      inProjectPath: this._inProjectPath,
-    })
-
-    this._importParseResults.forEach(({ name, inProjectPath }: TsParserImportParseResult) =>
-      entityFile.addAssociation({ name, inProjectPath })
+  public parse(): Entity<EntityFile>[] {
+    const references = this._importParseResults.map(
+      ({ name, inProjectPath }) => new Reference({ name, inProjectPath, type: ReferenceType.ASSOCIATION })
     )
-    return [entityFile]
+    return [
+      new Entity({
+        name: this._fileName,
+        inProjectPath: this._inProjectPath,
+        isExported: true,
+        meta: new EntityFile({
+          references,
+        }),
+      }),
+    ]
   }
 }

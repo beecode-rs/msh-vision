@@ -1,5 +1,7 @@
+import { PropertyAccessLevelType } from 'src/enum/property-access-level-type'
+import { Entity } from 'src/model/entity'
 import { EntityObject } from 'src/model/entity-object'
-import { Property, PropertyAccessLevelType } from 'src/model/property'
+import { Property } from 'src/model/property'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
@@ -25,7 +27,7 @@ export class TsParserObject implements Parsable {
     this._importParseResults = importParseResults ?? []
   }
 
-  public parse(): EntityObject[] {
+  public parse(): Entity<EntityObject>[] {
     const result = this._nameFromDeclarationsList(this._statement['declarationList'])
     if (!result) throw new Error('Could not parse object from statement')
     const { name, declaration } = result
@@ -37,13 +39,15 @@ export class TsParserObject implements Parsable {
     const imports = tsParserImportRelations.findImportRelations(declaration, this._importParseResults)
 
     return [
-      new EntityObject({
+      new Entity({
         name,
         inProjectPath: this._inProjectPath,
         isExported,
-        properties,
-        aliasReference,
-        references: [...imports],
+        meta: new EntityObject({
+          properties,
+          aliasReference,
+          references: [...imports],
+        }),
       }),
     ]
   }

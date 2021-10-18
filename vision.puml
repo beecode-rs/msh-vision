@@ -35,6 +35,12 @@
         }
       }
       folder "enum" as enum_1eea471b {
+        enum "PropertyAccessLevelType" as property_access_level_type_daa2367d {
+          NO_MODIFIER = 'no-modifier'
+          PRIVATE = 'private'
+          PROTECTED = 'protected'
+          PUBLIC = 'public'
+        }
         enum "PumlGroupType" as puml_group_type_87f1b99e {
           FICTIVE = 'fictive'
           FOLDER = 'folder'
@@ -52,76 +58,62 @@
       folder "model" as model_40d91327 {
         class "EntityClass" as entity_class_87e50b39 {
           + IsAbstract: boolean
-          + IsExported: boolean
           + Properties: Property[]
           + References: Reference[]
           # _isAbstract: boolean
-          # _isExported: boolean
           # _properties: Property[]
           # _references: Reference[]
-          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    isAbstract?: boolean    references?: Reference[]    properties?: Property[]  })
+          constructor(params: { isAbstract?: boolean; references?: Reference[]; properties?: Property[] })
         }
         class "EntityEnum" as entity_enum_f7c58024 {
-          + IsExported: boolean
           + Properties: string[]
-          # _isExported: boolean
           # _properties: string[]
-          constructor(params: { name: string; inProjectPath: string; isExported?: boolean; properties: string[] })
+          constructor(params: { properties: string[] })
         }
         class "EntityFile" as entity_file_33f169f1 {
           + References: Reference[]
           # _references: Reference[]
           + addAssociation({ name, inProjectPath }: { name: string; inProjectPath: string }): void
-          constructor(params: { name: string; inProjectPath: string })
+          constructor(params: { references: Reference[] })
         }
         class "EntityInterface" as entity_interface_590b4132 {
-          + IsExported: boolean
           + Properties: Property[]
           + References: Reference[]
-          # _isExported: boolean
           # _properties: Property[]
           # _references: Reference[]
-          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    references?: Reference[]    properties?: Property[]  })
+          constructor(params: { references?: Reference[]; properties?: Property[] })
         }
         class "EntityObject" as entity_object_784a4022 {
           + AliasReference: string
-          + IsExported: boolean
           + Properties: Property[]
           + References: Reference[]
           # _aliasReference: string
-          # _isExported: boolean
           # _properties: Property[]
           # _references: Reference[]
-          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    references?: Reference[]    properties?: Property[]    aliasReference?: string  })
+          constructor(params: { references?: Reference[]; properties?: Property[]; aliasReference?: string })
         }
         class "EntityType" as entity_type_a3fb7caf {
-          + IsExported: boolean
-          # _isExported: boolean
-          constructor(params: { name: string; inProjectPath: string; isExported?: boolean })
         }
-        abstract "Entity" as entity_9581579a {
+        card "T: EntityMeta" as entity_meta_9581579a {
+        }
+        class "Entity" as entity_9581579a {
           + Id: string
           + InProjectPath: string
-          + Name: string
-          + SortByName(a: Entity, b: Entity): number
-          # _inProjectPath: string
-          # _name: string
-          # constructor(params: { name: string; inProjectPath: string })
-          + renameEntity(name: string): void
-        }
-        interface "Exportable" as exportable_2ac9ab8f {
           + IsExported: boolean
+          + Meta: T
+          + Name: string
+          + SortByName(a: Entity<any>, b: Entity<any>): number
+          # _inProjectPath: string
+          # _isExported: boolean
+          # _meta: T
+          # _name: string
+          constructor(params: { name: string; inProjectPath: string; isExported: boolean; meta: T })
+          + renameEntity(name: string): void
         }
         interface "Locatable" as locatable_b011d3de {
           + Id: string
           + Name: string
           + InProjectPath: string
-        }
-        enum "PropertyAccessLevelType" as property_access_level_type_d5a84d26 {
-          NO_MODIFIER = 'no-modifier'
-          PRIVATE = 'private'
-          PROTECTED = 'protected'
-          PUBLIC = 'public'
         }
         class "Property" as property_d5a84d26 {
           + AccessLevel: PropertyAccessLevelType
@@ -284,14 +276,14 @@
                 # _returnTypeValue(member: any): string
                 # _statement: ts.Statement
                 constructor(params: {    parsedSource: ts.SourceFile    statement: ts.Statement    inProjectPath: string    importParseResults: TsParserImportParseResult[]  })
-                + parse: EntityClass[]
+                + parse: Entity<EntityClass>[]
               }
               class "TsParserEnum" as ts_parser_enum_2a645d78 {
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
                 # _statement: ts.Statement
                 constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
-                + parse: EntityEnum[]
+                + parse: Entity<EntityEnum>[]
               }
               class "TsParserFile" as ts_parser_file_f26663cd {
                 # _fileName: string
@@ -299,7 +291,7 @@
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
                 constructor(params: {    parsedSource: ts.SourceFile    inProjectPath: string    fileName: string    importParseResults: TsParserImportParseResult[]  })
-                + parse: EntityFile[]
+                + parse: Entity<EntityFile>[]
               }
               card "T: TsParserImportParseResult" as ts_parser_import_parse_result_edaa2a96 {
               }
@@ -319,7 +311,7 @@
                 # _parsedSource: ts.SourceFile
                 # _statement: ts.Statement
                 constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
-                + parse: EntityInterface[]
+                + parse: Entity<EntityInterface>[]
               }
               class "TsParserObject" as ts_parser_object_cba014be {
                 # _accessLevel(propName: string): PropertyAccessLevelType
@@ -331,13 +323,13 @@
                 # _returnTypeValue(property: any): string
                 # _statement: ts.Statement
                 constructor(params: {    parsedSource: ts.SourceFile    statement: ts.Statement    inProjectPath: string    importParseResults: TsParserImportParseResult[]  })
-                + parse: EntityObject[]
+                + parse: Entity<EntityObject>[]
               }
               class "TsParserType" as ts_parser_type_46289b53 {
                 # _inProjectPath: string
                 # _statement: ts.Statement
                 constructor(params: { statement: ts.Statement; inProjectPath: string })
-                + parse: EntityType[]
+                + parse: Entity<EntityType>[]
               }
             }
           }
@@ -398,42 +390,42 @@
             }
             folder "printable-entity" as printable_entity_3657a4a2 {
               class "PumlPrintableClass" as puml_printable_class_46ef6395 {
-                # _entity: EntityClass
+                # _entity: Entity<EntityClass>
                 # _print: string[]
                 # _printProperty(property: Property): string
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityClass })
+                constructor(params: { entity: Entity<EntityClass> })
               }
               class "PumlPrintableEnum" as puml_printable_enum_9f4c4448 {
-                # _entity: EntityEnum
+                # _entity: Entity<EntityEnum>
                 # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityEnum })
+                constructor(params: { entity: Entity<EntityEnum> })
               }
               class "PumlPrintableFile" as puml_printable_file_11eb1ddd {
-                # _entity: EntityFile
+                # _entity: Entity<EntityFile>
                 # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityFile })
+                constructor(params: { entity: Entity<EntityFile> })
               }
               class "PumlPrintableInterface" as puml_printable_interface_dfa76d5e {
-                # _entity: EntityInterface
+                # _entity: Entity<EntityInterface>
                 # _print: string[]
                 # _printProperty(property: Property): string
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityInterface })
+                constructor(params: { entity: Entity<EntityInterface> })
               }
               class "PumlPrintableObject" as puml_printable_object_2cf1044e {
-                # _entity: EntityObject
+                # _entity: Entity<EntityObject>
                 # _print: string[]
                 # _printProperty(property: Property): string
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityObject })
+                constructor(params: { entity: Entity<EntityObject> })
               }
               class "PumlPrintableProperty" as puml_printable_property_739e371c {
                 # _abstractAttribute: string
@@ -446,11 +438,11 @@
                 constructor(params: { property: Property })
               }
               class "PumlPrintableType" as puml_printable_type_21bec203 {
-                # _entity: EntityType
+                # _entity: Entity<EntityType>
                 # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor(params: { entity: EntityType })
+                constructor(params: { entity: Entity<EntityType> })
               }
               class "PumlPrintableWrapper" as puml_printable_wrapper_b8ea5ae8 {
                 # _print: string[]
@@ -504,19 +496,8 @@
   exec_args_as_command_d74becbe -up-|> initiate_d815df3b
   shell_dal_4f6edd5d -up-> shell_735e83ab
   index_ts_e4daf83f -up-> logger_d1ee5f1e
-  entity_class_87e50b39 -up-|> entity_9581579a
-  entity_class_87e50b39 .up.|> exportable_2ac9ab8f
   entity_class_87e50b39 .up.|> referencable_31799d25
-  entity_enum_f7c58024 -up-|> entity_9581579a
-  entity_enum_f7c58024 .up.|> exportable_2ac9ab8f
-  entity_file_33f169f1 -up-|> entity_9581579a
   entity_file_33f169f1 .up.|> referencable_31799d25
-  entity_interface_590b4132 -up-|> entity_9581579a
-  entity_interface_590b4132 .up.|> exportable_2ac9ab8f
-  entity_object_784a4022 -up-|> entity_9581579a
-  entity_object_784a4022 .up.|> exportable_2ac9ab8f
-  entity_type_a3fb7caf -up-|> entity_9581579a
-  entity_type_a3fb7caf .up.|> exportable_2ac9ab8f
   entity_9581579a -up-> string_util_20f7f236
   entity_9581579a .up.|> locatable_b011d3de
   reference_aaef6aea -up-> string_util_20f7f236
@@ -538,7 +519,7 @@
   ts_parser_import_edaa2a96 -up-> file_service_3f424ea5
   ts_parser_import_edaa2a96 .up.|> parsable_1dc7e811
   ts_parser_interface_8936afae .up.|> parsable_1dc7e811
-  ts_parser_object_cba014be -up-> property_access_level_type_d5a84d26
+  ts_parser_object_cba014be -up-> property_access_level_type_daa2367d
   ts_parser_object_cba014be .up.|> parsable_1dc7e811
   ts_parser_type_46289b53 .up.|> parsable_1dc7e811
   ts_convert_87a0875e -up-> ts_eabf7773
@@ -552,7 +533,7 @@
   ts_entity_parser_d73e1a98 -up-> ts_parser_object_cba014be
   ts_entity_parser_d73e1a98 -up-> ts_parser_type_46289b53
   ts_entity_parser_d73e1a98 -up-> logger_d1ee5f1e
-  ts_parser_service_e67f4e7e -up-> property_access_level_type_d5a84d26
+  ts_parser_service_e67f4e7e -up-> property_access_level_type_daa2367d
   ts_parser_service_e67f4e7e -up-> ts_parser_import_edaa2a96
   file_service_3f424ea5 -up-> fs_b9f0eb9
   file_service_3f424ea5 -up-> path_6f8e1be1
@@ -564,7 +545,7 @@
   puml_printable_interface_dfa76d5e -up-|> puml_entity_cc3a6994
   puml_printable_object_2cf1044e -up-> puml_printable_property_739e371c
   puml_printable_object_2cf1044e -up-|> puml_entity_cc3a6994
-  puml_printable_property_739e371c -up-> property_access_level_type_d5a84d26
+  puml_printable_property_739e371c -up-> property_access_level_type_daa2367d
   puml_printable_property_739e371c -up-|> puml_entity_cc3a6994
   puml_printable_type_21bec203 -up-|> puml_entity_cc3a6994
   puml_printable_wrapper_b8ea5ae8 -up-|> puml_entity_cc3a6994

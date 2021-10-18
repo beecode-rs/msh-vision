@@ -68,18 +68,18 @@ export class PumlPrint implements PrintStrategy {
 
   protected _printableStrategyFromEntity(entity: Entity): PumlEntity | undefined {
     switch (true) {
-      case entity instanceof EntityClass:
-        return new PumlPrintableClass({ entity: entity as EntityClass })
-      case entity instanceof EntityFile:
-        return new PumlPrintableFile({ entity: entity as EntityFile })
-      case entity instanceof EntityObject:
-        return new PumlPrintableObject({ entity: entity as EntityObject })
-      case entity instanceof EntityInterface:
-        return new PumlPrintableInterface({ entity: entity as EntityInterface })
-      case entity instanceof EntityType:
-        return new PumlPrintableType({ entity: entity as EntityType })
-      case entity instanceof EntityEnum:
-        return new PumlPrintableEnum({ entity: entity as EntityEnum })
+      case entity.Meta instanceof EntityClass:
+        return new PumlPrintableClass({ entity })
+      case entity.Meta instanceof EntityFile:
+        return new PumlPrintableFile({ entity })
+      case entity.Meta instanceof EntityObject:
+        return new PumlPrintableObject({ entity })
+      case entity.Meta instanceof EntityInterface:
+        return new PumlPrintableInterface({ entity })
+      case entity.Meta instanceof EntityType:
+        return new PumlPrintableType({ entity })
+      case entity.Meta instanceof EntityEnum:
+        return new PumlPrintableEnum({ entity })
       default:
         logger.warn(`Unknown entity type ${entity.constructor.name}`)
     }

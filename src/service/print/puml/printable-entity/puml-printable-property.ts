@@ -1,4 +1,5 @@
-import { Property, PropertyAccessLevelType } from 'src/model/property'
+import { PropertyAccessLevelType } from 'src/enum/property-access-level-type'
+import { Property } from 'src/model/property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 
 export class PumlPrintableProperty extends PumlEntity {

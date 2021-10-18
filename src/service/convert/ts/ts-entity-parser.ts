@@ -74,14 +74,14 @@ export class TsEntityParser {
 
   protected _joinEntitiesByAliasReference(entities: Entity[]): Entity[] {
     const withAliasRef = entities.filter(
-      (entity) => entity instanceof EntityObject && (entity as EntityObject).AliasReference
-    ) as EntityObject[]
+      (entity) => entity.Meta instanceof EntityObject && (entity.Meta as EntityObject).AliasReference
+    )
     if (withAliasRef.length === 0) return entities
 
-    const { aliasRef, other } = entities.reduce<{ aliasRef: Entity[]; other: Entity[] }>(
+    const { aliasRef, other } = entities.reduce<{ aliasRef: Entity<EntityObject>[]; other: Entity[] }>(
       (result, entity) => {
-        if ((withAliasRef as Entity[]).includes(entity)) return result
-        if (withAliasRef.map((e) => e.AliasReference).includes(entity.Name)) result.aliasRef.push(entity)
+        if (withAliasRef.includes(entity)) return result
+        if (withAliasRef.map((e) => (e.Meta as EntityObject).AliasReference).includes(entity.Name)) result.aliasRef.push(entity)
         else result.other.push(entity)
         return result
       },
@@ -90,10 +90,16 @@ export class TsEntityParser {
     if (aliasRef.length === 0) return entities
 
     const aliasedEntities = withAliasRef.map((entity) => {
-      const foundJoin = aliasRef.find((e) => e.Name === entity.AliasReference)
+      const foundJoin = aliasRef.find((e) => e.Name === (entity.Meta as EntityObject).AliasReference)
       if (!foundJoin) throw new Error(`Join not found for entity ${JSON.stringify(entity)}`)
       foundJoin.renameEntity(entity.Name)
-      return foundJoin
+      const joinedEntity = new Entity({
+        name: entity.Name,
+        isExported: foundJoin.IsExported,
+        inProjectPath: foundJoin.InProjectPath,
+        meta: foundJoin.Meta,
+      })
+      return joinedEntity
     })
 
     return [...other, ...aliasedEntities]
