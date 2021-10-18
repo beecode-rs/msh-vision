@@ -1,6 +1,6 @@
 import { SomeClass } from './util/some-class'
-import { logger } from 'src/util/logger'
+import { logger } from './util/logger'
 
 logger.debug('test')
 
-const test = new SomeClass()
+const test = new SomeClass({ test: 'test', test1: 'test1' })

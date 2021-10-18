@@ -1,5 +1,5 @@
 const _self = {
-  debug: (msg: string): void => {
+  throwError: (msg: string): void => {
     console.log(msg)
   },
 }

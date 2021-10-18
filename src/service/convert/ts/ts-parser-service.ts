@@ -2,7 +2,7 @@ import { ReferenceType } from 'src/enum/reference-type'
 import { PropertyAccessLevelType } from 'src/model/property'
 import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
-import { TsParserImport } from 'src/service/convert/ts/parser/ts-parser-import'
+import { TsParserImport, TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
 import { logger } from 'src/util/logger'
 
 const _self = {
@@ -20,18 +20,6 @@ const _self = {
     if (modifiers.find((m) => m.kind === ts.SyntaxKind.PrivateKeyword)) return PropertyAccessLevelType.PRIVATE
     if (modifiers.find((m) => m.kind === ts.SyntaxKind.ProtectedKeyword)) return PropertyAccessLevelType.PROTECTED
     return PropertyAccessLevelType.NO_MODIFIER
-  },
-
-  nameFromDeclarationsList: (
-    declarationList: ts.VariableDeclarationList
-  ): { name: string; declaration: ts.VariableDeclaration } | undefined => {
-    if (!declarationList?.declarations) return
-    const decl = declarationList.declarations.find((d) => d.name)
-    if (!decl) return
-    return {
-      name: decl.name['escapedText'],
-      declaration: decl,
-    }
   },
   checkIfThereAreAnyExports: (parsedSource: ts.SourceFile): boolean => {
     return !!parsedSource.statements.find((s) => _self._isViableExportableStatementKind(s.kind) && _self.isExported(s.modifiers))
@@ -77,6 +65,18 @@ const _self = {
         })
       })
       .filter(Boolean) as Reference[]
+  },
+  importsFromStatements: (params: { parsedSource: ts.SourceFile; inProjectPath: string }): TsParserImportParseResult[] => {
+    const { parsedSource, inProjectPath } = params
+    return parsedSource.statements
+      .map((statement) => _self.importsFromStatement({ statement, inProjectPath }))
+      .filter(Boolean)
+      .flat()
+  },
+  importsFromStatement: (params: { statement: ts.Statement; inProjectPath: string }): TsParserImportParseResult[] => {
+    const { statement, inProjectPath } = params
+    if (statement.kind != ts.SyntaxKind.ImportDeclaration) return []
+    return new TsParserImport({ statement, inProjectPath }).parse()
   },
 }
 

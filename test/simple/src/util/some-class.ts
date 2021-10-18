@@ -1,6 +1,7 @@
 import { AbstractClass } from './abstract-class'
 import { OtherInterface } from './other-interface'
 import { SomeInterface } from './some-interface'
+import { errors } from './errors'
 
 export type SomeType = string
 
@@ -15,6 +16,10 @@ export class SomeClass extends AbstractClass implements SomeInterface, OtherInte
     this._constParam1 = test1
   }
   public test(): number {
+    switch (true) {
+      case true:
+        errors.throwError('test')
+    }
     return 1
   }
 }

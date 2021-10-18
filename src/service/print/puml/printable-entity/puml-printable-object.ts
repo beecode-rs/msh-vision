@@ -2,6 +2,7 @@ import { EntityObject } from 'src/model/entity-object'
 import { Property } from 'src/model/property'
 import { PumlPrintableProperty } from 'src/service/print/puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
+import { PumlRelation } from 'src/service/print/puml/puml-relation'
 
 export class PumlPrintableObject extends PumlEntity {
   protected readonly _entity: EntityObject
@@ -17,6 +18,7 @@ export class PumlPrintableObject extends PumlEntity {
     const { entity } = params
     super()
     this._entity = entity
+    this._relations = entity.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))
   }
 
   protected _print(): string[] {

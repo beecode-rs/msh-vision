@@ -8,7 +8,7 @@ const _self = {
   fileListFromFolder: async (folderPath: string): Promise<string[]> => {
     return new Promise<string[]>((resolve, reject) => {
       const cwd = _self.relativeToAbsPath(folderPath)
-      glob('**/*', { cwd, dot: true, nodir: true, ignore: '**/*.test.ts' }, (err, files) => {
+      glob('**/*', { cwd, dot: true, nodir: true, ignore: ['**/*.test.ts', '**/*.contract.ts'] }, (err, files) => {
         // TODO implement some mechanism to ignore files
         if (err) return reject(err)
         return resolve(files.map((f) => _self.joinPaths(folderPath, f)))

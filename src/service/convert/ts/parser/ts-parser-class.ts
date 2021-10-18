@@ -1,7 +1,11 @@
+import { ReferenceType } from 'src/enum/reference-type'
 import { EntityClass } from 'src/model/entity-class'
 import { Property } from 'src/model/property'
+import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
+import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
+import { tsParserImportRelations } from 'src/service/convert/ts/ts-parser-import-relations'
 import { tsParserService } from 'src/service/convert/ts/ts-parser-service'
 import { constant } from 'src/util/constant'
 
@@ -9,12 +13,19 @@ export class TsParserClass implements Parsable {
   protected readonly _statement: ts.Statement
   protected readonly _inProjectPath: string
   protected readonly _parsedSource: ts.SourceFile
+  protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string }) {
-    const { parsedSource, statement, inProjectPath } = params
+  constructor(params: {
+    parsedSource: ts.SourceFile
+    statement: ts.Statement
+    inProjectPath: string
+    importParseResults: TsParserImportParseResult[]
+  }) {
+    const { parsedSource, statement, inProjectPath, importParseResults } = params
     this._statement = statement
     this._inProjectPath = inProjectPath
     this._parsedSource = parsedSource
+    this._importParseResults = importParseResults ?? []
   }
 
   public parse(): EntityClass[] {
@@ -22,11 +33,18 @@ export class TsParserClass implements Parsable {
     const isExported = tsParserService.isExported(this._statement.modifiers)
     const isAbstract = tsParserService.isAbstract(this._statement.modifiers)
 
-    const references = tsParserService.findClassRelations({
+    const classRefs = tsParserService.findClassRelations({
       statement: this._statement,
       parsedSource: this._parsedSource,
       inProjectPath: this._inProjectPath,
     })
+
+    const classRefNames = classRefs.map((cr) => cr.Name)
+    const imports = tsParserImportRelations.findImportRelations(
+      this._statement,
+      this._importParseResults.filter((ipr) => !classRefNames.includes(ipr.name))
+    )
+
     const properties = this._findProperties()
 
     const entityClass = new EntityClass({
@@ -34,7 +52,7 @@ export class TsParserClass implements Parsable {
       inProjectPath: this._inProjectPath,
       isExported,
       isAbstract,
-      references,
+      references: [...imports, ...classRefs],
       properties,
     })
 

@@ -4,6 +4,7 @@ import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserClass } from 'src/service/convert/ts/parser/ts-parser-class'
 import { TsParserEnum } from 'src/service/convert/ts/parser/ts-parser-enum'
+import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
 import { TsParserInterface } from 'src/service/convert/ts/parser/ts-parser-interface'
 import { TsParserObject } from 'src/service/convert/ts/parser/ts-parser-object'
 import { TsParserType } from 'src/service/convert/ts/parser/ts-parser-type'
@@ -13,24 +14,30 @@ export class TsEntityParser {
   protected readonly _parsedSource: ts.SourceFile
   protected readonly _fileName: string
   protected readonly _inProjectPath: string
+  protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: { parsedSource: ts.SourceFile; fileName: string; inProjectPath: string }) {
-    const { parsedSource, fileName, inProjectPath } = params
+  constructor(params: {
+    parsedSource: ts.SourceFile
+    fileName: string
+    inProjectPath: string
+    importParseResults: TsParserImportParseResult[]
+  }) {
+    const { parsedSource, fileName, inProjectPath, importParseResults } = params
     this._parsedSource = parsedSource
     this._fileName = fileName
     this._inProjectPath = inProjectPath
+    this._importParseResults = importParseResults
   }
 
   public parsedEntities(): Entity[] {
-    const entities: Entity[] = []
-    entities.push(...this._parseStatements())
-    return entities
+    const entities = this._parseStatements()
+    const entityWithJoins = this._joinEntitiesByAliasReference(entities)
+
+    return entityWithJoins
   }
 
   protected _parseStatements(): Entity[] {
-    const entities = this._parsedSource.statements.map((statement) => this._parseStatement(statement)).flat()
-    const entityWithJoins = this._joinEntitiesByAliasReference(entities)
-    return entityWithJoins
+    return this._parsedSource.statements.map((statement) => this._parseStatement(statement)).flat()
   }
 
   protected _parseStatement(statement: ts.Statement): Entity[] {
@@ -40,19 +47,23 @@ export class TsEntityParser {
   }
 
   protected _parserByStatementKind(statement: ts.Statement): Parsable | undefined {
+    const parsedSource = this._parsedSource
+    const inProjectPath = this._inProjectPath
+    const importParseResults = this._importParseResults
+
     switch (statement.kind) {
       case ts.SyntaxKind.TypeAliasDeclaration:
-        return new TsParserType({ statement, inProjectPath: this._inProjectPath })
+        return new TsParserType({ statement, inProjectPath })
       case ts.SyntaxKind.ClassDeclaration:
-        return new TsParserClass({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
+        return new TsParserClass({ parsedSource, statement, inProjectPath, importParseResults })
       case ts.SyntaxKind.InterfaceDeclaration:
-        return new TsParserInterface({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
+        return new TsParserInterface({ parsedSource, statement, inProjectPath })
       case ts.SyntaxKind.VariableDeclaration:
       case ts.SyntaxKind.VariableStatement:
       case ts.SyntaxKind.VariableDeclarationList:
-        return new TsParserObject({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
+        return new TsParserObject({ parsedSource, statement, inProjectPath, importParseResults })
       case ts.SyntaxKind.EnumDeclaration:
-        return new TsParserEnum({ parsedSource: this._parsedSource, statement, inProjectPath: this._inProjectPath })
+        return new TsParserEnum({ parsedSource, statement, inProjectPath })
       case ts.SyntaxKind.ImportDeclaration:
         return undefined
       default:
@@ -87,4 +98,6 @@ export class TsEntityParser {
 
     return [...other, ...aliasedEntities]
   }
+
+  protected _findI
 }

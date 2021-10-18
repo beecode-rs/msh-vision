@@ -2,35 +2,39 @@ import { EntityObject } from 'src/model/entity-object'
 import { Property, PropertyAccessLevelType } from 'src/model/property'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
+import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
+import { tsParserImportRelations } from 'src/service/convert/ts/ts-parser-import-relations'
 import { tsParserService } from 'src/service/convert/ts/ts-parser-service'
 
 export class TsParserObject implements Parsable {
   protected readonly _statement: ts.Statement
   protected readonly _inProjectPath: string
   protected readonly _parsedSource: ts.SourceFile
+  protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor({
-    parsedSource,
-    statement,
-    inProjectPath,
-  }: {
+  constructor(params: {
     parsedSource: ts.SourceFile
     statement: ts.Statement
     inProjectPath: string
+    importParseResults: TsParserImportParseResult[]
   }) {
+    const { parsedSource, statement, inProjectPath, importParseResults } = params
     this._statement = statement
     this._inProjectPath = inProjectPath
     this._parsedSource = parsedSource
+    this._importParseResults = importParseResults ?? []
   }
 
   public parse(): EntityObject[] {
-    const result = tsParserService.nameFromDeclarationsList(this._statement['declarationList'])
+    const result = this._nameFromDeclarationsList(this._statement['declarationList'])
     if (!result) throw new Error('Could not parse object from statement')
     const { name, declaration } = result
     const properties = this._findProperties(declaration?.initializer?.['properties'])
     const isExported = tsParserService.isExported(this._statement.modifiers)
     const aliasReference =
       declaration.initializer?.kind === ts.SyntaxKind.Identifier ? declaration.initializer['escapedText'] : ''
+
+    const imports = tsParserImportRelations.findImportRelations(declaration, this._importParseResults)
 
     return [
       new EntityObject({
@@ -39,8 +43,21 @@ export class TsParserObject implements Parsable {
         isExported,
         properties,
         aliasReference,
+        references: [...imports],
       }),
     ]
+  }
+
+  protected _nameFromDeclarationsList(
+    declarationList: ts.VariableDeclarationList
+  ): { name: string; declaration: ts.VariableDeclaration } | undefined {
+    if (!declarationList?.declarations) return
+    const decl = declarationList.declarations.find((d) => d.name)
+    if (!decl) return
+    return {
+      name: decl.name['escapedText'],
+      declaration: decl,
+    }
   }
 
   protected _findProperties(properties?: any[]): Property[] {

@@ -1,18 +1,25 @@
 import { EntityFile } from 'src/model/entity-file'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
-import { TsParserImport, TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
+import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
 
 export class TsParserFile implements Parsable {
   protected readonly _parsedSource: ts.SourceFile
   protected readonly _inProjectPath: string
   protected readonly _fileName: string
+  protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: { parsedSource: ts.SourceFile; inProjectPath: string; fileName: string }) {
-    const { parsedSource, inProjectPath, fileName } = params
+  constructor(params: {
+    parsedSource: ts.SourceFile
+    inProjectPath: string
+    fileName: string
+    importParseResults: TsParserImportParseResult[]
+  }) {
+    const { parsedSource, inProjectPath, fileName, importParseResults } = params
     this._parsedSource = parsedSource
     this._inProjectPath = inProjectPath
     this._fileName = fileName
+    this._importParseResults = importParseResults
   }
 
   public parse(): EntityFile[] {
@@ -20,19 +27,10 @@ export class TsParserFile implements Parsable {
       name: this._fileName,
       inProjectPath: this._inProjectPath,
     })
-    const imports = this._importsFromStatements()
-    imports.forEach(({ name, inProjectPath }: TsParserImportParseResult) => entityFile.addAssociation({ name, inProjectPath }))
-    return [entityFile]
-  }
 
-  protected _importsFromStatements(): TsParserImportParseResult[] {
-    return this._parsedSource.statements
-      .map((s) => this._importsFromStatement(s))
-      .filter(Boolean)
-      .flat()
-  }
-  protected _importsFromStatement(statement: ts.Statement): TsParserImportParseResult[] {
-    if (statement.kind != ts.SyntaxKind.ImportDeclaration) return []
-    return new TsParserImport({ statement, inProjectPath: this._inProjectPath }).parse()
+    this._importParseResults.forEach(({ name, inProjectPath }: TsParserImportParseResult) =>
+      entityFile.addAssociation({ name, inProjectPath })
+    )
+    return [entityFile]
   }
 }
