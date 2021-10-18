@@ -1,5 +1,5 @@
+import { PropertyAccessLevelType } from 'src/enum/property-access-level-type'
 import { ReferenceType } from 'src/enum/reference-type'
-import { PropertyAccessLevelType } from 'src/model/property'
 import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
 import { TsParserImport, TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'

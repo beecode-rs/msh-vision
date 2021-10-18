@@ -1,9 +1,4 @@
-export enum PropertyAccessLevelType {
-  PUBLIC = 'public',
-  PRIVATE = 'private',
-  PROTECTED = 'protected',
-  NO_MODIFIER = 'no-modifier',
-}
+import { PropertyAccessLevelType } from 'src/enum/property-access-level-type'
 
 export class Property {
   protected readonly _name: string

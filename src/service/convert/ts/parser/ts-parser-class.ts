@@ -1,7 +1,6 @@
-import { ReferenceType } from 'src/enum/reference-type'
+import { Entity } from 'src/model/entity'
 import { EntityClass } from 'src/model/entity-class'
 import { Property } from 'src/model/property'
-import { Reference } from 'src/model/reference'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserImportParseResult } from 'src/service/convert/ts/parser/ts-parser-import'
@@ -28,7 +27,7 @@ export class TsParserClass implements Parsable {
     this._importParseResults = importParseResults ?? []
   }
 
-  public parse(): EntityClass[] {
+  public parse(): Entity<EntityClass>[] {
     const name = this._statement['name'].escapedText
     const isExported = tsParserService.isExported(this._statement.modifiers)
     const isAbstract = tsParserService.isAbstract(this._statement.modifiers)
@@ -47,16 +46,18 @@ export class TsParserClass implements Parsable {
 
     const properties = this._findProperties()
 
-    const entityClass = new EntityClass({
-      name,
-      inProjectPath: this._inProjectPath,
-      isExported,
-      isAbstract,
-      references: [...imports, ...classRefs],
-      properties,
-    })
-
-    return [entityClass]
+    return [
+      new Entity({
+        name,
+        inProjectPath: this._inProjectPath,
+        isExported,
+        meta: new EntityClass({
+          isAbstract,
+          references: [...imports, ...classRefs],
+          properties,
+        }),
+      }),
+    ]
   }
 
   protected _findProperties(): Property[] {

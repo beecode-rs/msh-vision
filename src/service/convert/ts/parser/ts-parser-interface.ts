@@ -1,5 +1,7 @@
+import { PropertyAccessLevelType } from 'src/enum/property-access-level-type'
+import { Entity } from 'src/model/entity'
 import { EntityInterface } from 'src/model/entity-interface'
-import { Property, PropertyAccessLevelType } from 'src/model/property'
+import { Property } from 'src/model/property'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { tsParserService } from 'src/service/convert/ts/ts-parser-service'
@@ -16,7 +18,7 @@ export class TsParserInterface implements Parsable {
     this._parsedSource = parsedSource
   }
 
-  public parse(): EntityInterface[] {
+  public parse(): Entity<EntityInterface>[] {
     const name = this._statement['name'].escapedText
     const isExported = tsParserService.isExported(this._statement.modifiers)
 
@@ -28,12 +30,14 @@ export class TsParserInterface implements Parsable {
     const properties = this._findProperties()
 
     return [
-      new EntityInterface({
+      new Entity({
         name,
         inProjectPath: this._inProjectPath,
         isExported,
-        references,
-        properties,
+        meta: new EntityInterface({
+          references,
+          properties,
+        }),
       }),
     ]
   }

@@ -1,3 +1,4 @@
+import { Entity } from 'src/model/entity'
 import { EntityEnum } from 'src/model/entity-enum'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
@@ -15,18 +16,20 @@ export class TsParserEnum implements Parsable {
     this._parsedSource = parsedSource
   }
 
-  public parse(): EntityEnum[] {
+  public parse(): Entity<EntityEnum>[] {
     const name = this._statement['name'].escapedText
     const isExported = tsParserService.isExported(this._statement.modifiers)
 
     const properties = (this._statement['members'] ?? []).map((m) => m.getText(this._parsedSource))
 
     return [
-      new EntityEnum({
+      new Entity({
         name,
         inProjectPath: this._inProjectPath,
         isExported,
-        properties,
+        meta: new EntityEnum({
+          properties,
+        }),
       }),
     ]
   }
