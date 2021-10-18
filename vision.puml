@@ -7,20 +7,20 @@
           constructor(args: string[])
         }
         object "app" as app_1d92d491 {
-          # _server: undefined | any
-          + start: void
-          # _registerOnExit: void
-          # _stop: Promise<void>
-          # _start(runApp: App): Promise<void>
           # _onError(err: Error): Promise<void>
+          # _registerOnExit: void
+          # _server: undefined | any
+          # _start(runApp: App): Promise<void>
+          # _stop: Promise<void>
+          + start: void
         }
         folder "init" as init_837dc15c {
           class "ExecArgsAsCommand" as exec_args_as_command_d74becbe {
-            - ___args: string[]
-            constructor(args: string[])
             Name: string
-            # _initFn: Promise<void>
+            - ___args: string[]
             # _destroyFn: Promise<void>
+            # _initFn: Promise<void>
+            constructor(args: string[])
           }
         }
       }
@@ -28,130 +28,83 @@
         card "T: ExecResult" as exec_result_4f6edd5d {
         }
         object "shellDal" as shell_dal_4f6edd5d {
+          + cd(dir: string): void
           + exec(cmd: string): Promise<ExecResult>
           + print(message: string): void
-          + cd(dir: string): void
           + pwd: string
         }
       }
       folder "enum" as enum_1eea471b {
         enum "PumlGroupType" as puml_group_type_87f1b99e {
+          FICTIVE = 'fictive'
           FOLDER = 'folder'
           RECTANGLE = 'rectangle'
-          FICTIVE = 'fictive'
         }
         enum "ReferenceType" as reference_type_1f38c983 {
-          ASSOCIATION = 'association'
-          INHERITANCE = 'inheritance'
-          IMPLEMENTATION = 'implementation'
-          DEPENDENCY = 'dependency'
           AGGREGATION = 'aggregation'
+          ASSOCIATION = 'association'
           COMPOSITION = 'composition'
+          DEPENDENCY = 'dependency'
+          IMPLEMENTATION = 'implementation'
+          INHERITANCE = 'inheritance'
         }
       }
       folder "model" as model_40d91327 {
         class "EntityClass" as entity_class_87e50b39 {
-          # _isExported: boolean
-          # _isAbstract: boolean
-          # _references: Reference[]
-          # _properties: Property[]
-          constructor({
-              name,
-              inProjectPath,
-              isExported,
-              isAbstract,
-              references,
-              properties,
-            }: {
-              name: string
-              inProjectPath: string
-              isExported?: boolean
-              isAbstract?: boolean
-              references?: Reference[]
-              properties?: Property[]
-            })
-          + IsExported: boolean
           + IsAbstract: boolean
-          + References: Reference[]
+          + IsExported: boolean
           + Properties: Property[]
+          + References: Reference[]
+          # _isAbstract: boolean
+          # _isExported: boolean
+          # _properties: Property[]
+          # _references: Reference[]
+          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    isAbstract?: boolean    references?: Reference[]    properties?: Property[]  })
         }
         class "EntityEnum" as entity_enum_f7c58024 {
-          # _isExported: boolean
-          # _properties: string[]
-          constructor({
-              name,
-              inProjectPath,
-              isExported,
-              properties,
-            }: {
-              name: string
-              inProjectPath: string
-              isExported?: boolean
-              properties: string[]
-            })
           + IsExported: boolean
           + Properties: string[]
+          # _isExported: boolean
+          # _properties: string[]
+          constructor(params: { name: string; inProjectPath: string; isExported?: boolean; properties: string[] })
         }
         class "EntityFile" as entity_file_33f169f1 {
-          # _references: Reference[]
-          constructor({ name, inProjectPath }: { name: string; inProjectPath: string })
           + References: Reference[]
+          # _references: Reference[]
           + addAssociation({ name, inProjectPath }: { name: string; inProjectPath: string }): void
+          constructor(params: { name: string; inProjectPath: string })
         }
         class "EntityInterface" as entity_interface_590b4132 {
-          # _isExported: boolean
-          # _references: Reference[]
-          # _properties: Property[]
-          constructor({
-              name,
-              inProjectPath,
-              isExported,
-              references,
-              properties,
-            }: {
-              name: string
-              inProjectPath: string
-              isExported?: boolean
-              references?: Reference[]
-              properties?: Property[]
-            })
           + IsExported: boolean
-          + References: Reference[]
           + Properties: Property[]
+          + References: Reference[]
+          # _isExported: boolean
+          # _properties: Property[]
+          # _references: Reference[]
+          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    references?: Reference[]    properties?: Property[]  })
         }
         class "EntityObject" as entity_object_784a4022 {
-          # _isExported: boolean
-          # _aliasReference: string
-          # _properties: Property[]
-          constructor({
-              name,
-              inProjectPath,
-              isExported,
-              properties,
-              aliasReference,
-            }: {
-              name: string
-              inProjectPath: string
-              isExported?: boolean
-              properties?: Property[]
-              aliasReference?: string
-            })
+          + AliasReference: string
           + IsExported: boolean
           + Properties: Property[]
-          + AliasReference: string
+          # _aliasReference: string
+          # _isExported: boolean
+          # _properties: Property[]
+          constructor(params: {    name: string    inProjectPath: string    isExported?: boolean    properties?: Property[]    aliasReference?: string  })
         }
         class "EntityType" as entity_type_a3fb7caf {
-          # _isExported: boolean
-          constructor({ name, inProjectPath, isExported }: { name: string; inProjectPath: string; isExported?: boolean })
           + IsExported: boolean
+          # _isExported: boolean
+          constructor(params: { name: string; inProjectPath: string; isExported?: boolean })
         }
         abstract "Entity" as entity_9581579a {
-          # _name: string
-          # _inProjectPath: string
-          # constructor({ name, inProjectPath }: { name: string; inProjectPath: string })
           + Id: string
-          + Name: string
           + InProjectPath: string
+          + Name: string
+          + SortByName(a: Entity, b: Entity): number
+          # _inProjectPath: string
+          # _name: string
+          # constructor(params: { name: string; inProjectPath: string })
           + renameEntity(name: string): void
         }
         interface "Exportable" as exportable_2ac9ab8f {
@@ -163,48 +116,37 @@
           + InProjectPath: string
         }
         enum "PropertyAccessLevelType" as property_access_level_type_d5a84d26 {
-          PUBLIC = 'public'
+          NO_MODIFIER = 'no-modifier'
           PRIVATE = 'private'
           PROTECTED = 'protected'
-          NO_MODIFIER = 'no-modifier'
+          PUBLIC = 'public'
         }
         class "Property" as property_d5a84d26 {
-          # _name: string
-          # _returnType: string
-          # _accessLevel: PropertyAccessLevelType
-          # _isAbstract: boolean
-          # _functionParams: string | undefined
-          constructor({
-              name,
-              returnType,
-              accessLevel,
-              isAbstract,
-              functionParams,
-            }: {
-              name: string
-              returnType: string
-              accessLevel?: PropertyAccessLevelType
-              isAbstract?: boolean
-              functionParams?: string
-            })
+          + AccessLevel: PropertyAccessLevelType
+          + FunctionParams: string | undefined
+          + IsAbstract: boolean
           + Name: string
           + ReturnType: string
-          + AccessLevel: PropertyAccessLevelType
-          + IsAbstract: boolean
-          + FunctionParams: string | undefined
+          + SortByName(a: Property, b: Property): number
+          # _accessLevel: PropertyAccessLevelType
+          # _functionParams: string | undefined
+          # _isAbstract: boolean
+          # _name: string
+          # _returnType: string
+          constructor(params: {    name: string    returnType: string    accessLevel?: PropertyAccessLevelType    isAbstract?: boolean    functionParams?: string  })
         }
         interface "Referencable" as referencable_31799d25 {
           + References: Reference[]
         }
         class "Reference" as reference_aaef6aea {
-          # _name: string
-          # _inProjectPath: string
-          # _type: ReferenceType
-          constructor({ name, inProjectPath, type }: { name: string; inProjectPath: string; type: ReferenceType })
           + Id: string
-          + Name: string
           + InProjectPath: string
+          + Name: string
           + Type: ReferenceType
+          # _inProjectPath: string
+          # _name: string
+          # _type: ReferenceType
+          constructor(params: { name: string; inProjectPath: string; type: ReferenceType })
         }
       }
       folder "module" as module_9f6f6c52 {
@@ -219,37 +161,29 @@
         card "T: CmdGenerateParams" as cmd_generate_params_d268d804 {
         }
         object "argsService" as args_service_d268d804 {
+          + argToObject({ args, options }: ArgsServiceParams): T
           + cliCommandOptions: Options
           + cmdGenerateParams: Options
           + selectedCommandCount({ args, options }: ArgsServiceParams): number
-          + argToObject({ args, options }: ArgsServiceParams): T
         }
         object "cliService" as cli_service_317b6b45 {
-          + printVersion: void
           + printHelp: void
+          + printVersion: void
         }
         object "fileService" as file_service_3f424ea5 {
-          + fileListFromFolder({ folderPath }: { folderPath: string }): Promise<string[]>
-          + makeFolderIfNotExist({ folderPath }: { folderPath: string }): Promise<void>
-          + writeToFile({ filePath, data }: { filePath: string; data: string }): Promise<void>
-          + readFile(filePath: string): Promise<string>
-          + mkdirAndWriteToFile({
-              folderPath,
-              fileName,
-              data,
-            }: {
-              folderPath: string
-              fileName: string
-              data: string
-            }): Promise<void>
-          + joinPaths(...paths: string[]): string
+          + cleanupPath(relativeOrAbsPath: string): string
+          + fileListFromFolder(folderPath: string): Promise<string[]>
+          + fileNameFromPath(filePath: string, options: { withExtension?: boolean } = {}): string
+          + importPathFind(params: { filePathImportedFrom: string; importPath: string }): string
           + isAbsPath(relativeOrAbsPath: string): boolean
           + isDotPath(path: string): boolean
-          + relativeToAbsPath(relativeOrAbsPath: string): string
-          + cleanupPath(relativeOrAbsPath: string): string
+          + joinPaths(...paths: string[]): string
           + lastFolderFromPath(filePath: string): string
-          + importPathFind(filePathImportedFrom: string, importPath: string): string
-          + fileNameFromPath(filePath: string, options: { withExtension?: boolean } = {}): string
+          + makeFolderIfNotExist(folderPath: string): Promise<void>
+          + mkdirAndWriteToFile(params: { folderPath: string; fileName: string; data: string }): Promise<void>
+          + readFile(filePath: string): Promise<string>
+          + relativeToAbsPath(relativeOrAbsPath: string): string
+          + writeToFile(params: { filePath: string; data: string }): Promise<void>
         }
         object "helpService" as help_service_20a1eb92 {
           + text: string
@@ -257,12 +191,12 @@
         card "T: PrintStdMessage" as print_std_message_db3f045d {
         }
         object "shellService" as shell_service_db3f045d {
-          + exec: shellDal
-          + cd: shellDal
-          + print: shellDal
-          + printStdMessage(...messageArgs: PrintStdMessage[]): void
           # _joinResults(results: PrintStdMessage[]): PrintStdMessage
+          + cd: shellDal
+          + exec: shellDal
+          + print: shellDal
           + printError(message: string): void
+          + printStdMessage(...messageArgs: PrintStdMessage[]): void
           + printSuccess(message: string): void
         }
         folder "command" as command_7ebc6e5d {
@@ -281,7 +215,7 @@
         }
         folder "convert" as convert_2b710bad {
           object "convertService" as convert_service_b2b4bfac {
-            + strategyByFile({ filePath, folderPath }: { filePath: string; folderPath: string }): ConvertStrategy | undefined
+            + strategyByFile(params: { filePath: string; folderPath: string }): ConvertStrategy | undefined
           }
           interface "ConvertStrategy" as convert_strategy_2898ab6a {
             + convert: Promise<Entity[]>
@@ -292,158 +226,103 @@
             object "___tsConfigFileJson" as ts_config_file_json_715f0c18 {
             }
             object "tsConfigFileService" as ts_config_file_service_715f0c18 {
-              + init: Promise<void>
-              # _getFileJson: TsConfigFileType
               # _cleanReplacePaths: { startsWith: string; replaceWith: string }[]
               # _cleanReplaceWith(path: string): string
+              # _getFileJson: TsConfigFileType
+              + init: Promise<void>
               + moduleAliasResolve(path: string): string
             }
             class "TsConvert" as ts_convert_87a0875e {
               # _filePath: string
               # _folderPath: string
+              # _parseFile(params: { filePath: string; fileName: string }): Promise<ts.SourceFile>
               constructor({ filePath, folderPath }: { filePath: string; folderPath: string })
               + convert: Promise<Entity[]>
-              # _parseFile(filePath: string, fileName: string): Promise<ts.SourceFile>
             }
             class "TsEntityParser" as ts_entity_parser_d73e1a98 {
-              # _parsedSource: ts.SourceFile
               # _fileName: string
               # _inProjectPath: string
-              constructor({
-                  parsedSource,
-                  fileName,
-                  inProjectPath,
-                }: {
-                  parsedSource: ts.SourceFile
-                  fileName: string
-                  inProjectPath: string
-                })
-              + parsedEntities: Entity[]
-              # _parseStatements: Entity[]
-              # _parseStatement(statement: ts.Statement): Entity[]
-              # _parserByStatementKind(statement: ts.Statement): Parsable | undefined
               # _joinEntitiesByAliasReference(entities: Entity[]): Entity[]
+              # _parseStatement(statement: ts.Statement): Entity[]
+              # _parseStatements: Entity[]
+              # _parsedSource: ts.SourceFile
+              # _parserByStatementKind(statement: ts.Statement): Parsable | undefined
+              constructor(params: { parsedSource: ts.SourceFile; fileName: string; inProjectPath: string })
+              + parsedEntities: Entity[]
             }
             object "tsParserService" as ts_parser_service_e67f4e7e {
-              + isExported(modifiers?: ts.ModifiersArray): boolean
-              + isAbstract(modifiers?: ts.ModifiersArray): boolean
-              + accessLevel(modifiers?: ts.ModifiersArray): PropertyAccessLevelType
-              + nameFromDeclarationsList(declarationList: ts.VariableDeclarationList): { name: string; declaration: ts.VariableDeclaration } | undefined
-              + checkIfThereAreAnyExports({ parsedSource }: { parsedSource: ts.SourceFile }): boolean
               # _isViableExportableStatementKind(kind: number): boolean
-              + findClassRelations({
-                  statement,
-                  parsedSource,
-                  inProjectPath,
-                }: {
-                  statement: ts.Statement
-                  parsedSource: ts.SourceFile
-                  inProjectPath: string
-                }): Reference[]
+              + accessLevel(modifiers?: ts.ModifiersArray): PropertyAccessLevelType
+              + checkIfThereAreAnyExports(parsedSource: ts.SourceFile): boolean
+              + findClassRelations(params: { statement: ts.Statement; parsedSource: ts.SourceFile; inProjectPath: string }): Reference[]
+              + isAbstract(modifiers?: ts.ModifiersArray): boolean
+              + isExported(modifiers?: ts.ModifiersArray): boolean
+              + nameFromDeclarationsList(declarationList: ts.VariableDeclarationList): { name: string; declaration: ts.VariableDeclaration } | undefined
             }
             folder "parser" as parser_a64afe8d {
               interface "Parsable" as parsable_1dc7e811 {
                 + parse: T
               }
               class "TsParserClass" as ts_parser_class_5b693985 {
-                # _statement: ts.Statement
+                # _findProperties: Property[]
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
-                constructor({
-                    parsedSource,
-                    statement,
-                    inProjectPath,
-                  }: {
-                    parsedSource: ts.SourceFile
-                    statement: ts.Statement
-                    inProjectPath: string
-                  })
-                + parse: EntityClass[]
-                # _findProperties: Property[]
+                # _propertiesToString(parameters?: any[]): string
                 # _returnTypeValue(member: any): string
+                # _statement: ts.Statement
+                constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
+                + parse: EntityClass[]
               }
               class "TsParserEnum" as ts_parser_enum_2a645d78 {
-                # _statement: ts.Statement
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
-                constructor({
-                    parsedSource,
-                    statement,
-                    inProjectPath,
-                  }: {
-                    parsedSource: ts.SourceFile
-                    statement: ts.Statement
-                    inProjectPath: string
-                  })
+                # _statement: ts.Statement
+                constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
                 + parse: EntityEnum[]
               }
               class "TsParserFile" as ts_parser_file_f26663cd {
-                # _parsedSource: ts.SourceFile
-                # _inProjectPath: string
                 # _fileName: string
-                constructor({
-                    parsedSource,
-                    inProjectPath,
-                    fileName,
-                  }: {
-                    parsedSource: ts.SourceFile
-                    inProjectPath: string
-                    fileName: string
-                  })
-                + parse: EntityFile[]
-                # _importsFromStatements: TsParserImportParseResult[]
                 # _importsFromStatement(statement: ts.Statement): TsParserImportParseResult[]
+                # _importsFromStatements: TsParserImportParseResult[]
+                # _inProjectPath: string
+                # _parsedSource: ts.SourceFile
+                constructor(params: { parsedSource: ts.SourceFile; inProjectPath: string; fileName: string })
+                + parse: EntityFile[]
               }
               card "T: TsParserImportParseResult" as ts_parser_import_parse_result_edaa2a96 {
               }
               class "TsParserImport" as ts_parser_import_edaa2a96 {
-                # _statement: ts.Statement
-                # _inProjectPath: string
-                constructor({ statement, inProjectPath }: { statement: ts.Statement; inProjectPath: string })
-                + parse: TsParserImportParseResult[]
-                # _parseDefaultImport(importClause: any): string[]
-                # _parseBindingName(importClause: any): string[]
-                # _parseElements(elements: any): string[]
                 # _importedFileInProjectAbsPath(importPath: string): string
+                # _inProjectPath: string
+                # _parseBindingName(importClause: any): string[]
+                # _parseDefaultImport(importClause: any): string[]
+                # _parseElements(elements: any): string[]
+                # _statement: ts.Statement
+                constructor(params: { statement: ts.Statement; inProjectPath: string })
+                + parse: TsParserImportParseResult[]
               }
               class "TsParserInterface" as ts_parser_interface_8936afae {
-                # _statement: ts.Statement
+                # _findProperties: Property[]
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
-                constructor({
-                    parsedSource,
-                    statement,
-                    inProjectPath,
-                  }: {
-                    parsedSource: ts.SourceFile
-                    statement: ts.Statement
-                    inProjectPath: string
-                  })
+                # _statement: ts.Statement
+                constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
                 + parse: EntityInterface[]
-                # _findProperties: Property[]
               }
               class "TsParserObject" as ts_parser_object_cba014be {
-                # _statement: ts.Statement
+                # _accessLevel(propName: string): PropertyAccessLevelType
+                # _findProperties(properties?: any[]): Property[]
                 # _inProjectPath: string
                 # _parsedSource: ts.SourceFile
-                constructor({
-                    parsedSource,
-                    statement,
-                    inProjectPath,
-                  }: {
-                    parsedSource: ts.SourceFile
-                    statement: ts.Statement
-                    inProjectPath: string
-                  })
-                + parse: EntityObject[]
-                # _findProperties(properties?: any[]): Property[]
-                # _accessLevel(propName: string): PropertyAccessLevelType
                 # _returnTypeValue(property: any): string
+                # _statement: ts.Statement
+                constructor({    parsedSource,    statement,    inProjectPath,  }: {    parsedSource: ts.SourceFile    statement: ts.Statement    inProjectPath: string  })
+                + parse: EntityObject[]
               }
               class "TsParserType" as ts_parser_type_46289b53 {
-                # _statement: ts.Statement
                 # _inProjectPath: string
-                constructor({ statement, inProjectPath }: { statement: ts.Statement; inProjectPath: string })
+                # _statement: ts.Statement
+                constructor(params: { statement: ts.Statement; inProjectPath: string })
                 + parse: EntityType[]
               }
             }
@@ -455,115 +334,115 @@
           }
           folder "puml" as puml_bc87e940 {
             class "PumlDocument" as puml_document_ebf39ea0 {
-              # _templateStart: string
-              # _templateEnd: string
               # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
             }
             abstract "PumlEntity" as puml_entity_cc3a6994 {
               # _children: PumlEntity[]
+              # _indentRows(templates: string[]): string[]
+              # {abstract} _print: string[]
               # _relations: PumlRelation[]
               # {abstract} _templateEnd: string
               # {abstract} _templateStart: string
-              # {abstract} _print: string[]
-              + print: string
-              # _indentRows(templates: string[]): string[]
               + addChildren(printable: PumlEntity): void
+              + print: string
               + printRelations: string
             }
             class "PumlGroup" as puml_group_a2149850 {
-              # _name: string
-              # _type: PumlGroupType
-              # _groupPath: string
-              + groups: { [k: string]: PumlGroup }
-              # _templateEnd: string
-              # _templateStart: string
-              # _print: string[]
-              # _printGroups(groups: { [k: string]: PumlGroup }): string
-              constructor({ name, type, groupPath }: { name: string; type: PumlGroupType; groupPath: string })
+              + GroupPath: string
               + Id: string
               + Name: string
-              + GroupPath: string
               + Type: string
+              # _groupPath: string
+              # _name: string
+              # _print: string[]
+              # _printGroups(groups: { [k: string]: PumlGroup }): string
+              # _templateEnd: string
+              # _templateStart: string
+              # _type: PumlGroupType
+              constructor(params: { name: string; type: PumlGroupType; groupPath: string })
+              + groups: { [k: string]: PumlGroup }
             }
             class "PumlPrint" as puml_print_77dc46be {
               # _destinationPath: string
               # _fileName:  = vision.puml
-              # _rootGroup: PumlGroup
-              # _pumlRelationStrings: string[]
-              # _writeToFile(data: string): Promise<void>
-              constructor({ appName, destinationPath }: { appName?: string; destinationPath: string })
               # _generateGroups(entities: Entity[]): void
-              # _printableStrategyFromEntity({ entity }: { entity: Entity }): PumlEntity | undefined
-              + print({ entities }: { entities: Entity[] }): Promise<void>
+              # _printableStrategyFromEntity(entity: Entity): PumlEntity | undefined
+              # _pumlRelationStrings: string[]
+              # _rootGroup: PumlGroup
+              # _writeToFile(data: string): Promise<void>
+              constructor(params: { appName?: string; destinationPath: string })
+              + print(params: { entities: Entity[] }): Promise<void>
             }
             class "PumlRelation" as puml_relation_24365729 {
-              # _reference: Reference
               # _fromEntity: Entity
-              constructor({ reference, fromEntity }: { reference: Reference; fromEntity: Entity })
-              + print: string
               # _linkByReferenceType: string
+              # _reference: Reference
+              constructor(params: { reference: Reference; fromEntity: Entity })
+              + print: string
             }
             folder "printable-entity" as printable_entity_3657a4a2 {
               class "PumlPrintableClass" as puml_printable_class_46ef6395 {
                 # _entity: EntityClass
-                # _templateEnd: string
-                # _templateStart: string
-                constructor({ entity }: { entity: EntityClass })
                 # _print: string[]
                 # _printProperty(property: Property): string
+                # _templateEnd: string
+                # _templateStart: string
+                constructor(params: { entity: EntityClass })
               }
               class "PumlPrintableEnum" as puml_printable_enum_9f4c4448 {
                 # _entity: EntityEnum
+                # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor({ entity }: { entity: EntityEnum })
-                # _print: string[]
+                constructor(params: { entity: EntityEnum })
               }
               class "PumlPrintableFile" as puml_printable_file_11eb1ddd {
                 # _entity: EntityFile
+                # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor({ entity }: { entity: EntityFile })
-                # _print: string[]
+                constructor(params: { entity: EntityFile })
               }
               class "PumlPrintableInterface" as puml_printable_interface_dfa76d5e {
                 # _entity: EntityInterface
-                # _templateEnd: string
-                # _templateStart: string
-                constructor({ entity }: { entity: EntityInterface })
                 # _print: string[]
                 # _printProperty(property: Property): string
+                # _templateEnd: string
+                # _templateStart: string
+                constructor(params: { entity: EntityInterface })
               }
               class "PumlPrintableObject" as puml_printable_object_2cf1044e {
                 # _entity: EntityObject
-                # _templateEnd: string
-                # _templateStart: string
-                constructor({ entity }: { entity: EntityObject })
                 # _print: string[]
                 # _printProperty(property: Property): string
-              }
-              class "PumlPrintableProperty" as puml_printable_property_739e371c {
-                # _property: Property
                 # _templateEnd: string
                 # _templateStart: string
-                constructor({ property }: { property: Property })
-                # _print: string[]
-                # _propertyName: string
+                constructor(params: { entity: EntityObject })
+              }
+              class "PumlPrintableProperty" as puml_printable_property_739e371c {
                 # _abstractAttribute: string
                 # _accessLevel: string
+                # _print: string[]
+                # _property: Property
+                # _propertyName: string
+                # _templateEnd: string
+                # _templateStart: string
+                constructor(params: { property: Property })
               }
               class "PumlPrintableType" as puml_printable_type_21bec203 {
                 # _entity: EntityType
+                # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
-                constructor({ entity }: { entity: EntityType })
-                # _print: string[]
+                constructor(params: { entity: EntityType })
               }
               class "PumlPrintableWrapper" as puml_printable_wrapper_b8ea5ae8 {
+                # _print: string[]
                 # _templateEnd: string
                 # _templateStart: string
                 constructor(protected readonly _string: string)
-                # _print: string[]
               }
             }
           }
@@ -571,13 +450,13 @@
       }
       folder "use-case" as use_case_fcef54f2 {
         object "cliInitUseCase" as cli_init_use_case_9439e852 {
-          + execArgsAsCommand(args: string[]): Promise<void>
           + createCommandFromCliArgs(args: string[]): Executable
+          + execArgsAsCommand(args: string[]): Promise<void>
           + ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args: string[]): void
           + ifNoCommandSelectedThrowErrorAndPrintHelp(args: string[]): void
         }
         object "visionUseCase" as vision_use_case_dd084107 {
-          + processFolder({ folderPath, printStrategy }: { folderPath: string; printStrategy: PrintStrategy }): Promise<void>
+          + processFolder(params: { folderPath: string; printStrategy: PrintStrategy }): Promise<void>
         }
       }
       folder "util" as util_28bcbc6c {

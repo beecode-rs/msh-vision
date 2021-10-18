@@ -8,7 +8,8 @@ export class TsParserImport implements Parsable<TsParserImportParseResult[]> {
   protected readonly _statement: ts.Statement
   protected readonly _inProjectPath: string
 
-  constructor({ statement, inProjectPath }: { statement: ts.Statement; inProjectPath: string }) {
+  constructor(params: { statement: ts.Statement; inProjectPath: string }) {
+    const { statement, inProjectPath } = params
     this._statement = statement
     this._inProjectPath = inProjectPath
   }
@@ -41,6 +42,6 @@ export class TsParserImport implements Parsable<TsParserImportParseResult[]> {
 
   protected _importedFileInProjectAbsPath(importPath: string): string {
     if (!fileService.isDotPath(importPath)) return importPath
-    return fileService.importPathFind(this._inProjectPath, importPath)
+    return fileService.importPathFind({ filePathImportedFrom: this._inProjectPath, importPath: importPath })
   }
 }

@@ -11,12 +11,13 @@ export class PumlPrintableEnum extends PumlEntity {
     return `enum "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityEnum }) {
+  constructor(params: { entity: EntityEnum }) {
+    const { entity } = params
     super()
     this._entity = entity
   }
 
   protected _print(): string[] {
-    return this._entity.Properties
+    return this._entity.Properties.sort()
   }
 }

@@ -6,7 +6,10 @@ import { Reference } from 'src/model/reference'
 export class EntityFile extends Entity implements Referencable {
   protected readonly _references: Reference[] = []
 
-  constructor({ name, inProjectPath }: { name: string; inProjectPath: string }) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  constructor(params: { name: string; inProjectPath: string }) {
+    const { name, inProjectPath } = params
     super({ name, inProjectPath })
   }
 

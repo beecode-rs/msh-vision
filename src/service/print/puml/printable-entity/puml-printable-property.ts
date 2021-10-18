@@ -12,7 +12,8 @@ export class PumlPrintableProperty extends PumlEntity {
     return [template, this._property.ReturnType].filter(Boolean).join(': ')
   }
 
-  constructor({ property }: { property: Property }) {
+  constructor(params: { property: Property }) {
+    const { property } = params
     super()
     this._property = property
   }

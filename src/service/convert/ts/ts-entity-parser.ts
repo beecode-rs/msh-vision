@@ -14,15 +14,8 @@ export class TsEntityParser {
   protected readonly _fileName: string
   protected readonly _inProjectPath: string
 
-  constructor({
-    parsedSource,
-    fileName,
-    inProjectPath,
-  }: {
-    parsedSource: ts.SourceFile
-    fileName: string
-    inProjectPath: string
-  }) {
+  constructor(params: { parsedSource: ts.SourceFile; fileName: string; inProjectPath: string }) {
+    const { parsedSource, fileName, inProjectPath } = params
     this._parsedSource = parsedSource
     this._fileName = fileName
     this._inProjectPath = inProjectPath

@@ -10,14 +10,7 @@ export class EntityClass extends Entity implements Exportable, Referencable {
   protected readonly _references: Reference[]
   protected readonly _properties: Property[]
 
-  constructor({
-    name,
-    inProjectPath,
-    isExported,
-    isAbstract,
-    references,
-    properties,
-  }: {
+  constructor(params: {
     name: string
     inProjectPath: string
     isExported?: boolean
@@ -25,6 +18,7 @@ export class EntityClass extends Entity implements Exportable, Referencable {
     references?: Reference[]
     properties?: Property[]
   }) {
+    const { name, inProjectPath, isExported, isAbstract, references, properties } = params
     super({ name, inProjectPath })
     this._isExported = isExported ?? false
     this._isAbstract = isAbstract ?? false

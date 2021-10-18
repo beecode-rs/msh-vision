@@ -5,7 +5,7 @@ import ts from 'src/module/ts'
 import { TsParserImport } from 'src/service/convert/ts/parser/ts-parser-import'
 import { logger } from 'src/util/logger'
 
-const self = {
+const _self = {
   isExported: (modifiers?: ts.ModifiersArray): boolean => {
     if (!modifiers) return false
     return !!modifiers.find((m) => m.kind === ts.SyntaxKind.ExportKeyword)
@@ -33,8 +33,8 @@ const self = {
       declaration: decl,
     }
   },
-  checkIfThereAreAnyExports: ({ parsedSource }: { parsedSource: ts.SourceFile }): boolean => {
-    return !!parsedSource.statements.find((s) => self._isViableExportableStatementKind(s.kind) && self.isExported(s.modifiers))
+  checkIfThereAreAnyExports: (parsedSource: ts.SourceFile): boolean => {
+    return !!parsedSource.statements.find((s) => _self._isViableExportableStatementKind(s.kind) && _self.isExported(s.modifiers))
   },
   _isViableExportableStatementKind: (kind: number): boolean => {
     return [
@@ -47,15 +47,8 @@ const self = {
       ts.SyntaxKind.EnumDeclaration,
     ].includes(kind)
   },
-  findClassRelations: ({
-    statement,
-    parsedSource,
-    inProjectPath,
-  }: {
-    statement: ts.Statement
-    parsedSource: ts.SourceFile
-    inProjectPath: string
-  }): Reference[] => {
+  findClassRelations: (params: { statement: ts.Statement; parsedSource: ts.SourceFile; inProjectPath: string }): Reference[] => {
+    const { statement, parsedSource, inProjectPath } = params
     const extendImplements = (statement['heritageClauses'] ?? [])
       .map((heritage) => {
         const type = heritage.getText(parsedSource).split(' ')[0]
@@ -87,4 +80,4 @@ const self = {
   },
 }
 
-export const tsParserService = self
+export const tsParserService = _self

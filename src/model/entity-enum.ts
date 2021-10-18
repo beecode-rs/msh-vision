@@ -5,17 +5,8 @@ export class EntityEnum extends Entity implements Exportable {
   protected readonly _isExported: boolean
   protected readonly _properties: string[]
 
-  constructor({
-    name,
-    inProjectPath,
-    isExported,
-    properties,
-  }: {
-    name: string
-    inProjectPath: string
-    isExported?: boolean
-    properties: string[]
-  }) {
+  constructor(params: { name: string; inProjectPath: string; isExported?: boolean; properties: string[] }) {
+    const { name, inProjectPath, isExported, properties } = params
     super({ name, inProjectPath })
     this._isExported = isExported ?? false
     this._properties = properties ?? []

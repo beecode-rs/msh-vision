@@ -30,7 +30,10 @@ export class PumlGroup extends PumlEntity {
       .join(constant.newRow)
   }
 
-  constructor({ name, type, groupPath }: { name: string; type: PumlGroupType; groupPath: string }) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  constructor(params: { name: string; type: PumlGroupType; groupPath: string }) {
+    const { name, type, groupPath } = params
     super()
     this._name = name
     this._type = type

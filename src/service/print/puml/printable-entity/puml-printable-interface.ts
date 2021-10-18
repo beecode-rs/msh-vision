@@ -13,7 +13,8 @@ export class PumlPrintableInterface extends PumlEntity {
     return `interface "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityInterface }) {
+  constructor(params: { entity: EntityInterface }) {
+    const { entity } = params
     super()
     this._entity = entity
   }

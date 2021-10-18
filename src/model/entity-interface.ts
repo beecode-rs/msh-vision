@@ -8,19 +8,14 @@ export class EntityInterface extends Entity implements Exportable {
   protected readonly _references: Reference[]
   protected readonly _properties: Property[]
 
-  constructor({
-    name,
-    inProjectPath,
-    isExported,
-    references,
-    properties,
-  }: {
+  constructor(params: {
     name: string
     inProjectPath: string
     isExported?: boolean
     references?: Reference[]
     properties?: Property[]
   }) {
+    const { name, inProjectPath, isExported, references, properties } = params
     super({ name, inProjectPath })
     this._isExported = isExported ?? false
     this._references = references ?? []

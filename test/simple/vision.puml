@@ -19,13 +19,14 @@
         }
         class "SomeClass" as some_class_3e48ea5d {
           # _constParam: string
-          + constructor(constParam: SomeType)
+          # _constParam1: string
+          + constructor(params: { test: string; test1: SomeType })
           + test: number
         }
         enum "SomeEnumType" as some_enum_type_688a0b15 {
-          FIRST_VALUE = 'frist-value'
+          FIRST_VALUE = 'first-value'
           SECOND_VALUE = 'second-value'
-          THRID_VALUE = 'third-value'
+          THIRD_VALUE = 'third-value'
         }
         interface "SomeInterface" as some_interface_7947f676 {
           + test: number

@@ -31,7 +31,8 @@ export class PumlPrint implements PrintStrategy {
     await fileService.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
   }
 
-  constructor({ appName, destinationPath }: { appName?: string; destinationPath: string }) {
+  constructor(params: { appName?: string; destinationPath: string }) {
+    const { appName, destinationPath } = params
     const fallbackAppName = appName ?? ''
     this._destinationPath = destinationPath
     this._rootGroup = new PumlGroup({
@@ -49,7 +50,7 @@ export class PumlPrint implements PrintStrategy {
       paths.forEach((p, ix, list) => {
         const parentGroup = prevGroup ? prevGroup : this._rootGroup
         if (ix === list.length - 1) {
-          const printableEntity = this._printableStrategyFromEntity({ entity: e })
+          const printableEntity = this._printableStrategyFromEntity(e)
           if (printableEntity) {
             this._pumlRelationStrings.push(printableEntity.printRelations())
             parentGroup.addChildren(printableEntity)
@@ -65,7 +66,7 @@ export class PumlPrint implements PrintStrategy {
     })
   }
 
-  protected _printableStrategyFromEntity({ entity }: { entity: Entity }): PumlEntity | undefined {
+  protected _printableStrategyFromEntity(entity: Entity): PumlEntity | undefined {
     switch (true) {
       case entity instanceof EntityClass:
         return new PumlPrintableClass({ entity: entity as EntityClass })
@@ -84,7 +85,8 @@ export class PumlPrint implements PrintStrategy {
     }
   }
 
-  public async print({ entities }: { entities: Entity[] }): Promise<void> {
+  public async print(params: { entities: Entity[] }): Promise<void> {
+    const { entities } = params
     const template = new PumlDocument()
     this._generateGroups(entities)
     template.addChildren(this._rootGroup)

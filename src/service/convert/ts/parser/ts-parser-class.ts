@@ -3,21 +3,15 @@ import { Property } from 'src/model/property'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { tsParserService } from 'src/service/convert/ts/ts-parser-service'
+import { constant } from 'src/util/constant'
 
 export class TsParserClass implements Parsable {
   protected readonly _statement: ts.Statement
   protected readonly _inProjectPath: string
   protected readonly _parsedSource: ts.SourceFile
 
-  constructor({
-    parsedSource,
-    statement,
-    inProjectPath,
-  }: {
-    parsedSource: ts.SourceFile
-    statement: ts.Statement
-    inProjectPath: string
-  }) {
+  constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string }) {
+    const { parsedSource, statement, inProjectPath } = params
     this._statement = statement
     this._inProjectPath = inProjectPath
     this._parsedSource = parsedSource
@@ -50,13 +44,11 @@ export class TsParserClass implements Parsable {
   protected _findProperties(): Property[] {
     return this._statement['members'].map((member) => {
       const name = member.kind === ts.SyntaxKind.Constructor ? 'constructor' : member.name.escapedText
-      const returnType = this._returnTypeValue(member)
+      const returnType = member.kind === ts.SyntaxKind.Constructor ? '' : this._returnTypeValue(member)
+
       const accessLevel = tsParserService.accessLevel(member.modifiers)
       const isAbstract = tsParserService.isAbstract(member.modifiers)
-      const functionParams =
-        (member.parameters ?? []).length === 0
-          ? undefined
-          : member.parameters.map((p) => p.getText(this._parsedSource)).join(', ')
+      const functionParams = this._propertiesToString(member.parameters)
       return new Property({
         name,
         isAbstract,
@@ -68,9 +60,17 @@ export class TsParserClass implements Parsable {
   }
 
   protected _returnTypeValue(member: any): string {
-    // if(member.kind === ts.SyntaxKind.Constructor) return ''
     if (member.type) return member.type.getText(this._parsedSource)
     if (member.initializer?.text) return ` = ${member.initializer.text}`
     return ''
+  }
+
+  protected _propertiesToString(parameters?: any[]): string {
+    if ((parameters ?? []).length === 0) return ''
+    return (parameters ?? [])
+      .map((p) => p.getText(this._parsedSource))
+      .join(', ')
+      .split(constant.newRow)
+      .join('')
   }
 }

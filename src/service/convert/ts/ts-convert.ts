@@ -19,9 +19,9 @@ export class TsConvert implements ConvertStrategy {
   public async convert(): Promise<Entity[]> {
     await tsConfigFileService.init()
     const fileName = fileService.fileNameFromPath(this._filePath, { withExtension: true })
-    const parsedSource = await this._parseFile(this._filePath, fileName)
+    const parsedSource = await this._parseFile({ filePath: this._filePath, fileName })
 
-    const hasExportsInFile = tsParserService.checkIfThereAreAnyExports({ parsedSource })
+    const hasExportsInFile = tsParserService.checkIfThereAreAnyExports(parsedSource)
     const inProjectPath = fileService.cleanupPath(this._filePath)
     if (!hasExportsInFile) return new TsParserFile({ parsedSource, fileName, inProjectPath }).parse()
 
@@ -34,7 +34,8 @@ export class TsConvert implements ConvertStrategy {
    *
    * https://ts-ast-viewer.com/#code/JYWwDg9gTgLgBAbzgYQuCA7Aph+BfOAMyjTgHIABAQwwHMBXAGyqgHoBjaLMgbgCgKqdNlwAKBHzhwAzlkZZ2MaAC5yIAJ5kANJLgws4ZvtVkAFnMYQ4ILADoyfPAEo+WAB6RYcds2nS4ALLqQpAi8BJ4QA
    */
-  protected async _parseFile(filePath: string, fileName: string): Promise<ts.SourceFile> {
+  protected async _parseFile(params: { filePath: string; fileName: string }): Promise<ts.SourceFile> {
+    const { filePath, fileName } = params
     const fileSource = await fileService.readFile(filePath)
     return ts.createSourceFile(fileName, fileSource, ts.ScriptTarget.ES2020) // TODO implement param for script target
   }

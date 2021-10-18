@@ -14,14 +14,17 @@ export class PumlPrintableClass extends PumlEntity {
     return `${this._entity.IsAbstract ? 'abstract' : 'class'} "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityClass }) {
+  constructor(params: { entity: EntityClass }) {
+    const { entity } = params
     super()
     this._entity = entity
     this._relations = entity.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))
   }
 
   protected _print(): string[] {
-    return this._entity.Properties.map((p) => this._printProperty(p)).filter(Boolean)
+    return this._entity.Properties.sort(Property.SortByName)
+      .map((p) => this._printProperty(p))
+      .filter(Boolean)
   }
 
   protected _printProperty(property: Property): string {

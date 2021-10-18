@@ -13,13 +13,16 @@ export class PumlPrintableObject extends PumlEntity {
     return `object "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityObject }) {
+  constructor(params: { entity: EntityObject }) {
+    const { entity } = params
     super()
     this._entity = entity
   }
 
   protected _print(): string[] {
-    return this._entity.Properties.map((p) => this._printProperty(p)).filter(Boolean)
+    return this._entity.Properties.sort(Property.SortByName)
+      .map((p) => this._printProperty(p))
+      .filter(Boolean)
   }
 
   protected _printProperty(property: Property): string {

@@ -1,5 +1,5 @@
 export enum SomeEnumType {
-  FIRST_VALUE = 'frist-value',
+  FIRST_VALUE = 'first-value',
   SECOND_VALUE = 'second-value',
-  THRID_VALUE = 'third-value',
+  THIRD_VALUE = 'third-value',
 }

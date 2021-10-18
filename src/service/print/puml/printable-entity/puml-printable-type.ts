@@ -11,7 +11,8 @@ export class PumlPrintableType extends PumlEntity {
     return `card "T: ${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityType }) {
+  constructor(params: { entity: EntityType }) {
+    const { entity } = params
     super()
     this._entity = entity
   }

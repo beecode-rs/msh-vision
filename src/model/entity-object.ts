@@ -7,19 +7,14 @@ export class EntityObject extends Entity implements Exportable {
   protected readonly _aliasReference: string
   protected readonly _properties: Property[]
 
-  constructor({
-    name,
-    inProjectPath,
-    isExported,
-    properties,
-    aliasReference,
-  }: {
+  constructor(params: {
     name: string
     inProjectPath: string
     isExported?: boolean
     properties?: Property[]
     aliasReference?: string
   }) {
+    const { name, inProjectPath, isExported, properties, aliasReference } = params
     super({ name, inProjectPath })
     this._isExported = isExported ?? false
     this._aliasReference = aliasReference ?? ''

@@ -6,7 +6,8 @@ export class PumlRelation {
   protected readonly _reference: Reference
   protected readonly _fromEntity: Entity
 
-  constructor({ reference, fromEntity }: { reference: Reference; fromEntity: Entity }) {
+  constructor(params: { reference: Reference; fromEntity: Entity }) {
+    const { reference, fromEntity } = params
     this._reference = reference
     this._fromEntity = fromEntity
   }

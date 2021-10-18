@@ -7,7 +7,8 @@ export class Reference implements Locatable {
   protected readonly _inProjectPath: string
   protected readonly _type: ReferenceType
 
-  constructor({ name, inProjectPath, type }: { name: string; inProjectPath: string; type: ReferenceType }) {
+  constructor(params: { name: string; inProjectPath: string; type: ReferenceType }) {
+    const { name, inProjectPath, type } = params
     this._name = name
     this._inProjectPath = inProjectPath
     this._type = type

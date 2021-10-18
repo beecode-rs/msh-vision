@@ -8,15 +8,8 @@ export class TsParserEnum implements Parsable {
   protected readonly _inProjectPath: string
   protected readonly _parsedSource: ts.SourceFile
 
-  constructor({
-    parsedSource,
-    statement,
-    inProjectPath,
-  }: {
-    parsedSource: ts.SourceFile
-    statement: ts.Statement
-    inProjectPath: string
-  }) {
+  constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string }) {
+    const { parsedSource, statement, inProjectPath } = params
     this._statement = statement
     this._inProjectPath = inProjectPath
     this._parsedSource = parsedSource

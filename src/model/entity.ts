@@ -5,7 +5,8 @@ export abstract class Entity implements Locatable {
   protected _name: string
   protected readonly _inProjectPath: string
 
-  protected constructor({ name, inProjectPath }: { name: string; inProjectPath: string }) {
+  protected constructor(params: { name: string; inProjectPath: string }) {
+    const { name, inProjectPath } = params
     this._name = name
     this._inProjectPath = inProjectPath
   }
@@ -22,5 +23,11 @@ export abstract class Entity implements Locatable {
 
   public renameEntity(name: string): void {
     this._name = name
+  }
+
+  public static SortByName(a: Entity, b: Entity): number {
+    if (a.Name < b.Name) return -1
+    if (a.Name > b.Name) return 1
+    return 0
   }
 }

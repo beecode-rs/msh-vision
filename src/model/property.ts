@@ -14,19 +14,14 @@ export class Property {
   // TODO implement readonly
   // TODO implement getter/setter
 
-  constructor({
-    name,
-    returnType,
-    accessLevel,
-    isAbstract,
-    functionParams,
-  }: {
+  constructor(params: {
     name: string
     returnType: string
     accessLevel?: PropertyAccessLevelType
     isAbstract?: boolean
     functionParams?: string
   }) {
+    const { name, returnType, accessLevel, isAbstract, functionParams } = params
     this._name = name
     this._returnType = returnType
     this._accessLevel = accessLevel ?? PropertyAccessLevelType.NO_MODIFIER
@@ -52,5 +47,11 @@ export class Property {
 
   public get FunctionParams(): string | undefined {
     return this._functionParams
+  }
+
+  public static SortByName(a: Property, b: Property): number {
+    if (a.Name < b.Name) return -1
+    if (a.Name > b.Name) return 1
+    return 0
   }
 }

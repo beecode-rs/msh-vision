@@ -12,7 +12,8 @@ export class PumlPrintableFile extends PumlEntity {
     return `artifact "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor({ entity }: { entity: EntityFile }) {
+  constructor(params: { entity: EntityFile }) {
+    const { entity } = params
     super()
     this._entity = entity
     this._relations = entity.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))

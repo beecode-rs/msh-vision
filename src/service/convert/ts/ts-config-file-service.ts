@@ -10,7 +10,7 @@ type TsConfigFileType = {
 }
 let __tsConfigFileJson: TsConfigFileType = {}
 
-const self = {
+const _self = {
   init: async (): Promise<void> => {
     const tsConfigAbsPath = fileService.relativeToAbsPath(visionConfig().ts.tsconfigPath)
     __tsConfigFileJson = require(tsConfigAbsPath) // eslint-disable-line @typescript-eslint/no-var-requires
@@ -20,11 +20,11 @@ const self = {
     return __tsConfigFileJson
   },
   _cleanReplacePaths: (): { startsWith: string; replaceWith: string }[] => {
-    const paths = self._getFileJson().compilerOptions?.paths ?? {}
+    const paths = _self._getFileJson().compilerOptions?.paths ?? {}
     return Object.entries(paths)
       .map(([refPath, [replacePaths, ..._paths]]) => ({
         startsWith: refPath.split('*').join(''),
-        replaceWith: self._cleanReplaceWith(replacePaths.split('*').join('')),
+        replaceWith: _self._cleanReplaceWith(replacePaths.split('*').join('')),
       }))
       .filter((r) => r.startsWith)
   },
@@ -33,9 +33,9 @@ const self = {
     return `.${fileService.cleanupPath(path.slice(visionConfig().projectSrcFolderPath.length))}`
   },
   moduleAliasResolve: (path: string): string => {
-    const resolver = self._cleanReplacePaths().find((r) => path.startsWith(r.startsWith))
+    const resolver = _self._cleanReplacePaths().find((r) => path.startsWith(r.startsWith))
     if (!resolver) return path
     return `${resolver.replaceWith}${path.slice(resolver.startsWith.length)}`
   },
 }
-export const tsConfigFileService = self
+export const tsConfigFileService = _self

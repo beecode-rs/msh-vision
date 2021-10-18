@@ -4,50 +4,44 @@ import path from 'path'
 import { tsConfigFileService } from 'src/service/convert/ts/ts-config-file-service'
 import { constant } from 'src/util/constant'
 
-export const fileService = {
-  fileListFromFolder: async ({ folderPath }: { folderPath: string }): Promise<string[]> => {
+const _self = {
+  fileListFromFolder: async (folderPath: string): Promise<string[]> => {
     return new Promise<string[]>((resolve, reject) => {
-      const cwd = fileService.relativeToAbsPath(folderPath)
-      glob('**/*', { cwd, dot: true, nodir: true, ignore: '*.test.ts' }, (err, files) => {
+      const cwd = _self.relativeToAbsPath(folderPath)
+      glob('**/*', { cwd, dot: true, nodir: true, ignore: '**/*.test.ts' }, (err, files) => {
+        // TODO implement some mechanism to ignore files
         if (err) return reject(err)
-        return resolve(files.map((f) => fileService.joinPaths(folderPath, f)))
+        return resolve(files.map((f) => _self.joinPaths(folderPath, f)))
       })
     })
   },
-  makeFolderIfNotExist: async ({ folderPath }: { folderPath: string }): Promise<void> => {
+  makeFolderIfNotExist: async (folderPath: string): Promise<void> => {
     if (await fs.stat(folderPath).catch(() => false)) return
     await fs.mkdir(folderPath)
   },
-  writeToFile: async ({ filePath, data }: { filePath: string; data: string }): Promise<void> => {
+  writeToFile: async (params: { filePath: string; data: string }): Promise<void> => {
+    const { filePath, data } = params
     await fs.writeFile(filePath, data, 'utf-8')
   },
   readFile: async (filePath: string): Promise<string> => {
     return fs.readFile(filePath, 'utf8')
   },
-  mkdirAndWriteToFile: async ({
-    folderPath,
-    fileName,
-    data,
-  }: {
-    folderPath: string
-    fileName: string
-    data: string
-  }): Promise<void> => {
-    await fileService.makeFolderIfNotExist({ folderPath })
-    await fileService.writeToFile({ filePath: fileService.joinPaths(folderPath, fileName), data })
+  mkdirAndWriteToFile: async (params: { folderPath: string; fileName: string; data: string }): Promise<void> => {
+    const { folderPath, fileName, data } = params
+    await _self.makeFolderIfNotExist(folderPath)
+    await _self.writeToFile({ filePath: _self.joinPaths(folderPath, fileName), data })
   },
   joinPaths: (...paths: string[]): string => {
     return path.join(...paths)
   },
   isAbsPath: (relativeOrAbsPath: string): boolean => {
-    // return !relativeOrAbsPath.startsWith(`.${constant.folderSep}`)
     return relativeOrAbsPath.startsWith(constant.folderSep)
   },
   isDotPath: (path: string): boolean => {
     return path.startsWith('.')
   },
   relativeToAbsPath: (relativeOrAbsPath: string): string => {
-    return fileService.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : fileService.joinPaths(process.cwd(), relativeOrAbsPath)
+    return _self.isAbsPath(relativeOrAbsPath) ? relativeOrAbsPath : _self.joinPaths(process.cwd(), relativeOrAbsPath)
   },
   cleanupPath: (relativeOrAbsPath: string): string => {
     return path.join(relativeOrAbsPath)
@@ -57,9 +51,10 @@ export const fileService = {
     if (pathSplit[pathSplit.length - 1].includes('.')) pathSplit.pop()
     return pathSplit.join(constant.folderSep)
   },
-  importPathFind: (filePathImportedFrom: string, importPath: string): string => {
+  importPathFind: (params: { filePathImportedFrom: string; importPath: string }): string => {
+    const { filePathImportedFrom, importPath } = params
     const resolvedImportPath = tsConfigFileService.moduleAliasResolve(importPath)
-    const importedFromPath = fileService.lastFolderFromPath(filePathImportedFrom)
+    const importedFromPath = _self.lastFolderFromPath(filePathImportedFrom)
     const importPathSplit = resolvedImportPath.split(constant.folderSep)
     const importedFromPathReverseSplit = importedFromPath.split(constant.folderSep).reverse()
     let equalPathSplitCount = 0
@@ -68,7 +63,7 @@ export const fileService = {
       equalPathSplitCount = +ix + 1
     }
     const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join(constant.folderSep)
-    return fileService.joinPaths(importedFromPath, cleanImportPath)
+    return _self.joinPaths(importedFromPath, cleanImportPath)
   },
   fileNameFromPath: (filePath: string, options: { withExtension?: boolean } = {}): string => {
     const parts = filePath.split(constant.folderSep)
@@ -80,3 +75,5 @@ export const fileService = {
     return nameParts.join('.')
   },
 }
+
+export const fileService = _self

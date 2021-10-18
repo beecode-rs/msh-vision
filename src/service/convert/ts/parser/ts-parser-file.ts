@@ -8,15 +8,8 @@ export class TsParserFile implements Parsable {
   protected readonly _inProjectPath: string
   protected readonly _fileName: string
 
-  constructor({
-    parsedSource,
-    inProjectPath,
-    fileName,
-  }: {
-    parsedSource: ts.SourceFile
-    inProjectPath: string
-    fileName: string
-  }) {
+  constructor(params: { parsedSource: ts.SourceFile; inProjectPath: string; fileName: string }) {
+    const { parsedSource, inProjectPath, fileName } = params
     this._parsedSource = parsedSource
     this._inProjectPath = inProjectPath
     this._fileName = fileName
