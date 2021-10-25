@@ -35,6 +35,10 @@ export abstract class PumlEntity {
     this._children.push(printable)
   }
 
+  public get Children(): PumlEntity[] {
+    return this._children
+  }
+
   public printRelations(): string {
     const template: string[] = []
     template.push(...this._relations.map((r) => r.print()).filter(Boolean))

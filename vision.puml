@@ -25,8 +25,15 @@
         }
       }
       folder "dal" as dal_fba75381 {
-        card "T: ExecResult" as exec_result_4f6edd5d {
-        }
+        card exec_result_4f6edd5d [
+          ExecResult
+          ---
+          {
+            stdout: string
+            stderr: string
+            errorOccurred: boolean
+          }
+        ]
         object "shellDal" as shell_dal_4f6edd5d {
           + cd(dir: string): void
           + exec(cmd: string): Promise<ExecResult>
@@ -93,9 +100,15 @@
           constructor(params: { references?: Reference[]; properties?: Property[]; aliasReference?: string })
         }
         class "EntityType" as entity_type_a3fb7caf {
+          + ReturnType: string
+          # _returnType: string
+          constructor(params: { returnType: string })
         }
-        card "T: EntityMeta" as entity_meta_9581579a {
-        }
+        card entity_meta_9581579a [
+          EntityMeta
+          ---
+          EntityClass | EntityEnum | EntityFile | EntityInterface | EntityObject | EntityType
+        ]
         class "Entity" as entity_9581579a {
           + Id: string
           + InProjectPath: string
@@ -148,12 +161,34 @@
         }
       }
       folder "service" as service_c83a6ab5 {
-        card "T: ArgsServiceParams" as args_service_params_d268d804 {
-        }
-        card "T: CliCommands" as cli_commands_d268d804 {
-        }
-        card "T: CmdGenerateParams" as cmd_generate_params_d268d804 {
-        }
+        card args_service_params_d268d804 [
+          ArgsServiceParams
+          ---
+          {
+            args: string[]
+            options: Options
+          }
+        ]
+        card cli_commands_d268d804 [
+          CliCommands
+          ---
+          minimist.ParsedArgs & {
+            help: boolean
+            h: boolean
+            version: boolean
+            v: boolean
+          }
+        ]
+        card cmd_generate_params_d268d804 [
+          CmdGenerateParams
+          ---
+          minimist.ParsedArgs & {
+            src: string
+            dest: string
+            appName: string
+            tsConfig: string
+          }
+        ]
         object "argsService" as args_service_d268d804 {
           + argToObject({ args, options }: ArgsServiceParams): T
           + cliCommandOptions: Options
@@ -182,8 +217,13 @@
         object "helpService" as help_service_20a1eb92 {
           + text: string
         }
-        card "T: PrintStdMessage" as print_std_message_db3f045d {
-        }
+        card print_std_message_db3f045d [
+          PrintStdMessage
+          ---
+          {
+            [key: string]: ExecResult
+          }
+        ]
         object "shellService" as shell_service_db3f045d {
           # _joinResults(results: PrintStdMessage[]): PrintStdMessage
           + cd: shellDal
@@ -215,8 +255,17 @@
             + convert: Promise<Entity[]>
           }
           folder "ts" as ts_42a428a5 {
-            card "T: TsConfigFileType" as ts_config_file_type_715f0c18 {
-            }
+            card ts_config_file_type_715f0c18 [
+              TsConfigFileType
+              ---
+              {
+                compilerOptions?: {
+                  paths?: {
+                    [k: string]: string[]
+                  }
+                }
+              }
+            ]
             object "___tsConfigFileJson" as ts_config_file_json_715f0c18 {
             }
             object "tsConfigFileService" as ts_config_file_service_715f0c18 {
@@ -293,8 +342,11 @@
                 constructor(params: {    parsedSource: ts.SourceFile    inProjectPath: string    fileName: string    importParseResults: TsParserImportParseResult[]  })
                 + parse: Entity<EntityFile>[]
               }
-              card "T: TsParserImportParseResult" as ts_parser_import_parse_result_edaa2a96 {
-              }
+              card ts_parser_import_parse_result_edaa2a96 [
+                TsParserImportParseResult
+                ---
+                { name: string; inProjectPath: string }
+              ]
               class "TsParserImport" as ts_parser_import_edaa2a96 {
                 # _importedFileInProjectAbsPath(importPath: string): string
                 # _inProjectPath: string
@@ -327,8 +379,9 @@
               }
               class "TsParserType" as ts_parser_type_46289b53 {
                 # _inProjectPath: string
+                # _parsedSource: ts.SourceFile
                 # _statement: ts.Statement
-                constructor(params: { statement: ts.Statement; inProjectPath: string })
+                constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string })
                 + parse: Entity<EntityType>[]
               }
             }
@@ -345,6 +398,7 @@
               # _templateStart: string
             }
             abstract "PumlEntity" as puml_entity_cc3a6994 {
+              + Children: PumlEntity[]
               # _children: PumlEntity[]
               # _indentRows(templates: string[]): string[]
               # {abstract} _print: string[]
@@ -359,7 +413,7 @@
               + GroupPath: string
               + Id: string
               + Name: string
-              + Type: string
+              + Type: PumlGroupType
               # _groupPath: string
               # _name: string
               # _print: string[]
@@ -373,6 +427,7 @@
             class "PumlPrint" as puml_print_77dc46be {
               # _destinationPath: string
               # _fileName:  = vision.puml
+              # _flattenGroups(group: PumlGroup): PumlGroup | undefined
               # _generateGroups(entities: Entity[]): void
               # _printableStrategyFromEntity(entity: Entity): PumlEntity | undefined
               # _pumlRelationStrings: string[]
@@ -470,8 +525,11 @@
         }
         object "config" as config_939c4ec0 {
         }
-        card "T: VisionConfigReturn" as vision_config_return_939c4ec0 {
-        }
+        card vision_config_return_939c4ec0 [
+          VisionConfigReturn
+          ---
+          typeof config._vision
+        ]
         object "visionConfig" as vision_config_939c4ec0 {
         }
         object "packageJson" as package_json_6be721f4 {

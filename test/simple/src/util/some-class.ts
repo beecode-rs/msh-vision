@@ -6,6 +6,15 @@ import { SomeInterface } from './some-interface'
 
 export type SomeType = string
 
+export type SomeOtherType = {
+  test: string
+  flag: boolean
+  obj: {
+    test1: true
+    test2: true
+  }
+}
+
 export class SomeClass extends AbstractClass implements SomeInterface, OtherInterface<string> {
   protected readonly _constParam: string
   protected readonly _constParam1: string

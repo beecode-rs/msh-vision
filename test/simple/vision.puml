@@ -19,8 +19,23 @@
         interface "OtherInterface" as other_interface_9bbef566 {
           + test: number
         }
-        card "T: SomeType" as some_type_3e48ea5d {
-        }
+        card some_type_3e48ea5d [
+          SomeType
+          ---
+          string
+        ]
+        card some_other_type_3e48ea5d [
+          SomeOtherType
+          ---
+          {
+            test: string
+            flag: boolean
+            obj: {
+              test1: true
+              test2: true
+            }
+          }
+        ]
         class "SomeClass" as some_class_3e48ea5d {
           # _constParam: string
           # _constParam1: string
@@ -37,6 +52,11 @@
         }
         interface "SomeInterface" as some_interface_7947f676 {
           + test: number
+        }
+        folder "folder/subfolder" as folder_subfolder_2ad52b28 {
+          object "nested" as nested_e86545a3 {
+            + someFunction: Promise<void>
+          }
         }
       }
     }

@@ -6,10 +6,10 @@ export class PumlPrintableType extends PumlEntity {
   protected readonly _entity: Entity<EntityType>
 
   protected _templateEnd(): string {
-    return '}'
+    return ']'
   }
   protected _templateStart(): string {
-    return `card "T: ${this._entity.Name}" as ${this._entity.Id} {`
+    return `card ${this._entity.Id} [`
   }
 
   constructor(params: { entity: Entity<EntityType> }) {
@@ -19,6 +19,6 @@ export class PumlPrintableType extends PumlEntity {
   }
 
   protected _print(): string[] {
-    return []
+    return [this._entity.Name, '---', this._entity.Meta.ReturnType]
   }
 }

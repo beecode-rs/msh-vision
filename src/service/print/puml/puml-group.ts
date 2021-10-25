@@ -52,7 +52,7 @@ export class PumlGroup extends PumlEntity {
     return this._groupPath
   }
 
-  public get Type(): string {
+  public get Type(): PumlGroupType {
     return this._type
   }
 }

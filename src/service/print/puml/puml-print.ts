@@ -46,9 +46,8 @@ export class PumlPrint implements PrintStrategy {
     entities.forEach((e) => {
       const paths = e.InProjectPath.split(constant.folderSep)
       let prevGroup: PumlGroup | undefined
-      // let fullGroupPath: string
       paths.forEach((p, ix, list) => {
-        const parentGroup = prevGroup ? prevGroup : this._rootGroup
+        const parentGroup = prevGroup ?? this._rootGroup
         if (ix === list.length - 1) {
           const printableEntity = this._printableStrategyFromEntity(e)
           if (printableEntity) {
@@ -89,8 +88,29 @@ export class PumlPrint implements PrintStrategy {
     const { entities } = params
     const template = new PumlDocument()
     this._generateGroups(entities)
+    this._flattenGroups(this._rootGroup)
     template.addChildren(this._rootGroup)
     this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
     await this._writeToFile(template.print())
+  }
+
+  protected _flattenGroups(group: PumlGroup): PumlGroup | undefined {
+    const groups = Object.values(group.groups)
+    if (group.Type === PumlGroupType.FICTIVE || group.Children.length > 0 || groups.length > 1) {
+      Object.entries(group.groups).forEach(([name, grp]) => {
+        const result = this._flattenGroups(grp)
+        if (result) group.groups[name] = result
+      })
+      return
+    }
+    if (groups.length === 0) return
+    const childGroup = groups[0]
+    const flatGroup = new PumlGroup({
+      name: [group.Name, childGroup.Name].join(constant.folderSep),
+      type: group.Type,
+      groupPath: childGroup.GroupPath,
+    })
+    childGroup.Children.forEach((cg) => flatGroup.addChildren(cg))
+    return flatGroup
   }
 }
