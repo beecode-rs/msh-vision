@@ -40,7 +40,7 @@
         class "SomeClass" as some_class_755b9f64 {
           # _constParam: string
           # _constParam1: string
-          + constructor(params: { test: string; test1: SomeType })
+          + constructor(params: {\n test: string;\n test1: SomeType \n})
           + test(someParam: string): number
           + test: number
           + test(someParam?: string): number

@@ -10,7 +10,7 @@ export class PumlPrintableProperty extends PumlEntity {
   }
   protected _templateStart(): string {
     const template = [this._accessLevel(), this._abstractAttribute(), this._propertyName()].filter(Boolean).join(' ')
-    return [template, this._property.ReturnType].filter(Boolean).join(': ')
+    return [template, this._addNewRows(this._property.ReturnType)].filter(Boolean).join(': ')
   }
 
   constructor(params: { property: Property }) {
@@ -24,7 +24,7 @@ export class PumlPrintableProperty extends PumlEntity {
   }
 
   protected _propertyName(): string {
-    const fnProperties = this._property.FunctionParams ? `(${this._property.FunctionParams})` : undefined
+    const fnProperties = this._property.FunctionParams ? `(${this._addNewRows(this._property.FunctionParams)})` : undefined
     return [this._property.Name, fnProperties].filter(Boolean).join('')
   }
 
@@ -32,8 +32,17 @@ export class PumlPrintableProperty extends PumlEntity {
     return this._property.IsAbstract ? '{abstract}' : ''
   }
 
-  // TODO add static
+  // TODO find more elegant way to do this
+  protected _addNewRows(template: string): string {
+    if (template.split(';').length === 1 && template.split(',').length === 1) return template
+    template = template.split('{').join('{\\n')
+    template = template.split('}').join('\\n}')
+    template = template.split(';').join(';\\n')
+    template = template.split(',').join(',\\n')
+    return template
+  }
 
+  // TODO add static
   protected _accessLevel(): string {
     switch (this._property.AccessLevel) {
       case PropertyAccessLevelType.PUBLIC:
