@@ -306,6 +306,8 @@
               # _isViableExportableStatementKind(kind: number): boolean
               + accessLevel(modifiers?: ts.ModifiersArray): PropertyAccessLevelType
               + checkIfThereAreAnyExports(parsedSource: ts.SourceFile): boolean
+              + entityLinksFromStatement(params: { statement: ts.Statement; inProjectPath: string }): TsParserImportParseResult[]
+              + entityLinksFromStatements(params: { parsedSource: ts.SourceFile; inProjectPath: string }): TsParserImportParseResult[]
               + findClassRelations(params: { statement: ts.Statement; parsedSource: ts.SourceFile; inProjectPath: string }): Reference[]
               + importsFromStatement(params: { statement: ts.Statement; inProjectPath: string }): TsParserImportParseResult[]
               + importsFromStatements(params: { parsedSource: ts.SourceFile; inProjectPath: string }): TsParserImportParseResult[]
@@ -548,20 +550,28 @@
         }
       }
     }
+  cli_app_8bf9ca45 -up-> exec_args_as_command_d74becbe
   cli_app_8bf9ca45 -up-|> app_d815df3b
   app_1d92d491 -up-> logger_d1ee5f1e
+  app_1d92d491 -up-> app_1d92d491
   exec_args_as_command_d74becbe -up-> cli_init_use_case_9439e852
   exec_args_as_command_d74becbe -up-|> initiate_d815df3b
   shell_dal_4f6edd5d -up-> shell_735e83ab
   index_ts_e4daf83f -up-> logger_d1ee5f1e
   entity_class_87e50b39 .up.|> referencable_31799d25
+  entity_file_33f169f1 -up-> reference_aaef6aea
   entity_file_33f169f1 .up.|> referencable_31799d25
   entity_9581579a -up-> string_util_20f7f236
   entity_9581579a .up.|> locatable_b011d3de
+  property_d5a84d26 -up-> property_access_level_type_daa2367d
+  reference_aaef6aea -up-> reference_type_1f38c983
   reference_aaef6aea -up-> string_util_20f7f236
   reference_aaef6aea .up.|> locatable_b011d3de
   ts_ts_eabf7773 -up-> ts_88927a5b
   args_service_d268d804 -up-> minimist_91be8eac
+  args_service_d268d804 -up-> minimist_options_4ff5e091
+  args_service_d268d804 -up-> options_4ff5e091
+  cli_service_317b6b45 -up-> help_service_20a1eb92
   cli_service_317b6b45 -up-> shell_service_db3f045d
   generate_eb5ef3b0 -up-> vision_use_case_dd084107
   generate_eb5ef3b0 .up.|> executable_a85166eb
@@ -571,15 +581,23 @@
   print_version_dc92b85d .up.|> executable_a85166eb
   convert_service_b2b4bfac -up-> ts_convert_87a0875e
   convert_service_b2b4bfac -up-> logger_d1ee5f1e
+  ts_parser_class_5b693985 -up-> property_d5a84d26
+  ts_parser_class_5b693985 -up-> constant_6be721f4
   ts_parser_class_5b693985 .up.|> parsable_1dc7e811
   ts_parser_enum_2a645d78 .up.|> parsable_1dc7e811
   ts_parser_file_f26663cd .up.|> parsable_1dc7e811
   ts_parser_import_edaa2a96 -up-> file_service_3f424ea5
   ts_parser_import_edaa2a96 .up.|> parsable_1dc7e811
+  ts_parser_interface_8936afae -up-> property_d5a84d26
   ts_parser_interface_8936afae .up.|> parsable_1dc7e811
   ts_parser_object_cba014be -up-> property_access_level_type_daa2367d
+  ts_parser_object_cba014be -up-> property_d5a84d26
   ts_parser_object_cba014be .up.|> parsable_1dc7e811
   ts_parser_type_46289b53 .up.|> parsable_1dc7e811
+  ts_config_file_json_715f0c18 -up-> ts_config_file_type_715f0c18
+  ts_config_file_service_715f0c18 -up-> ts_config_file_type_715f0c18
+  ts_config_file_service_715f0c18 -up-> ts_config_file_json_715f0c18
+  ts_config_file_service_715f0c18 -up-> self_715f0c18
   ts_convert_87a0875e -up-> ts_eabf7773
   ts_convert_87a0875e -up-> ts_parser_file_f26663cd
   ts_convert_87a0875e -up-> ts_config_file_service_715f0c18
@@ -591,24 +609,45 @@
   ts_entity_parser_d73e1a98 -up-> ts_parser_object_cba014be
   ts_entity_parser_d73e1a98 -up-> ts_parser_type_46289b53
   ts_entity_parser_d73e1a98 -up-> logger_d1ee5f1e
+  ts_parser_import_relations_62a961c6 -up-> reference_aaef6aea
+  ts_parser_import_relations_62a961c6 -up-> self_62a961c6
   ts_parser_service_e67f4e7e -up-> property_access_level_type_daa2367d
+  ts_parser_service_e67f4e7e -up-> reference_aaef6aea
   ts_parser_service_e67f4e7e -up-> ts_parser_import_edaa2a96
+  ts_parser_service_e67f4e7e -up-> logger_d1ee5f1e
+  ts_parser_service_e67f4e7e -up-> self_e67f4e7e
   file_service_3f424ea5 -up-> fs_b9f0eb9
   file_service_3f424ea5 -up-> path_6f8e1be1
+  file_service_3f424ea5 -up-> constant_6be721f4
+  file_service_3f424ea5 -up-> self_3f424ea5
+  help_service_20a1eb92 -up-> constant_6be721f4
+  puml_printable_class_46ef6395 -up-> entity_9581579a
+  puml_printable_class_46ef6395 -up-> property_d5a84d26
   puml_printable_class_46ef6395 -up-> puml_printable_property_739e371c
   puml_printable_class_46ef6395 -up-|> puml_entity_cc3a6994
+  puml_printable_enum_9f4c4448 -up-> entity_9581579a
   puml_printable_enum_9f4c4448 -up-|> puml_entity_cc3a6994
+  puml_printable_file_11eb1ddd -up-> entity_9581579a
   puml_printable_file_11eb1ddd -up-|> puml_entity_cc3a6994
+  puml_printable_interface_dfa76d5e -up-> entity_9581579a
   puml_printable_interface_dfa76d5e -up-> puml_printable_property_739e371c
   puml_printable_interface_dfa76d5e -up-|> puml_entity_cc3a6994
+  puml_printable_object_2cf1044e -up-> entity_9581579a
+  puml_printable_object_2cf1044e -up-> property_d5a84d26
   puml_printable_object_2cf1044e -up-> puml_printable_property_739e371c
   puml_printable_object_2cf1044e -up-|> puml_entity_cc3a6994
   puml_printable_property_739e371c -up-> property_access_level_type_daa2367d
+  puml_printable_property_739e371c -up-> property_d5a84d26
   puml_printable_property_739e371c -up-|> puml_entity_cc3a6994
+  puml_printable_type_21bec203 -up-> entity_9581579a
   puml_printable_type_21bec203 -up-|> puml_entity_cc3a6994
   puml_printable_wrapper_b8ea5ae8 -up-|> puml_entity_cc3a6994
   puml_document_ebf39ea0 -up-|> puml_entity_cc3a6994
+  puml_entity_cc3a6994 -up-> constant_6be721f4
+  puml_group_a2149850 -up-> puml_group_type_87f1b99e
+  puml_group_a2149850 -up-> constant_6be721f4
   puml_group_a2149850 -up-> string_util_20f7f236
+  puml_group_a2149850 -up-> puml_group_a2149850
   puml_group_a2149850 -up-|> puml_entity_cc3a6994
   puml_print_77dc46be -up-> entity_class_87e50b39
   puml_print_77dc46be -up-> entity_enum_f7c58024
@@ -623,16 +662,30 @@
   puml_print_77dc46be -up-> puml_printable_interface_dfa76d5e
   puml_print_77dc46be -up-> puml_printable_object_2cf1044e
   puml_print_77dc46be -up-> puml_printable_type_21bec203
+  puml_print_77dc46be -up-> puml_printable_wrapper_b8ea5ae8
+  puml_print_77dc46be -up-> puml_group_a2149850
   puml_print_77dc46be -up-> logger_d1ee5f1e
   puml_print_77dc46be .up.|> print_strategy_5e9faaaa
   puml_relation_24365729 -up-> reference_type_1f38c983
+  puml_relation_24365729 -up-> entity_9581579a
+  puml_relation_24365729 -up-> reference_aaef6aea
+  shell_service_db3f045d -up-> chalk_61a68761
   shell_service_db3f045d -up-> shell_dal_4f6edd5d
+  shell_service_db3f045d -up-> print_std_message_db3f045d
   cli_init_use_case_9439e852 -up-> cli_service_317b6b45
+  cli_init_use_case_9439e852 -up-> executable_a85166eb
   cli_init_use_case_9439e852 -up-> generate_eb5ef3b0
   cli_init_use_case_9439e852 -up-> print_help_2c3c3bf6
   cli_init_use_case_9439e852 -up-> print_version_dc92b85d
+  cli_init_use_case_9439e852 -up-> cli_init_use_case_9439e852
   env_939c4ec0 -up-> msh_node_env_d41da467
+  env_939c4ec0 -up-> console_logger_329990f7
+  config_939c4ec0 -up-> env_939c4ec0
+  vision_config_939c4ec0 -up-> config_939c4ec0
+  vision_config_939c4ec0 -up-> vision_config_return_939c4ec0
+  constant_6be721f4 -up-> package_json_6be721f4
   logger_d1ee5f1e -up-> console_logger_329990f7
   string_util_20f7f236 -up-> camel_case_47f625d3
   string_util_20f7f236 -up-> snake_case_47f625d3
+  string_util_20f7f236 -up-> short_hash_20f7f236
 @enduml

@@ -1,9 +1,5 @@
 import { errors } from './errors'
-
-const enum LoggerType {
-  INFO = 'info',
-  WARN = 'warn',
-}
+import { LoggerType } from '../enum/logger-type'
 
 const _self = {
   debug: (msg: string): void => {

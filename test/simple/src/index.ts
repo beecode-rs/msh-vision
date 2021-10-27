@@ -1,4 +1,4 @@
-import { SomeClass } from './util/some-class'
+import { SomeClass } from './service/some-class'
 import { logger } from './util/logger'
 
 logger.debug('test')

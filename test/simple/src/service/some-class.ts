@@ -1,8 +1,10 @@
 import { AbstractClass } from './abstract-class'
-import { errors } from './errors'
+import { errors } from '../util/errors'
 import { OtherInterface } from './other-interface'
-import { SomeEnumType } from './some-enum-type'
+import { SomeEnumType } from '../enum/some-enum-type'
 import { SomeInterface } from './some-interface'
+// @ts-ignore
+import path from 'path'
 
 export type SomeType = string
 
@@ -30,6 +32,7 @@ export class SomeClass extends AbstractClass implements SomeInterface, OtherInte
       case true:
         errors.throwError('test')
     }
+    path.join('')
     return SomeEnumType.FIRST_VALUE
   }
 

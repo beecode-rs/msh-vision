@@ -78,6 +78,24 @@ const _self = {
     if (statement.kind != ts.SyntaxKind.ImportDeclaration) return []
     return new TsParserImport({ statement, inProjectPath }).parse()
   },
+  entityLinksFromStatements: (params: { parsedSource: ts.SourceFile; inProjectPath: string }): TsParserImportParseResult[] => {
+    const { parsedSource, inProjectPath } = params
+    return parsedSource.statements
+      .map((statement) => _self.entityLinksFromStatement({ statement, inProjectPath }))
+      .filter(Boolean)
+      .flat()
+  },
+  entityLinksFromStatement: (params: { statement: ts.Statement; inProjectPath: string }): TsParserImportParseResult[] => {
+    const { statement, inProjectPath } = params
+    if (!_self._isViableExportableStatementKind(statement.kind)) return []
+
+    // TODO find a better solution to finding entity links
+    if (statement['name']) return [{ name: statement['name'].escapedText, inProjectPath }]
+    if (statement['declarationList'])
+      return [{ name: statement['declarationList'].declarations[0].name.escapedText, inProjectPath }]
+
+    return []
+  },
 }
 
 export const tsParserService = _self

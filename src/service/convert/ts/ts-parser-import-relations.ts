@@ -33,6 +33,12 @@ const _self = {
     }
 
     if (
+      [ts.SyntaxKind.TypeLiteral, ts.SyntaxKind.TypeReference].includes(statement.kind) &&
+      statement.typeName?.escapedText === identifierName
+    )
+      return true
+
+    if (
       _self.stepIntoNode(identifierName, statement, [
         'body',
         'thenStatement',
@@ -41,11 +47,23 @@ const _self = {
         'declarationList',
         'caseBlock',
         'initializer',
+        'type',
       ])
     ) {
       return true
     }
     if (_self.stepIntoArray(identifierName, statement, ['statements', 'members', 'clauses', 'properties'])) {
+      return true
+    }
+
+    if (
+      [ts.SyntaxKind.CallExpression, ts.SyntaxKind.CallExpression].includes(statement.kind) &&
+      _self.stepIntoArray(identifierName, statement, ['arguments'])
+    ) {
+      return true
+    }
+
+    if ([ts.SyntaxKind.Constructor].includes(statement.kind) && _self.stepIntoArray(identifierName, statement, ['parameters'])) {
       return true
     }
 

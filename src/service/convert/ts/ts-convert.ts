@@ -26,8 +26,14 @@ export class TsConvert implements ConvertStrategy {
 
     const importParseResults = tsParserService.importsFromStatements({ parsedSource, inProjectPath })
     if (!hasExportsInFile) return new TsParserFile({ parsedSource, fileName, inProjectPath, importParseResults }).parse()
+    const entityLinks = tsParserService.entityLinksFromStatements({ parsedSource, inProjectPath })
 
-    const entityParser = new TsEntityParser({ parsedSource, fileName, inProjectPath, importParseResults })
+    const entityParser = new TsEntityParser({
+      parsedSource,
+      fileName,
+      inProjectPath,
+      importParseResults: [...importParseResults, ...entityLinks],
+    })
     return entityParser.parsedEntities()
   }
 

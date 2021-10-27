@@ -2,29 +2,30 @@
     folder "src" as src_b874d07 {
       artifact "index.ts" as index_ts_e4daf83f {
       }
-      folder "util" as util_28bcbc6c {
-        abstract "AbstractClass" as abstract_class_48ddc9a9 {
-          + {abstract} test(someParam: string): number
-        }
-        object "errors" as errors_90641da1 {
-          + throwError(msg: string): void
-        }
-        enum "LoggerType" as logger_type_d1ee5f1e {
+      folder "enum" as enum_1eea471b {
+        enum "LoggerType" as logger_type_eca21c7c {
           INFO = 'info'
           WARN = 'warn'
         }
-        object "logger" as logger_d1ee5f1e {
-          + debug(msg: string): void
+        enum "SomeEnumType" as some_enum_type_6a1c7ee2 {
+          FIRST_VALUE = 'first-value'
+          SECOND_VALUE = 'second-value'
+          THIRD_VALUE = 'third-value'
         }
-        interface "OtherInterface" as other_interface_9bbef566 {
+      }
+      folder "service" as service_c83a6ab5 {
+        abstract "AbstractClass" as abstract_class_eb5b4d10 {
+          + {abstract} test(someParam: string): number
+        }
+        interface "OtherInterface" as other_interface_45739bff {
           + test: number
         }
-        card some_type_3e48ea5d [
+        card some_type_755b9f64 [
           SomeType
           ---
           string
         ]
-        card some_other_type_3e48ea5d [
+        card some_other_type_755b9f64 [
           SomeOtherType
           ---
           {
@@ -36,7 +37,7 @@
             }
           }
         ]
-        class "SomeClass" as some_class_3e48ea5d {
+        class "SomeClass" as some_class_755b9f64 {
           # _constParam: string
           # _constParam1: string
           + constructor(params: { test: string; test1: SomeType })
@@ -45,27 +46,33 @@
           + test(someParam?: string): number
           + test1: SomeEnumType
         }
-        enum "SomeEnumType" as some_enum_type_688a0b15 {
-          FIRST_VALUE = 'first-value'
-          SECOND_VALUE = 'second-value'
-          THIRD_VALUE = 'third-value'
-        }
-        interface "SomeInterface" as some_interface_7947f676 {
+        interface "SomeInterface" as some_interface_4140baef {
           + test: number
         }
-        folder "folder/subfolder" as folder_subfolder_2ad52b28 {
-          object "nested" as nested_e86545a3 {
+        folder "folder/subfolder" as folder_subfolder_85d5d271 {
+          object "nested" as nested_27b6e15a {
             + someFunction: Promise<void>
           }
         }
       }
+      folder "util" as util_28bcbc6c {
+        object "errors" as errors_90641da1 {
+          + throwError(msg: string): void
+        }
+        object "logger" as logger_d1ee5f1e {
+          + debug(msg: string): void
+        }
+      }
     }
-  index_ts_e4daf83f -up-> some_class_3e48ea5d
+  index_ts_e4daf83f -up-> some_class_755b9f64
   index_ts_e4daf83f -up-> logger_d1ee5f1e
+  some_class_755b9f64 -up-> errors_90641da1
+  some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
+  some_class_755b9f64 -up-> path_6f8e1be1
+  some_class_755b9f64 -up-> some_type_755b9f64
+  some_class_755b9f64 -up-|> abstract_class_eb5b4d10
+  some_class_755b9f64 .up.|> some_interface_4140baef
+  some_class_755b9f64 .up.|> other_interface_45739bff
   logger_d1ee5f1e -up-> errors_90641da1
-  some_class_3e48ea5d -up-> errors_90641da1
-  some_class_3e48ea5d -up-> some_enum_type_688a0b15
-  some_class_3e48ea5d -up-|> abstract_class_48ddc9a9
-  some_class_3e48ea5d .up.|> some_interface_7947f676
-  some_class_3e48ea5d .up.|> other_interface_9bbef566
+  logger_d1ee5f1e -up-> logger_type_eca21c7c
 @enduml
