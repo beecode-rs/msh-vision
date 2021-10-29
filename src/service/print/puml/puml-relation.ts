@@ -19,13 +19,13 @@ export class PumlRelation {
   protected _linkByReferenceType(): string {
     switch (this._reference.Type) {
       case ReferenceType.ASSOCIATION:
-        return '-up->'
+        return '-->'
       case ReferenceType.INHERITANCE:
         return '-up-|>'
       case ReferenceType.IMPLEMENTATION:
         return '.up.|>'
       case ReferenceType.DEPENDENCY:
-        return '.up.>'
+        return '..>'
       case ReferenceType.AGGREGATION:
         return '--o'
       case ReferenceType.COMPOSITION:
