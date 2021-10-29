@@ -55,24 +55,12 @@
           }
         }
       }
-      folder "util" as util_28bcbc6c {
-        object "errors" as errors_90641da1 {
-          + throwError(msg: string): void
-        }
-        object "logger" as logger_d1ee5f1e {
-          + debug(msg: string): void
-        }
-      }
     }
   index_ts_e4daf83f -up-> some_class_755b9f64
-  index_ts_e4daf83f -up-> logger_d1ee5f1e
-  some_class_755b9f64 -up-> errors_90641da1
   some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
   some_class_755b9f64 -up-> path_6f8e1be1
   some_class_755b9f64 -up-> some_type_755b9f64
   some_class_755b9f64 -up-|> abstract_class_eb5b4d10
   some_class_755b9f64 .up.|> some_interface_4140baef
   some_class_755b9f64 .up.|> other_interface_45739bff
-  logger_d1ee5f1e -up-> errors_90641da1
-  logger_d1ee5f1e -up-> logger_type_eca21c7c
 @enduml

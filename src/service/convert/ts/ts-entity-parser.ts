@@ -92,7 +92,6 @@ export class TsEntityParser {
     const aliasedEntities = withAliasRef.map((entity) => {
       const foundJoin = aliasRef.find((e) => e.Name === (entity.Meta as EntityObject).AliasReference)
       if (!foundJoin) throw new Error(`Join not found for entity ${JSON.stringify(entity)}`)
-      foundJoin.renameEntity(entity.Name)
       const joinedEntity = new Entity({
         name: entity.Name,
         isExported: foundJoin.IsExported,
@@ -104,6 +103,4 @@ export class TsEntityParser {
 
     return [...other, ...aliasedEntities]
   }
-
-  protected _findI
 }

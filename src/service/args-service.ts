@@ -44,6 +44,9 @@ export const argsService = {
     tsConfig: {
       type: 'string',
     },
+    printIgnorePaths: {
+      type: 'string',
+    },
   } as Options,
   selectedCommandCount: ({ args, options }: ArgsServiceParams): number => {
     const miniOpts = minimistOptions(options)

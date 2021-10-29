@@ -86,9 +86,9 @@ export class PumlPrint implements PrintStrategy {
 
   public async print(params: { entities: Entity[] }): Promise<void> {
     const { entities } = params
-    const template = new PumlDocument()
     this._generateGroups(entities)
     this._flattenGroups(this._rootGroup)
+    const template = new PumlDocument()
     template.addChildren(this._rootGroup)
     this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
     await this._writeToFile(template.print())

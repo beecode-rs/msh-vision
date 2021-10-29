@@ -34,9 +34,8 @@ export class TsParserFile implements Parsable {
         name: this._fileName,
         inProjectPath: this._inProjectPath,
         isExported: true,
-        meta: new EntityFile({
-          references,
-        }),
+        references,
+        meta: new EntityFile(),
       }),
     ]
   }

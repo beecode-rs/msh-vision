@@ -12,17 +12,16 @@ dotenv.config({ path: './.vision' })
 
 export const config = Object.freeze({
   env: env('NODE_ENV').string.default('dev').required,
-  logLevel: (env('LOG_LEVEL').string.default('info').required as 'error' | 'warn' | 'info' | 'debug') as
-    | 'error'
-    | 'warn'
-    | 'info'
-    | 'debug',
+  logLevel: env('LOG_LEVEL').string.default('info').required as 'error' | 'warn' | 'info' | 'debug',
   _vision: {
     applicationName: env('VISION_APPLICATION_NAME').string.default('').required,
     projectSrcFolderPath: env('VISION_PROJECT_SRC_FOLDER_PATH').string.default('./src').required,
     exportFilePath: env('VISION_EXPORT_FILE_PATH').string.default(`${process.cwd()}/`).required,
     ts: {
       tsconfigPath: env('VISION_TS_TSCONFIG_PATH').string.default(`${process.cwd()}/tsconfig.json`).required,
+    },
+    print: {
+      ignorePaths: env('VISION_PRINT_IGNORE_PATHS_JSON_ARRAY').json<string[]>().default([]).required,
     },
   },
 })
@@ -38,6 +37,10 @@ export const visionConfig = (): VisionConfigReturn => {
     ts: {
       ...config._vision.ts,
       ...(params.tsConfig && { tsconfigPath: params.tsConfig }),
+    },
+    print: {
+      ...config._vision.print,
+      ...(params.printIgnorePaths && { ignorePaths: params.printIgnorePaths.split(',').map((s) => s.trim()) }),
     },
   }
 }

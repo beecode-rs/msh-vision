@@ -51,9 +51,9 @@ export class TsParserClass implements Parsable {
         name,
         inProjectPath: this._inProjectPath,
         isExported,
+        references: [...imports, ...classRefs],
         meta: new EntityClass({
           isAbstract,
-          references: [...imports, ...classRefs],
           properties,
         }),
       }),

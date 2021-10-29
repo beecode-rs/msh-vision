@@ -19,7 +19,7 @@ export class PumlPrintableObject extends PumlEntity {
     const { entity } = params
     super()
     this._entity = entity
-    this._relations = entity.Meta.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))
+    this._relations = entity.References.map((r) => new PumlRelation({ reference: r, fromEntity: entity }))
   }
 
   protected _print(): string[] {

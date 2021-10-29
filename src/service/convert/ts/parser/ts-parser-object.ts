@@ -43,10 +43,10 @@ export class TsParserObject implements Parsable {
         name,
         inProjectPath: this._inProjectPath,
         isExported,
+        references: [...imports],
         meta: new EntityObject({
           properties,
           aliasReference,
-          references: [...imports],
         }),
       }),
     ]
