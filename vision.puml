@@ -108,6 +108,7 @@
           + Meta: T
           + Name: string
           + References: Reference[]
+          + References(references: Reference[])
           + SortByName(a: Entity,\n b: Entity): number
           # _inProjectPath: string
           # _isExported: boolean
@@ -148,10 +149,6 @@
           # _name: string
           # _type: ReferenceType
           constructor(params: {\n name: string;\n inProjectPath: string;\n type: ReferenceType \n})
-        }
-      }
-      folder "module" as module_9f6f6c52 {
-        artifact "ts.ts" as ts_ts_eabf7773 {
         }
       }
       folder "service" as service_c83a6ab5 {
@@ -513,26 +510,20 @@
           + ifNoCommandSelectedThrowErrorAndPrintHelp(args: string[]): void
         }
         object "visionUseCase" as vision_use_case_dd084107 {
-          # _removeIgnoredPaths(entities: Entity<any>[]): Entity<any>[]
+          # _removeExternal(entities: Entity[]): Entity[]
+          # _removeIgnoredPaths(entities: Entity[]): Entity[]
           + processFolder(params: {\n folderPath: string;\n printStrategy: PrintStrategy \n}): Promise<void>
         }
       }
     }
   cli_app_8bf9ca45 --> exec_args_as_command_d74becbe
-  cli_app_8bf9ca45 -up-|> app_d815df3b
   app_1d92d491 --> app_1d92d491
   exec_args_as_command_d74becbe --> cli_init_use_case_9439e852
-  exec_args_as_command_d74becbe -up-|> initiate_d815df3b
-  shell_dal_4f6edd5d --> shell_735e83ab
   entity_9581579a .up.|> locatable_b011d3de
   entity_9581579a .up.|> referencable_31799d25
   property_d5a84d26 --> property_access_level_type_daa2367d
   reference_aaef6aea --> reference_type_1f38c983
   reference_aaef6aea .up.|> locatable_b011d3de
-  ts_ts_eabf7773 --> ts_88927a5b
-  args_service_d268d804 --> minimist_91be8eac
-  args_service_d268d804 --> minimist_options_4ff5e091
-  args_service_d268d804 --> options_4ff5e091
   cli_service_317b6b45 --> help_service_20a1eb92
   cli_service_317b6b45 --> shell_service_db3f045d
   generate_eb5ef3b0 --> vision_use_case_dd084107
@@ -555,11 +546,9 @@
   ts_parser_object_cba014be .up.|> parsable_1dc7e811
   ts_parser_type_46289b53 .up.|> parsable_1dc7e811
   ts_config_file_json_715f0c18 --> ts_config_file_type_715f0c18
-  ts_convert_87a0875e --> ts_eabf7773
   ts_convert_87a0875e --> ts_parser_file_f26663cd
   ts_convert_87a0875e --> ts_config_file_service_715f0c18
   ts_convert_87a0875e .up.|> convert_strategy_2898ab6a
-  ts_entity_parser_d73e1a98 --> ts_eabf7773
   ts_entity_parser_d73e1a98 --> ts_parser_class_5b693985
   ts_entity_parser_d73e1a98 --> ts_parser_enum_2a645d78
   ts_entity_parser_d73e1a98 --> ts_parser_interface_8936afae
@@ -609,7 +598,6 @@
   puml_relation_24365729 --> reference_type_1f38c983
   puml_relation_24365729 --> entity_9581579a
   puml_relation_24365729 --> reference_aaef6aea
-  shell_service_db3f045d --> chalk_61a68761
   shell_service_db3f045d --> shell_dal_4f6edd5d
   shell_service_db3f045d --> print_std_message_db3f045d
   cli_init_use_case_9439e852 --> cli_service_317b6b45

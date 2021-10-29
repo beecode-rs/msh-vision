@@ -47,6 +47,10 @@ export class Entity<T extends EntityMeta = any> implements Locatable, Referencab
     return this._references
   }
 
+  public set References(references: Reference[]) {
+    this._references = references
+  }
+
   public get Meta(): T {
     return this._meta
   }

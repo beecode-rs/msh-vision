@@ -15,9 +15,10 @@ export const visionUseCase = {
     const entities = (await Promise.all(convertStrategies.map((cs) => cs.convert()))).flat()
     if (!entities) return
     const cleanEntities = visionUseCase._removeIgnoredPaths(entities)
-    await printStrategy.print({ entities: cleanEntities })
+    const noExternalEntities = visionUseCase._removeExternal(cleanEntities)
+    await printStrategy.print({ entities: noExternalEntities })
   },
-  _removeIgnoredPaths: (entities: Entity<any>[]): Entity<any>[] => {
+  _removeIgnoredPaths: (entities: Entity[]): Entity[] => {
     const {
       print: { ignorePaths },
     } = visionConfig()
@@ -25,5 +26,13 @@ export const visionUseCase = {
     const removedIgnoredEntities = entities.filter((e) => !ignorePaths.find((ip) => e.InProjectPath.startsWith(ip)))
     removedIgnoredEntities.forEach((rie) => rie.removeIgnoredReferences(ignorePaths))
     return removedIgnoredEntities
+  },
+  _removeExternal: (entities: Entity[]): Entity[] => {
+    if (!visionConfig().print.ignoreExternal) return entities
+    entities.forEach((entity) => {
+      if (entity.References.length === 0) return
+      entity.References = entity.References.filter((r) => entities.find((e) => r.InProjectPath === e.InProjectPath))
+    })
+    return entities
   },
 }

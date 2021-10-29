@@ -17,21 +17,22 @@ export class PumlRelation {
   }
 
   protected _linkByReferenceType(): string {
-    switch (this._reference.Type) {
+    const { Direction: dir, Type } = this._reference
+    switch (Type) {
       case ReferenceType.ASSOCIATION:
-        return '-->'
+        return `-${dir ?? ''}->` //       -->
       case ReferenceType.INHERITANCE:
-        return '-up-|>'
+        return `-${dir ?? 'up'}-|>` //    -up-|>
       case ReferenceType.IMPLEMENTATION:
-        return '.up.|>'
+        return `.${dir ?? 'up'}.|>` //    .up.|>
       case ReferenceType.DEPENDENCY:
-        return '..>'
+        return `.${dir ?? ''}.>` //       ..>
       case ReferenceType.AGGREGATION:
-        return '--o'
+        return `-${dir ?? ''}-o` //       --o
       case ReferenceType.COMPOSITION:
-        return '--*'
+        return `-${dir ?? ''}-*` //       --*
       default:
-        return '--'
+        return `-${dir ?? ''}-` //        --
     }
   }
 }
