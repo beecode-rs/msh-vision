@@ -1,9 +1,8 @@
-import { Entity } from 'src/model/entity'
-import { EntityType } from 'src/model/entity-type'
+import { Entity, EntityTypes } from 'src/model/entity'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 
 export class PumlPrintableType extends PumlEntity {
-  protected readonly _entity: Entity<EntityType>
+  protected readonly _entity: Entity<EntityTypes.TYPE>
 
   protected _templateEnd(): string {
     return ']'
@@ -12,7 +11,7 @@ export class PumlPrintableType extends PumlEntity {
     return `card ${this._entity.Id} [`
   }
 
-  constructor(params: { entity: Entity<EntityType> }) {
+  constructor(params: { entity: Entity<EntityTypes.TYPE> }) {
     const { entity } = params
     super()
     this._entity = entity

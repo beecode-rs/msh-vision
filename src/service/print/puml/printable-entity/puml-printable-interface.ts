@@ -1,11 +1,10 @@
-import { Entity } from 'src/model/entity'
-import { EntityInterface } from 'src/model/entity-interface'
+import { Entity, EntityTypes } from 'src/model/entity'
 import { Property } from 'src/model/property'
 import { PumlPrintableProperty } from 'src/service/print/puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 
 export class PumlPrintableInterface extends PumlEntity {
-  protected readonly _entity: Entity<EntityInterface>
+  protected readonly _entity: Entity<EntityTypes.INTERFACE>
 
   protected _templateEnd(): string {
     return '}'
@@ -14,7 +13,7 @@ export class PumlPrintableInterface extends PumlEntity {
     return `interface "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityInterface> }) {
+  constructor(params: { entity: Entity<EntityTypes.INTERFACE> }) {
     const { entity } = params
     super()
     this._entity = entity

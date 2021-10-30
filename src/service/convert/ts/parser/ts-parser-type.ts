@@ -1,4 +1,4 @@
-import { Entity } from 'src/model/entity'
+import { Entity, EntityTypes } from 'src/model/entity'
 import { EntityType } from 'src/model/entity-type'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
@@ -16,13 +16,14 @@ export class TsParserType implements Parsable {
     this._inProjectPath = inProjectPath
   }
 
-  public parse(): Entity<EntityType>[] {
+  public parse(): Entity<EntityTypes.TYPE>[] {
     const name = this._statement['name'].escapedText
     const isExported = tsParserService.isExported(this._statement.modifiers)
     const returnType = this._statement['type'].getText(this._parsedSource)
 
     return [
       new Entity({
+        type: EntityTypes.TYPE,
         name,
         inProjectPath: this._inProjectPath,
         isExported,

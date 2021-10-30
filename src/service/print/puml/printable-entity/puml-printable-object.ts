@@ -1,12 +1,11 @@
-import { Entity } from 'src/model/entity'
-import { EntityObject } from 'src/model/entity-object'
+import { Entity, EntityTypes } from 'src/model/entity'
 import { Property } from 'src/model/property'
 import { PumlPrintableProperty } from 'src/service/print/puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 import { PumlRelation } from 'src/service/print/puml/puml-relation'
 
 export class PumlPrintableObject extends PumlEntity {
-  protected readonly _entity: Entity<EntityObject>
+  protected readonly _entity: Entity<EntityTypes.OBJECT>
 
   protected _templateEnd(): string {
     return '}'
@@ -15,7 +14,7 @@ export class PumlPrintableObject extends PumlEntity {
     return `object "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityObject> }) {
+  constructor(params: { entity: Entity<EntityTypes.OBJECT> }) {
     const { entity } = params
     super()
     this._entity = entity

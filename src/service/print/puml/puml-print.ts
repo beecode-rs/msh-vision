@@ -1,25 +1,12 @@
 import { PumlGroupType } from 'src/enum/puml-group-type'
 import { Entity } from 'src/model/entity'
-import { EntityClass } from 'src/model/entity-class'
-import { EntityEnum } from 'src/model/entity-enum'
-import { EntityFile } from 'src/model/entity-file'
-import { EntityInterface } from 'src/model/entity-interface'
-import { EntityObject } from 'src/model/entity-object'
-import { EntityType } from 'src/model/entity-type'
 import { fileService } from 'src/service/file-service'
 import { PrintStrategy } from 'src/service/print/print-strategy'
-import { PumlPrintableClass } from 'src/service/print/puml/printable-entity/puml-printable-class'
-import { PumlPrintableEnum } from 'src/service/print/puml/printable-entity/puml-printable-enum'
-import { PumlPrintableFile } from 'src/service/print/puml/printable-entity/puml-printable-file'
-import { PumlPrintableInterface } from 'src/service/print/puml/printable-entity/puml-printable-interface'
-import { PumlPrintableObject } from 'src/service/print/puml/printable-entity/puml-printable-object'
-import { PumlPrintableType } from 'src/service/print/puml/printable-entity/puml-printable-type'
 import { PumlPrintableWrapper } from 'src/service/print/puml/printable-entity/puml-printable-wrapper'
 import { PumlDocument } from 'src/service/print/puml/puml-document'
-import { PumlEntity } from 'src/service/print/puml/puml-entity'
 import { PumlGroup } from 'src/service/print/puml/puml-group'
+import { pumlService } from 'src/service/print/puml/puml-service'
 import { constant } from 'src/util/constant'
-import { logger } from 'src/util/logger'
 
 export class PumlPrint implements PrintStrategy {
   protected readonly _destinationPath: string
@@ -42,6 +29,16 @@ export class PumlPrint implements PrintStrategy {
     })
   }
 
+  public async print(params: { entities: Entity[] }): Promise<void> {
+    const { entities } = params
+    this._generateGroups(entities)
+    this._flattenGroups(this._rootGroup)
+    const template = new PumlDocument()
+    template.addChildren(this._rootGroup)
+    this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
+    await this._writeToFile(template.print())
+  }
+
   protected _generateGroups(entities: Entity[]): void {
     entities.forEach((e) => {
       const paths = e.InProjectPath.split(constant.folderSep)
@@ -49,7 +46,7 @@ export class PumlPrint implements PrintStrategy {
       paths.forEach((p, ix, list) => {
         const parentGroup = prevGroup ?? this._rootGroup
         if (ix === list.length - 1) {
-          const printableEntity = this._printableStrategyFromEntity(e)
+          const printableEntity = pumlService.printableStrategyFromEntity(e)
           if (printableEntity) {
             this._pumlRelationStrings.push(printableEntity.printRelations())
             parentGroup.addChildren(printableEntity)
@@ -63,35 +60,6 @@ export class PumlPrint implements PrintStrategy {
         prevGroup = newGroup
       })
     })
-  }
-
-  protected _printableStrategyFromEntity(entity: Entity): PumlEntity | undefined {
-    switch (true) {
-      case entity.Meta instanceof EntityClass:
-        return new PumlPrintableClass({ entity })
-      case entity.Meta instanceof EntityFile:
-        return new PumlPrintableFile({ entity })
-      case entity.Meta instanceof EntityObject:
-        return new PumlPrintableObject({ entity })
-      case entity.Meta instanceof EntityInterface:
-        return new PumlPrintableInterface({ entity })
-      case entity.Meta instanceof EntityType:
-        return new PumlPrintableType({ entity })
-      case entity.Meta instanceof EntityEnum:
-        return new PumlPrintableEnum({ entity })
-      default:
-        logger.warn(`Unknown entity type ${entity.constructor.name}`)
-    }
-  }
-
-  public async print(params: { entities: Entity[] }): Promise<void> {
-    const { entities } = params
-    this._generateGroups(entities)
-    this._flattenGroups(this._rootGroup)
-    const template = new PumlDocument()
-    template.addChildren(this._rootGroup)
-    this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
-    await this._writeToFile(template.print())
   }
 
   protected _flattenGroups(group: PumlGroup): PumlGroup | undefined {

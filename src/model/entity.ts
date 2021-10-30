@@ -1,6 +1,5 @@
 import { EntityClass } from 'src/model/entity-class'
 import { EntityEnum } from 'src/model/entity-enum'
-import { EntityFile } from 'src/model/entity-file'
 import { EntityInterface } from 'src/model/entity-interface'
 import { EntityObject } from 'src/model/entity-object'
 import { EntityType } from 'src/model/entity-type'
@@ -9,22 +8,52 @@ import { Referencable } from 'src/model/referencable'
 import { Reference } from 'src/model/reference'
 import { stringUtil } from 'src/util/string-util'
 
-export type EntityMeta = EntityClass | EntityEnum | EntityFile | EntityInterface | EntityObject | EntityType
+export enum EntityTypes {
+  CLASS = 'class',
+  ENUM = 'enum',
+  FILE = 'file',
+  INTERFACE = 'interface',
+  OBJECT = 'object',
+  TYPE = 'type',
+}
 
-export class Entity<T extends EntityMeta = any> implements Locatable, Referencable {
+export type EntityMeta<T extends EntityTypes> = T extends EntityTypes.CLASS
+  ? EntityClass
+  : T extends EntityTypes.ENUM
+  ? EntityEnum
+  : T extends EntityTypes.INTERFACE
+  ? EntityInterface
+  : T extends EntityTypes.OBJECT
+  ? EntityObject
+  : T extends EntityTypes.TYPE
+  ? EntityType
+  : T extends EntityTypes.FILE
+  ? undefined
+  : never
+
+export class Entity<T extends EntityTypes = any> implements Locatable, Referencable {
+  protected readonly _type: T
   protected _name: string
   protected readonly _inProjectPath: string
   protected readonly _isExported: boolean
-  protected readonly _meta: T
+  protected readonly _meta: EntityMeta<T>
   protected _references: Reference[]
 
-  constructor(params: { name: string; inProjectPath: string; isExported: boolean; references?: Reference[]; meta: T }) {
-    const { name, inProjectPath, isExported, references, meta } = params
+  constructor(params: {
+    name: string
+    inProjectPath: string
+    isExported: boolean
+    references?: Reference[]
+    type: T
+    meta: EntityMeta<T>
+  }) {
+    const { name, inProjectPath, isExported, references, type, meta } = params
     this._name = name
     this._inProjectPath = inProjectPath
     this._isExported = isExported
     this._meta = meta
     this._references = references ?? []
+    this._type = type
   }
 
   public get Id(): string {
@@ -33,6 +62,10 @@ export class Entity<T extends EntityMeta = any> implements Locatable, Referencab
 
   public get Name(): string {
     return this._name
+  }
+
+  public get Type(): T {
+    return this._type
   }
 
   public get InProjectPath(): string {
@@ -51,7 +84,7 @@ export class Entity<T extends EntityMeta = any> implements Locatable, Referencab
     this._references = references
   }
 
-  public get Meta(): T {
+  public get Meta(): EntityMeta<T> {
     return this._meta
   }
 

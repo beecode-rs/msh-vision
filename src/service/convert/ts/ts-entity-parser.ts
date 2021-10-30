@@ -1,5 +1,4 @@
-import { Entity } from 'src/model/entity'
-import { EntityObject } from 'src/model/entity-object'
+import { Entity, EntityTypes } from 'src/model/entity'
 import ts from 'src/module/ts'
 import { Parsable } from 'src/service/convert/ts/parser/parsable'
 import { TsParserClass } from 'src/service/convert/ts/parser/ts-parser-class'
@@ -72,14 +71,14 @@ export class TsEntityParser {
 
   protected _joinEntitiesByAliasReference(entities: Entity[]): Entity[] {
     const withAliasRef = entities.filter(
-      (entity) => entity.Meta instanceof EntityObject && (entity.Meta as EntityObject).AliasReference
-    )
+      (entity) => entity.Type === EntityTypes.OBJECT && (entity as Entity<EntityTypes.OBJECT>).Meta.AliasReference
+    ) as Entity<EntityTypes.OBJECT>[]
     if (withAliasRef.length === 0) return entities
 
-    const { aliasRef, other } = entities.reduce<{ aliasRef: Entity<EntityObject>[]; other: Entity[] }>(
+    const { aliasRef, other } = entities.reduce<{ aliasRef: Entity<EntityTypes.OBJECT>[]; other: Entity[] }>(
       (result, entity) => {
         if (withAliasRef.includes(entity)) return result
-        if (withAliasRef.map((e) => (e.Meta as EntityObject).AliasReference).includes(entity.Name)) result.aliasRef.push(entity)
+        if (withAliasRef.map((e) => e.Meta.AliasReference).includes(entity.Name)) result.aliasRef.push(entity)
         else result.other.push(entity)
         return result
       },
@@ -88,9 +87,10 @@ export class TsEntityParser {
     if (aliasRef.length === 0) return entities
 
     const aliasedEntities = withAliasRef.map((entity) => {
-      const foundJoin = aliasRef.find((e) => e.Name === (entity.Meta as EntityObject).AliasReference)
+      const foundJoin = aliasRef.find((e) => e.Name === entity.Meta.AliasReference)
       if (!foundJoin) throw new Error(`Join not found for entity ${JSON.stringify(entity)}`)
       return new Entity({
+        type: entity.Type,
         name: entity.Name,
         isExported: foundJoin.IsExported,
         inProjectPath: foundJoin.InProjectPath,

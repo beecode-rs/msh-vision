@@ -1,9 +1,8 @@
-import { Entity } from 'src/model/entity'
-import { EntityEnum } from 'src/model/entity-enum'
+import { Entity, EntityTypes } from 'src/model/entity'
 import { PumlEntity } from 'src/service/print/puml/puml-entity'
 
 export class PumlPrintableEnum extends PumlEntity {
-  protected readonly _entity: Entity<EntityEnum>
+  protected readonly _entity: Entity<EntityTypes.ENUM>
 
   protected _templateEnd(): string {
     return '}'
@@ -12,7 +11,7 @@ export class PumlPrintableEnum extends PumlEntity {
     return `enum "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityEnum> }) {
+  constructor(params: { entity: Entity<EntityTypes.ENUM> }) {
     const { entity } = params
     super()
     this._entity = entity
