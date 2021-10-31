@@ -56,9 +56,9 @@
         }
       }
     }
-  index_ts_e4daf83f --> some_class_755b9f64
-  some_class_755b9f64 --> some_enum_type_6a1c7ee2
-  some_class_755b9f64 --> some_type_755b9f64
+  index_ts_e4daf83f -up-> some_class_755b9f64
+  some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
+  some_class_755b9f64 -up-> some_type_755b9f64
   some_class_755b9f64 -up-|> abstract_class_eb5b4d10
   some_class_755b9f64 .up.|> some_interface_4140baef
   some_class_755b9f64 .up.|> other_interface_45739bff

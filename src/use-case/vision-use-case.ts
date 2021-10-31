@@ -1,8 +1,7 @@
-import { Entity } from 'src/model/entity'
-import { convertService } from 'src/service/convert/convert-service'
-import { ConvertStrategy } from 'src/service/convert/convert-strategy'
+import { ConvertStrategy, convertService } from 'src/service/convert-service'
 import { fileService } from 'src/service/file-service'
-import { PrintStrategy } from 'src/service/print/print-strategy'
+import { Entity } from 'src/service/model/entity'
+import { PrintStrategy } from 'src/service/print-strategy'
 import { visionConfig } from 'src/util/config'
 
 export const visionUseCase = {

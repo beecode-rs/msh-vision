@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import glob from 'glob'
 import path from 'path'
-import { tsConfigFileService } from 'src/service/convert/ts/ts-config-file-service'
+import { tsConfigFileService } from 'src/service/convert-ts/ts-config-file-service'
 import { constant } from 'src/util/constant'
 
 const _self = {
