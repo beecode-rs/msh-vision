@@ -5,6 +5,7 @@ import { Parsable } from 'src/service/convert-ts/parser/parsable'
 import { TsParserImportParseResult } from 'src/service/convert-ts/parser/ts-parser-import'
 import { tsParserImportRelations } from 'src/service/convert-ts/ts-parser-import-relations'
 import { tsParserService } from 'src/service/convert-ts/ts-parser-service'
+import { TsParsingError } from 'src/service/convert-ts/ts-parsing-error'
 import { Entity } from 'src/service/model/entity'
 import { EntityObject } from 'src/service/model/entity-object'
 import { Property } from 'src/service/model/property'
@@ -67,22 +68,30 @@ export class TsParserObject implements Parsable {
   }
 
   protected _findProperties(properties?: any[]): Property[] {
-    if (!properties) return []
-    return properties.map((property) => {
-      const name = property.name.escapedText
-      const accessLevel = this._accessLevel(name)
-      const returnType = this._returnTypeValue(property)
-      const functionParams =
-        (property.initializer.parameters ?? []).length === 0
-          ? undefined
-          : property.initializer.parameters.map((p) => p.getText(this._parsedSource)).join(', ')
-      return new Property({
-        name,
-        accessLevel,
-        returnType,
-        functionParams,
-      })
-    })
+    try {
+      if (!properties) return []
+      return properties
+        .map((property) => {
+          if (!property.name) return // TODO solve the spread operator problem in objects, skipping for now
+          const name = property.name.escapedText
+          const accessLevel = this._accessLevel(name)
+          const returnType = this._returnTypeValue(property)
+          const functionParams =
+            (property.initializer.parameters ?? []).length === 0
+              ? undefined
+              : property.initializer.parameters.map((p) => p.getText(this._parsedSource)).join(', ')
+          return new Property({
+            name,
+            accessLevel,
+            returnType,
+            functionParams,
+          })
+        })
+        .filter(Boolean) as Property[]
+    } catch (error) {
+      if (error instanceof Error) throw new TsParsingError(error, 'find property', properties)
+      throw error
+    }
   }
 
   protected _accessLevel(propName: string): PropertyAccessLevelType {

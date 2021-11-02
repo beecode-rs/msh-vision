@@ -1,9 +1,11 @@
+import fs from 'fs'
+import plantuml from 'node-plantuml'
 import { PumlGroupType } from 'src/enum/puml-group-type'
 import { fileService } from 'src/service/file-service'
 import { Entity } from 'src/service/model/entity'
+import { PumlGroup } from 'src/service/print-puml/group/puml-group'
 import { PumlPrintableWrapper } from 'src/service/print-puml/printable-entity/puml-printable-wrapper'
 import { PumlDocument } from 'src/service/print-puml/puml-document'
-import { PumlGroup } from 'src/service/print-puml/puml-group'
 import { pumlService } from 'src/service/print-puml/puml-service'
 import { PrintStrategy } from 'src/service/print-strategy'
 import { constant } from 'src/util/constant'
@@ -29,6 +31,10 @@ export class PumlPrint implements PrintStrategy {
     })
   }
 
+  public get FilePath(): string {
+    return fileService.joinPaths(this._destinationPath, this._fileName)
+  }
+
   public async print(params: { entities: Entity[] }): Promise<void> {
     const { entities } = params
     this._generateGroups(entities)
@@ -36,7 +42,35 @@ export class PumlPrint implements PrintStrategy {
     const template = new PumlDocument()
     template.addChildren(this._rootGroup)
     this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
-    await this._writeToFile(template.print())
+    const pumlBody = template.print()
+    await this._writeToFile(pumlBody)
+    // await this._exportFile() // TODO add parameter flag
+  }
+
+  protected async _exportFile(): Promise<void> {
+    const exportFilePath = `${this.FilePath.split('.')[0]}.svg`
+    await this._svgPromiseGenerator(this.FilePath, exportFilePath)
+    // return new Promise((resolve) => {
+    //   const gen = plantuml.generate(this.FilePath, { format: 'svg' })
+    //   gen.out.pipe(fs.createWriteStream(exportFilePath))
+    //   gen.out.on('end', resolve)
+    // })
+  }
+
+  protected _svgPromiseGenerator(source, dest): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const generator = plantuml.generate(source, { format: 'svg' })
+      const fileStream = fs.createWriteStream(dest)
+
+      fileStream.on('error', reject)
+      generator.out.on('error', reject)
+
+      generator.out.pipe(fileStream)
+
+      fileStream.on('finish', () => {
+        resolve()
+      })
+    })
   }
 
   protected _generateGroups(entities: Entity[]): void {

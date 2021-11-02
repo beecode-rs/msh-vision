@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="569px" preserveAspectRatio="none" style="width:537px;height:569px;background:#000000;" version="1.1" viewBox="0 0 537 569" width="537px" zoomAndPan="magnify"><defs/><g><rect fill="#F6C914" height="73" style="stroke: #F6C914; stroke-width: 1.0;" width="536" x="0" y="0"/><image height="58" width="454" x="1" xlink:href="data:image/png;base64,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" y="7.5"/><image height="62" width="62" x="454" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAA+CAYAAABzwahEAAACqklEQVR4Xu3PQQ4TQRBD0dz/0rBhNk983JMEIZF8yQuXXdUzjx8fysPBp/D98U/j++OfRv744/F4SrVfVO7ce6cqMvHAqWq/qNy5905VZLIW5W7/ovac6xern8lalLv9i9pzrl+sfiYuXl6Zl3d+Kvf0yrzIxEUfqLy881O5p1fmRSYu+kDl+prrlTi3X3mRiYs+ULm+5nolzu1XXmTiog9Uri8929Mr8yITF32gcn3p2Z5emReZrEWp/por8/KL1c9kLUr111yZl1+sfiZ+0Kncf7e/qyITD5zK/Xf7uyo6eRN+gF5OP/xV/t7lX/gDevnnP+4HKHGuP8V36o65Pb1k4kElzvWn+E7dMbenl0w8uA5d2F97K5fVX/lFNvzw44O/2fnT3spl9Vd+MRse8oeUvcXqVV7zU+amD/ijyt5i9Sqv+Slzs36sWH1zJWuuTpnNu4dX31zJmqtTjpseLl+yp3e+8vKq6AQ8VL5kT+985eVV0Ql4qB54dX5XxcwdFB6qD3h1flfFzB2IB3y4VP2am7/aW8yGh3ygVP2am7/aW2TDA8vfneudVy7Vq/lFJi4uf3eud165VK/mF50MPLw+uPLy71LRycDD68HKy79LRScv4gf4Ic4rL17OHbwLf8gPcV558XLu4MIPOpWYq8K8/FKRiQdOJeaqMC+/VGSyFqX69SHlVVH58b6Di7Uo1a8PKa+Kyo/3HVy46MHKxbn75qunpOaSDQ/4YOXi3H3z1VNSc8mGB3ywcr3z0/zCnlq9IhMXPVi53vlpfmFPrV6RiYserFx/KvfE/tIiGx7wcOX6U7kn9pcW2Tg9cGF/+cKevub6RTZvHxofoi/s6WuuX2TzOnRX7j/rxXdOVWTigVO5/6wX3zlV0cl/zvfHP43vj38aH/vjPwHXxSZFmC+/QgAAAABJRU5ErkJggg==" y="5.5"/><rect fill="#000000" height="422.4219" style="stroke: #000000; stroke-width: 1.0;" width="536" x="0" y="73"/><rect fill="#33FF02" height="21.2969" style="stroke: #33FF02; stroke-width: 1.0;" width="392" x="5" y="78"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="178" x="6" y="93">[From string (line 22) ]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="0" x="10" y="113.2969"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="79" x="5" y="129.5938">@startuml</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="236" x="25" y="145.8906">folder "src" as src_b874d07 {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="237" x="35" y="162.1875">folder "dal" as dal_fba75381 {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="225" x="45" y="178.4844">card exec_result_4f6edd5d [</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="86" x="55" y="194.7813">ExecResult</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="18" x="55" y="211.0781">---</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="10" x="55" y="227.375">{</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="108" x="65" y="243.6719">stdout: string</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="106" x="65" y="259.9688">stderr: string</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="189" x="65" y="276.2656">errorOccurred: boolean</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="10" x="55" y="292.5625">}</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="6" x="45" y="308.8594">]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="322" x="45" y="325.1563">object "shellDal" as shell_dal_4f6edd5d {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="170" x="55" y="341.4531">+ cd(dir: string): void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="342" x="55" y="357.75">+ exec(cmd: string): Promise&lt;ExecResult&gt;</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="238" x="55" y="374.0469">+ print(message: string): void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="108" x="55" y="390.3438">+ pwd: string</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="10" x="45" y="406.6406">}</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="10" x="35" y="422.9375">}</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="309" x="35" y="439.2344">folder "service" as service_c83a6ab5 {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="307" x="45" y="455.5313">card args_service_params_d268d804 {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="154" x="55" y="471.8281">ArgsServiceParams</text><text fill="#FF0000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="106" x="10" y="488.125">Syntax Error?</text><rect fill="#F6C914" height="73" style="stroke: #F6C914; stroke-width: 1.0;" width="536" x="0" y="495.4219"/><image height="58" width="454" x="1" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcYAAAA6CAMAAAAdmwnNAAADAFBMVEX2yRQ4AADTyRQ4cREAAAT2yRGKLQAAAAAZFxpikBT2yQ7TcQRiAAAALQuKrRT2kAiwUQAAUQ6wyRT2rQsAAAgYFhoYFxkZFhn2yRMYFxr2yBP2yBRiLQAALQj1yRM4UQ4ZFhqwrRT2rQ4KChoODhkVFBqwUQT/0xQICRn1yRTTkAgAAhgALQQREBr3yhP/0RMAABYMDRoCAxr/1hMCBBj90BPTkAsFBxr1yBT/3Rj/1xJicQ+KkBH/2BQAARQQDhn6zBMYFRlikBD8zhMTExkGCBn/3BT5yxMTEhn+0RMDBho4UQnTyQ//3xf1yBP/1ROKUQTTcQg4cQ44LQBicQsLCxf/2xP/2BAGBxv/1BP/1Rr4yRUAABgWExwEBxcYFRwDBBawcQTTrRQ4AAQtJxn4yhOPdhn/0BdoVxnrvxj4yxPkuxb/0hL/3xO2lhb6zhLgthYPDRWKchkpIxv/2Rn7zRL/2hb/3hQAABrxxhjDoBhiUQT2rRGwcQj/2g8mHxf/0xHDnhX5zBISEBwkHxn/4BUxKxoVEhi7lxX2yRJaShtwXhhjVBiliBj6zBRjUhcYFxf6zho6Mhj/2RJMQBpfTxocGBU+NhkQEBeHcBoXFBbRqRdRQxkDAhR9ahmKrQ+KcQQ4LQj/1hjYsBi+mRiihRcVEhv+0Rr3yxmtjxhQRBr1yhL+zxJnVBnFoxjIoxh6Yhn/1xf5yxcKDRnmvhaafhewkBdjUhz/1BFJPRmVexlzYRgXFhj0yRefhBn/4xOJchmfgRiCahq0khb3zRNyXRnitxjxxBeykxv+0RLbsxY1LRogGxz/2hP/5Rm+nBSoiRcAUQiwkBGKkBQ4cQv2kAuwkAiKkAsKBhZFPBdtWReCbxpUSBn7zxLzxhmOdBg0Lh3swhpBNxyqihZbThzowRuoixfYtBknIxWtixiDbRj/3xusjxy5mx1+ZRyVdx3uwRnovxgTEBX4zBXMpRZaTxemhBb2yRzGoRf/5x/zyRXMohJgUR1iLQSwrQ7TrQ4qcmSgAAARg0lEQVR4Xu2ceXQUx5nAq++e7jkkDZIGSSAsbowhMcYxYIIJR7xrTIyJca6Nsf3y3nodx5tsTPyyYZP12vuy+5y3MUt8bMza8e6+HE7igPG12Dy/GOGQmAVzI8CS0IEOmNHMaKanp6+tqj5mpqWZFhCttMr8/lBXV9X31Tf1dVVXdfcnAMqUKTM+oNwZQ7jpoZbGz1Vtb79JIMRBd2GZ8QHhznAzN+WrWqbq137p5LyNH3a7S8uMD7xG49z48i/vuGffmT2vvtx9/8tJd7En4bAsqIY7t8wfGS830o3L092/qTqTvf6Ogb83LtuNgp4EGqO6s4vA0NDlQm2aU+fF/LK7tBBc1535JwvpznBB/fmD/9mTfD9Onjfe07rcpZ4QiurPujOLIqApXumbzDBn3UVDwHWHg2Er3VnjnD+CxV5uNN6XNXSM9WZSl+fFDfcfBYwSCIH7fO6iYqggrQMl25Fg2AraXYj4zlZtI8fRt5FW3eEIKir6URUB/NPCBJxvmvzmCWhqQKL30sF8gTHHsrgIIWIE/VfsmraZWr347UQCgEDNPz35rruwFAxBkJJAMjF3QQkqJFLCiXDUnxrGSaGMlWBTulPXTSijwgtPIHk9Cs9EFZ6FoyyuLJBKQI9iy9xSY4lpcTGK/tB8SlwGmCzbMA3dPyseeu6Uu8wDjQG+VMKdWwImHfDBGSZQBdO07cV5BNdoV0gb2g1flOV6RvLjulBkFjcFVc+DACz860vJA+iMQX9UFvDoyGayMJdhNZw7csQhw3eYds1sgstfbYQ4H5wB0A/IpYZiWjwEUxmTHom1Hm6M3Pm5U2fhpRLkVw94VHXBsL5BQWZpjrMmfqGh0vw12DVTrkET3p0FNwaGxZ3MoX5PoBlwUhWYdY4FXXmdePTfAejIVtC4LhBq20EfWQXESVXMHRycOQU/J4HpBFepsvacC7tI1dZRsNNF6Q7z8iicsb0NA1QKFqGJeZbpCLvdPFFEWG1HDsmJqyAbau0HPb68lNNKCM73MMlZFlsqHFlLGepHS30JvHyjSb0roBeF9Ok+d1FpfCla96VgosaaMJj+BPpdEBG6pi9ZBZ21s2CpgkTgHw1NhiwIt/bLA6H2mrr8PkcOaKolUlFcl1H7I2vgcpVRBn5AvAGyBLyxwkpnrr0hbi2O8bXMKBX/kJRAOK3uQZeHPVBtvA2D5oTOsVkOiO34mrLbzRNFwKv2NgUuJXLiDNiQ8MMfkM1L5bUCoFYsiSw2dTiytjL8Qz3xcCP5wZyLb0BTeyqjDe6y0qABdSkESLnDmlcJTTQTITVQpxuwX3GOCuwbnjkGVTaDeyYcpZYleS2Qqk4HLA1ouF7curGrZ5lk1mUJoX0vHpYVBAGXxEHoRoqpEY8164w9UUHHQ7EtDC/IfnuDUtgx3oYx2tNaYAvICoTgo5S8dh1RjC8l/Bppzhd/1Z9qxTOCk3JaYbRjiUAdza4xLTZ1OLK2MtwfnnjsG1fW/MW7pwHg2I+/03LBXVgSWqdVwMu8vf1jVD5lwBUH7G9C7dd5XaFRDlx1OFWwCI3ORfnDJ/2TDwEh23jDe/V9dvcHE+CJ5pM3dnxk1hVIEUisykkU0fjjQJrgDLiTFLIGWlVZLfM0bUhCljsiDK7rItO4BdZg8nvG2zBGDX16p/qBqjMyrepErl1H1ByQBCc3JA1ToSnOqwEyDavTkpNSc60Y3X36BSXba1qcMwbLWsryu7AEHm7kNj98Gs4DXOTRumMXAagLVvqa5lZX3xWf1DB/dc+1evHnASJsHv5+wl5l8TQD57UBwAspn2QAVqcpmMMYusHYZuL+ELPwnNeepYx+5Kzo1Eybs8tnDfZ3T2sd6BzVFbJ0LJygmAxP91cACegivM3QuoY6lUdqkOOppIGyOP0kOYCNgjWk/OcG3obhqyTpHzyywxcXVMXIa9cSNSsqDXwfWNKBck1xRiXSadhoOp1LVdqt6ATZoqL+syx2jDFlLWWAF50uLIHHpMoFFqBpIzHnrf0JEIn8YkP1grUfW/fl9W+u2PIgebPUvT7ilnCAs4+5DjGB90nm3kG4H1RZOKcJRMAHl7FNtfo382XQzQzNgmlwe1aBqwEaCG+0GmgdgYF7xQV586EKEjdGDzNYdyoKFGFARRMgXtgpFLovgwxsjFFgVvwR1Z6azTnOYSSGnaHQDX6RgkZxsKBdU9Sq9lHnwsgHBeIay8ySWHTV2CmnFZjHYvdbFmPyZE1lIH4RLRW8KD0a666/+0dxaHuldmvqhFi56bPh5X/12Pn4O7team3fG7t9pbKySx1+HcWgSSqYYBX7woeTBHF4+XnOMOA4WtxOqEmCA8k0fVCX7So8LKEIiZLhVHgkqBsrWv2DOkU/ToWsi4FFc2KuLquTvb5zbSxtGCwaYBTQgppqMPUrejPBQfKWVjDvAqDlylQVvKB/C5BRpKGigTzrkx/R9sM8b8N4WvfHgSBRsBVoERw+VrtZW9QZL/e2xBXDEeehZUS8RkuDvJTdCkUQMromGctiLF/QNFIGzfSPYDSWpH7u352/dRrP829v3vLFqXOXPv+xOTNmVk+unVYzuXpaTfV11//jroXr3UIWaK8l2E9PcAZcZaMMuCeAoMtnAzHlZrhmd+pUoNwKuB8LE5Vobc9xPrggpxsdHSJ91E6iugLLwbJZHHXcfNDR1ADbrIBiaJuHjpBPoTW80wJ6fmO2D7FzPQ0T/Eghw+Ld4yx6mdOuI4qrwa0SBJrviIeJ2wjT/Fwq14q9G7Utxtiy6yxlgj/386+U+peXrKmezPOTr9t2sH5q5Pa77vkhcqpNDb9izQOr6txSJQgh+8MNHDR1GObZPwY/QYP9hB8EDI9T1w3Sfg1KoC3ZT3BqA/5rA91x2xF315Q2zHqwNzxYFIHc+JMC+dyOMpca2opjcT5DlZWk5MO4qTM3P9UO78KRfw0903z+kQ1fiXI9+eVB8NDb39j94/ys0ozowdJYcBWGlRAVZcG6IedSo0OJywzelpe/F0MrHOmZN8+ej+yKaTr0YmUwVBmoDAXh4iaR2N6pjuwZHcM23gdCEr6zjyuuwjAvUUYZmholSi5xAgOff39ARs8w9Au9UxbSf5BlUPktQfNXBBetW3EA7kQE6dA3fukWGw6dTxyF6xO46h5nXIVhXqI87bc2C7nUKFHKjfX69H2xLHTj0lUn2pI0+ToPt3LsxsQLJ79GVE3apnAyyIgGcdAtNyzKIj0NIpfzvuP/iKswzEtUB2gDX5gaHUq5MbgpcCIKp/QQufkQ3XnDdf2X4Pjjjz7w3bYDF44/2Dj/99DDmcgPt7vlhqcroWnWg8PxxVUYVlpU17K2F53UKFHq3rjozaUaFQIhnX312x2R2FYNbXN9k/jWlg+Pdv/0yB5sWeZZl1SZMaCUGw/7B1Q9DuLz5enPdwH6MbT1DqXkrsWgp1v7L3rxQlRpYGRzaplRpZQbs3UEAaeMyrWf7X4tQq2uJXQA4gvXNu+Eo7KH6FvdhmtdKhQqMxaUcuPCp87jt1M7Ot8jwGeW7RyAPg208fsNtAkJZoIBVJj/pqbMWFHKjT2n2k7Agx5emaJA89scfhxP362GTsJEgv8P/HojFS6QKTMmlHIjPeMDtIohZx6OAGraFPyhokrpG5EXwZTZ881t77/lBMqMFSXcGAk/9xg8hPxL330rS0lKLcqs+NKTT+PStj3ma+mFT+YkyowVxd0YWXXvOw+jB4GGQazvqZj0C7wkNaiD+LHq3Dl/+xR6fRRpuzZfqMzYUNyNPRs0DpXq9NzrdwFu9gKUGTI+cQm9KZ67Obn0+3B1E0mHL+cNR5lRorgb6/2pqegJBS386hiIzFiJngmG4vwrt1IATE3snX33L2GOTMwdwZciZUab4m40noj3oa8n1AW+aIT85vFTaGE6Ze2Bn3eBOnDLo59qfQM6matbeBnvqcqMFsOGSmDoTUYUf/iiNwOy++d9+JbIT+82ABlaeVf81ykCgEqpYtPOQjEHsSo1kq9ISsEQ3HAxACOgUPLK9fx/ofij8ZA+oJ6BRy72bCLxinqwDy5MOfKeXcF7Ul/oJX72B4AGo//x135/0S2JYfQkZX8gSAfRotY6DIcY4s33OE4CE9Ao51ueAkqoMslJIo1F9UwYio9GMC0KInAIkp949iuBbeJpdDkLjPoDYGTlg6da6Bhc4DDr6N8UeavNkLw9AIJRldSdwzCEMjL+ji2XMCkeNVVUlYUjiTUW1TNhKD4afekHXonBLb/c0bJv+r9cWnJgEPpG+u2e119XdlWf1uFuI/I8/zdbW4sEkuMvRM0ka+BPwKzDUASgG/j1uJOwEFXnS7hCiqqysSVNjUX1TBiKL3F6Vt2o4LGaIDr3E8eb0WQXIy91Xujcmzqlwxl1CfPiI+vuK/YxD/4e08SKGDIPw4QWsYpqzqQ4kavgFTWVwx3yZElaGvHZMO1OIIqPxqk12sH6BLq9yUu/H9l6CE+emayckeVMRgaVLOn7y692vkUVeW1K6xI9Y7COJjhCBTP6OZrGh6CiK8FeGQyyaki7pRXVDGUE8zMIM0E7FXhagwNaqO4GKZ6X4E1OXd+KosotjUExc+dJ8zbJAtmYdzGgGmDWYEMcfTSBJG2N+CynNt/KiUJxN8Z7pm3bP6MT+jFITqNfci1kgh+nnl/x9ahBnS/Md2AVkbsIUpqqw/EanbMslkaHprOC+pnD/lpJV4wvHG9FXS0AEeDBaCVEp0IwIcChZKQjS85xhqpL23efBZphAFNj01nGOGnAxQyTQd8hi/2UxqhiDMT9MsCSjkZ8llNbaOfEoLgbQbLlv7/zEjU/xv+Z9s+1P8KDMcDx7KIEx9bW82trel+4YHQVGYvQG0LzdjU4qKsaR08C7ScS+NBh8GqLLxVD338f1nCPijKOZHASuQqsIRnAZwg9nXA4kUTo07uhwlBGNzV2GD5ZRBEZmgpFn3tN/OtmxUfCkWegaBscpmFpxGc5tTkbJw4l3Aiv4t1L72Q+f7pmdvVr+5EbA+d+Nm+hD/i/PXURV/36oe7u4pE4jNr4PRTkJGTsGCc71MkJMjIrilnV/B8PdiJXwSNqKhd95A55MmOzHI1mcJer3YlFKTcmxUjrPrn38e5NLx89jfZpNcTkmzemmr7+05YLTzyQlYqsUTFmkBNDwF63IobMQy60yKwXTvjMr43sRF4Fj6ipXPSRO+TJjM1yVKMzd7sTjFJuBElVyvYNynvf/NY2GboxJC469D/TXzmcfr+968XuePGhCPB+A01oug7vV2aEnnmgCJ0lZlxkYQeLBqcyWcJ83+Uk8iqgqBW4Ulp87vCLVMZUqAcSFAp/RKqCiew1vuSWZuTGKKBlQdoB3cur/gyWdDRaIT6O2olISTeCwWQy2RszjOABKQtCpBh45rs7znbv74XZ7qouSEJAXqwY9FsxTtbBcEKLGJ1UDJ+hm13tJHKxR55RU3mRS4UhTwaSdDRiPXlqJyLF940OsUurlxPQJ8bqhztnFtsmumnUcMj/JSOmCJTctVuzDr7U6qwW6YoCoAg1IYHAsX8o2t1KgFwFSBbAhWkktbsumdqfVdE+tLZas1Wl12RrFktKtQB/A2otwWiEDi7N1G5CkjmNWE+B2j9J6hdIn6zmeX7yis6l9e7CEWBFDJmHvNAiVHS/HUNlJ/IreEdN2bhDnqBkTiPWU9juhKP0pIoJzJx+SuxED7tvGnjHXTgCpISWGLAPOLQ/V3TIOnES+RX69SLvMi2NOTKuWx6UzGnEegrbnXCMYFKl2d+dRl/IAepXTejN/9XgGVrkWeHKGCW144YRuDErna41gsFgxUPfUwrCG6+AYv8MzsGzwpUxSmrHDd4/LrLqxheS6MviUNVX29Gbq6tBIYj8N1FD8axwZYyS2nGDtxup2a1fOwbWg12P7rt4/iq9CBT0b5pK4VnhyhglteOGEWwg6ue3mYkGcVdBQZkyZcqUKTMR+V+pob+zxZO21wAAAABJRU5ErkJggg==" y="502.9219"/><image height="62" width="62" x="454" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAA+CAYAAABzwahEAAACqklEQVR4Xu3PQQ4TQRBD0dz/0rBhNk983JMEIZF8yQuXXdUzjx8fysPBp/D98U/j++OfRv744/F4SrVfVO7ce6cqMvHAqWq/qNy5905VZLIW5W7/ovac6xern8lalLv9i9pzrl+sfiYuXl6Zl3d+Kvf0yrzIxEUfqLy881O5p1fmRSYu+kDl+prrlTi3X3mRiYs+ULm+5nolzu1XXmTiog9Uri8929Mr8yITF32gcn3p2Z5emReZrEWp/por8/KL1c9kLUr111yZl1+sfiZ+0Kncf7e/qyITD5zK/Xf7uyo6eRN+gF5OP/xV/t7lX/gDevnnP+4HKHGuP8V36o65Pb1k4kElzvWn+E7dMbenl0w8uA5d2F97K5fVX/lFNvzw44O/2fnT3spl9Vd+MRse8oeUvcXqVV7zU+amD/ijyt5i9Sqv+Slzs36sWH1zJWuuTpnNu4dX31zJmqtTjpseLl+yp3e+8vKq6AQ8VL5kT+985eVV0Ql4qB54dX5XxcwdFB6qD3h1flfFzB2IB3y4VP2am7/aW8yGh3ygVP2am7/aW2TDA8vfneudVy7Vq/lFJi4uf3eud165VK/mF50MPLw+uPLy71LRycDD68HKy79LRScv4gf4Ic4rL17OHbwLf8gPcV558XLu4MIPOpWYq8K8/FKRiQdOJeaqMC+/VGSyFqX69SHlVVH58b6Di7Uo1a8PKa+Kyo/3HVy46MHKxbn75qunpOaSDQ/4YOXi3H3z1VNSc8mGB3ywcr3z0/zCnlq9IhMXPVi53vlpfmFPrV6RiYserFx/KvfE/tIiGx7wcOX6U7kn9pcW2Tg9cGF/+cKevub6RTZvHxofoi/s6WuuX2TzOnRX7j/rxXdOVWTigVO5/6wX3zlV0cl/zvfHP43vj38aH/vjPwHXxSZFmC+/QgAAAABJRU5ErkJggg==" y="500.9219"/><!--
 @startuml
     folder "src" as src_b874d07 {
       folder "dal" as dal_fba75381 {
         card exec_result_4f6edd5d [
           ExecResult
-          ---
+          - - -
           {
             stdout: string
             stderr: string
@@ -18,17 +19,16 @@
         }
       }
       folder "service" as service_c83a6ab5 {
-        card args_service_params_d268d804 [
+        card args_service_params_d268d804 {
           ArgsServiceParams
-          ---
+          - - -
           {
             args: string[]
-            options: Options
           }
-        ]
+        }
         card cli_commands_d268d804 [
           CliCommands
-          ---
+          - - -
           minimist.ParsedArgs & {
             help: boolean
             h: boolean
@@ -38,7 +38,7 @@
         ]
         card cmd_generate_params_d268d804 [
           CmdGenerateParams
-          ---
+          - - -
           minimist.ParsedArgs & {
             src: string
             dest: string
@@ -85,7 +85,7 @@
         }
         card print_std_message_db3f045d [
           PrintStdMessage
-          ---
+          - - -
           {
             [key: string]: ExecResult
           }
@@ -123,7 +123,7 @@
           }
           card ts_config_file_type_1baff2da [
             TsConfigFileType
-            ---
+            - - -
             {
               compilerOptions?: {
                 paths?: {
@@ -209,7 +209,7 @@
             }
             card ts_parser_import_parse_result_cf8881d4 [
               TsParserImportParseResult
-              ---
+              - - -
               { name: string; inProjectPath: string }
             ]
             class "TsParserImport" as ts_parser_import_cf8881d4 {
@@ -243,15 +243,10 @@
               + parse: Entity<EntityTypes.OBJECT>[]
             }
             class "TsParserType" as ts_parser_type_948f391 {
-              # _findIdentifier(identifierName: string,\n statement: any): boolean
-              # _findImportRelations(statement: ts.Statement | ts.VariableDeclaration,\n importParseResults: TsParserImportParseResult[]): Reference[]
-              # _importParseResults: TsParserImportParseResult[]
               # _inProjectPath: string
               # _parsedSource: ts.SourceFile
               # _statement: ts.Statement
-              # _stepIntoArray(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
-              # _stepIntoNode(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
-              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+              constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
               + parse: Entity<EntityTypes.TYPE>[]
             }
           }
@@ -290,7 +285,7 @@
           }
           card entity_meta_b03468e8 [
             EntityMeta
-            ---
+            - - -
             T extends EntityTypes.CLASS     ? EntityClass
               : T extends EntityTypes.ENUM      ? EntityEnum
               : T extends EntityTypes.INTERFACE ? EntityInterface
@@ -342,8 +337,7 @@
           }
           card reference_direction_a6f99758 [
             ReferenceDirection
-            ---
-            "'up' | 'down' | 'left' | 'right'"
+            - - -
           ]
           class "Reference" as reference_a6f99758 {
             + Direction: ReferenceDirection | undefined
@@ -494,7 +488,6 @@
               # _print: string[]
               # _templateEnd: string
               # _templateStart: string
-              # _wrapWithDoubleQuotesIfItStartsWithSingleQuote(text: string): string
               constructor(params: { entity: Entity<EntityTypes.TYPE> })
             }
             class "PumlPrintableWrapper" as puml_printable_wrapper_e6265aaa {
@@ -507,12 +500,8 @@
         }
       }
     }
-  shell_dal_4f6edd5d -up-> shell_dal_4f6edd5d
-  args_service_d268d804 -up-> args_service_params_d268d804
-  args_service_d268d804 -up-> args_service_d268d804
   cli_service_317b6b45 -up-> help_service_20a1eb92
   cli_service_317b6b45 -up-> shell_service_db3f045d
-  generate_eb5ef3b0 -up-> puml_print_4aa046fc
   generate_eb5ef3b0 .up.|> executable_a85166eb
   print_help_2c3c3bf6 -up-> cli_service_317b6b45
   print_help_2c3c3bf6 .up.|> executable_a85166eb
@@ -521,28 +510,16 @@
   convert_service_f40b6b4 -up-> convert_ts_e1b382dc
   convert_ts_e1b382dc -up-> ts_parser_file_7df94b8f
   convert_ts_e1b382dc -up-> ts_config_file_service_1baff2da
-  convert_ts_e1b382dc -up-> ts_entity_parser_818f015a
-  convert_ts_e1b382dc -up-> ts_parser_service_a99fa6bc
-  convert_ts_e1b382dc -up-> file_service_3f424ea5
   convert_ts_e1b382dc .up.|> convert_strategy_f40b6b4
-  ts_parser_class_9848e147 -up-> ts_parser_import_relations_b8587b04
-  ts_parser_class_9848e147 -up-> ts_parser_service_a99fa6bc
   ts_parser_class_9848e147 -up-> property_96110b14
   ts_parser_class_9848e147 .up.|> parsable_5aa78fd3
-  ts_parser_enum_b5f7453a -up-> ts_parser_service_a99fa6bc
   ts_parser_enum_b5f7453a .up.|> parsable_5aa78fd3
-  ts_parser_file_7df94b8f -up-> reference_a6f99758
   ts_parser_file_7df94b8f .up.|> parsable_5aa78fd3
   ts_parser_import_cf8881d4 -up-> file_service_3f424ea5
   ts_parser_import_cf8881d4 .up.|> parsable_5aa78fd3
-  ts_parser_interface_fda3c7ec -up-> ts_parser_service_a99fa6bc
   ts_parser_interface_fda3c7ec -up-> property_96110b14
   ts_parser_interface_fda3c7ec .up.|> parsable_5aa78fd3
-  ts_parser_object_400d2cfc -up-> ts_parser_import_relations_b8587b04
-  ts_parser_object_400d2cfc -up-> ts_parser_service_a99fa6bc
   ts_parser_object_400d2cfc .up.|> parsable_5aa78fd3
-  ts_parser_type_948f391 -up-> ts_parser_service_a99fa6bc
-  ts_parser_type_948f391 -up-> reference_a6f99758
   ts_parser_type_948f391 .up.|> parsable_5aa78fd3
   ts_config_file_json_1baff2da -up-> ts_config_file_type_1baff2da
   ts_entity_parser_818f015a -up-> ts_parser_class_9848e147
@@ -550,17 +527,9 @@
   ts_entity_parser_818f015a -up-> ts_parser_interface_fda3c7ec
   ts_entity_parser_818f015a -up-> ts_parser_object_400d2cfc
   ts_entity_parser_818f015a -up-> ts_parser_type_948f391
-  ts_entity_parser_818f015a -up-> entity_b03468e8
-  entity_meta_b03468e8 -up-> entity_class_c3530bcb
-  entity_meta_b03468e8 -up-> entity_enum_aa45dd16
-  entity_meta_b03468e8 -up-> entity_interface_4f072400
-  entity_meta_b03468e8 -up-> entity_object_72801f10
-  entity_meta_b03468e8 -up-> entity_type_d40d85d
   entity_b03468e8 -up-> entity_meta_b03468e8
-  entity_b03468e8 -up-> entity_b03468e8
   entity_b03468e8 .up.|> locatable_573e15ac
   entity_b03468e8 .up.|> referencable_5553ad7
-  property_96110b14 -up-> property_96110b14
   reference_a6f99758 -up-> reference_direction_a6f99758
   reference_a6f99758 .up.|> locatable_573e15ac
   puml_group_fictive_57cc180d .up.|> puml_group_strategy_ae5ed342
@@ -568,7 +537,6 @@
   puml_group_folder_63f7a3f9 .up.|> puml_group_strategy_ae5ed342
   puml_group_rectangle_f37cc84e -up-> puml_group_ae5ed342
   puml_group_rectangle_f37cc84e .up.|> puml_group_strategy_ae5ed342
-  puml_group_service_f4199df2 -up-> puml_group_ae5ed342
   puml_group_service_f4199df2 -up-> puml_group_strategy_ae5ed342
   puml_group_service_f4199df2 -up-> puml_group_fictive_57cc180d
   puml_group_service_f4199df2 -up-> puml_group_folder_63f7a3f9
@@ -585,7 +553,6 @@
   puml_printable_file_3f271d9f -up-> entity_b03468e8
   puml_printable_file_3f271d9f -up-|> puml_entity_85c02856
   puml_printable_interface_2621ae9c -up-> entity_b03468e8
-  puml_printable_interface_2621ae9c -up-> property_96110b14
   puml_printable_interface_2621ae9c -up-> puml_printable_property_2d23f5de
   puml_printable_interface_2621ae9c -up-|> puml_entity_85c02856
   puml_printable_object_736b458c -up-> entity_b03468e8
@@ -598,16 +565,12 @@
   puml_printable_type_f482c241 -up-|> puml_entity_85c02856
   puml_printable_wrapper_e6265aaa -up-|> puml_entity_85c02856
   puml_document_f0161d62 -up-|> puml_entity_85c02856
-  puml_entity_85c02856 -up-> puml_entity_85c02856
   puml_print_4aa046fc -up-> file_service_3f424ea5
   puml_print_4aa046fc -up-> puml_group_ae5ed342
   puml_print_4aa046fc -up-> puml_printable_wrapper_e6265aaa
-  puml_print_4aa046fc -up-> puml_document_f0161d62
-  puml_print_4aa046fc -up-> puml_service_f506c030
   puml_print_4aa046fc .up.|> print_strategy_22861314
   puml_relation_ddbc15eb -up-> entity_b03468e8
   puml_relation_ddbc15eb -up-> reference_a6f99758
-  puml_service_f506c030 -up-> entity_b03468e8
   puml_service_f506c030 -up-> puml_printable_class_4b11e257
   puml_service_f506c030 -up-> puml_printable_enum_1725040a
   puml_service_f506c030 -up-> puml_printable_file_3f271d9f
@@ -616,5 +579,16 @@
   puml_service_f506c030 -up-> puml_printable_type_f482c241
   shell_service_db3f045d -up-> shell_dal_4f6edd5d
   shell_service_db3f045d -up-> print_std_message_db3f045d
-  shell_service_db3f045d -up-> shell_service_db3f045d
 @enduml
+
+PlantUML version 1.2019.06(Fri May 24 19:10:25 CEST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 15.0.2+7-27
+Operating System: Linux
+OS Version: 5.8.0-63-generic
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

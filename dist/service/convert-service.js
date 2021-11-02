@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.convertService = void 0;
+const convert_ts_1 = require("src/service/convert-ts/convert-ts");
+const logger_1 = require("src/util/logger");
+exports.convertService = {
+    strategyByFile: (params) => {
+        const { filePath, folderPath } = params;
+        if (filePath.endsWith('.ts'))
+            return new convert_ts_1.ConvertTs({ filePath, folderPath });
+        logger_1.logger.debug(`Strategy not found for filePath: ${filePath}`);
+        return undefined;
+    },
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29udmVydC1zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3NlcnZpY2UvY29udmVydC1zZXJ2aWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLGtFQUE2RDtBQUU3RCw0Q0FBd0M7QUFNM0IsUUFBQSxjQUFjLEdBQUc7SUFDNUIsY0FBYyxFQUFFLENBQUMsTUFBZ0QsRUFBK0IsRUFBRTtRQUNoRyxNQUFNLEVBQUUsUUFBUSxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQTtRQUN2QyxJQUFJLFFBQVEsQ0FBQyxRQUFRLENBQUMsS0FBSyxDQUFDO1lBQUUsT0FBTyxJQUFJLHNCQUFTLENBQUMsRUFBRSxRQUFRLEVBQUUsVUFBVSxFQUFFLENBQUMsQ0FBQTtRQUU1RSxlQUFNLENBQUMsS0FBSyxDQUFDLG9DQUFvQyxRQUFRLEVBQUUsQ0FBQyxDQUFBO1FBQzVELE9BQU8sU0FBUyxDQUFBO0lBQ2xCLENBQUM7Q0FDRixDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29udmVydFRzIH0gZnJvbSAnc3JjL3NlcnZpY2UvY29udmVydC10cy9jb252ZXJ0LXRzJ1xuaW1wb3J0IHsgRW50aXR5IH0gZnJvbSAnc3JjL3NlcnZpY2UvbW9kZWwvZW50aXR5J1xuaW1wb3J0IHsgbG9nZ2VyIH0gZnJvbSAnc3JjL3V0aWwvbG9nZ2VyJ1xuXG5leHBvcnQgaW50ZXJmYWNlIENvbnZlcnRTdHJhdGVneSB7XG4gIGNvbnZlcnQoKTogUHJvbWlzZTxFbnRpdHlbXT5cbn1cblxuZXhwb3J0IGNvbnN0IGNvbnZlcnRTZXJ2aWNlID0ge1xuICBzdHJhdGVneUJ5RmlsZTogKHBhcmFtczogeyBmaWxlUGF0aDogc3RyaW5nOyBmb2xkZXJQYXRoOiBzdHJpbmcgfSk6IENvbnZlcnRTdHJhdGVneSB8IHVuZGVmaW5lZCA9PiB7XG4gICAgY29uc3QgeyBmaWxlUGF0aCwgZm9sZGVyUGF0aCB9ID0gcGFyYW1zXG4gICAgaWYgKGZpbGVQYXRoLmVuZHNXaXRoKCcudHMnKSkgcmV0dXJuIG5ldyBDb252ZXJ0VHMoeyBmaWxlUGF0aCwgZm9sZGVyUGF0aCB9KVxuXG4gICAgbG9nZ2VyLmRlYnVnKGBTdHJhdGVneSBub3QgZm91bmQgZm9yIGZpbGVQYXRoOiAke2ZpbGVQYXRofWApXG4gICAgcmV0dXJuIHVuZGVmaW5lZFxuICB9LFxufVxuIl19

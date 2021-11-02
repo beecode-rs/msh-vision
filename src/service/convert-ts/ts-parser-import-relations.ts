@@ -25,12 +25,12 @@ const _self = {
     if (statement.kind === ts.SyntaxKind.Identifier && statement.escapedText === identifierName) return true
     if (!_self.isDeclaration(statement) && statement.name?.escapedText === identifierName) return true
     if (statement.expression?.right && statement.expression.right.escapedText === identifierName) return true
-    if (
-      (statement.declarations ?? []).length > 0 &&
-      statement.declarations.find((d) => d.initializer?.escapedText === identifierName)
-    ) {
-      return true
-    }
+    // if (
+    //   (statement.declarations ?? []).length > 0 &&
+    //   statement.declarations.find((d) => d.initializer?.escapedText === identifierName)
+    // ) {
+    //   return true
+    // }
 
     if (
       [ts.SyntaxKind.TypeLiteral, ts.SyntaxKind.TypeReference].includes(statement.kind) &&
@@ -52,7 +52,17 @@ const _self = {
     ) {
       return true
     }
-    if (_self.stepIntoArray(identifierName, statement, ['statements', 'members', 'clauses', 'properties'])) {
+    if (
+      _self.stepIntoArray(identifierName, statement, [
+        'statements',
+        'members',
+        'clauses',
+        'properties',
+        'parameters',
+        'declarations',
+        'arguments',
+      ])
+    ) {
       return true
     }
 

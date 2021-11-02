@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PumlGroupFictive = void 0;
+class PumlGroupFictive {
+    templateEnd() {
+        return '';
+    }
+    templateStart() {
+        return '';
+    }
+}
+exports.PumlGroupFictive = PumlGroupFictive;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVtbC1ncm91cC1maWN0aXZlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL3NlcnZpY2UvcHJpbnQtcHVtbC9ncm91cC9wdW1sLWdyb3VwLWZpY3RpdmUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBRUEsTUFBYSxnQkFBZ0I7SUFDcEIsV0FBVztRQUNoQixPQUFPLEVBQUUsQ0FBQTtJQUNYLENBQUM7SUFFTSxhQUFhO1FBQ2xCLE9BQU8sRUFBRSxDQUFBO0lBQ1gsQ0FBQztDQUNGO0FBUkQsNENBUUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQdW1sR3JvdXBTdHJhdGVneSB9IGZyb20gJ3NyYy9zZXJ2aWNlL3ByaW50LXB1bWwvZ3JvdXAvcHVtbC1ncm91cCdcblxuZXhwb3J0IGNsYXNzIFB1bWxHcm91cEZpY3RpdmUgaW1wbGVtZW50cyBQdW1sR3JvdXBTdHJhdGVneSB7XG4gIHB1YmxpYyB0ZW1wbGF0ZUVuZCgpOiBzdHJpbmcge1xuICAgIHJldHVybiAnJ1xuICB9XG5cbiAgcHVibGljIHRlbXBsYXRlU3RhcnQoKTogc3RyaW5nIHtcbiAgICByZXR1cm4gJydcbiAgfVxufVxuIl19

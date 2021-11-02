@@ -7,7 +7,9 @@ import { TsParserImportParseResult } from 'src/service/convert-ts/parser/ts-pars
 import { TsParserInterface } from 'src/service/convert-ts/parser/ts-parser-interface'
 import { TsParserObject } from 'src/service/convert-ts/parser/ts-parser-object'
 import { TsParserType } from 'src/service/convert-ts/parser/ts-parser-type'
+import { TsParsingError } from 'src/service/convert-ts/ts-parsing-error'
 import { Entity } from 'src/service/model/entity'
+import { constant } from 'src/util/constant'
 import { logger } from 'src/util/logger'
 
 export class TsEntityParser {
@@ -39,9 +41,15 @@ export class TsEntityParser {
   }
 
   protected _parseStatement(statement: ts.Statement): Entity[] {
-    const parser = this._parserByStatementKind(statement)
-    if (!parser) return []
-    return parser.parse()
+    try {
+      const parser = this._parserByStatementKind(statement)
+      if (!parser) return []
+      return parser.parse()
+    } catch (error) {
+      logger.error(`Error in file ${[this._inProjectPath, this._fileName].join(constant.folderSep)}`)
+      if (error instanceof TsParsingError && error.CanPrintCode) logger.error(error.Statement.getText(this._parsedSource))
+      throw error
+    }
   }
 
   protected _parserByStatementKind(statement: ts.Statement): Parsable | undefined {
@@ -51,7 +59,7 @@ export class TsEntityParser {
 
     switch (statement.kind) {
       case ts.SyntaxKind.TypeAliasDeclaration:
-        return new TsParserType({ parsedSource, statement, inProjectPath })
+        return new TsParserType({ parsedSource, statement, inProjectPath, importParseResults })
       case ts.SyntaxKind.ClassDeclaration:
         return new TsParserClass({ parsedSource, statement, inProjectPath, importParseResults })
       case ts.SyntaxKind.InterfaceDeclaration:

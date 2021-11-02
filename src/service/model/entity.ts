@@ -17,7 +17,7 @@ export type EntityMeta<T extends EntityTypes> =
   : T extends EntityTypes.OBJECT    ? EntityObject
   : T extends EntityTypes.TYPE      ? EntityType
   : T extends EntityTypes.FILE      ? undefined
-  : unknown
+  : never
 
 export class Entity<T extends EntityTypes = any> implements Locatable, Referencable {
   protected readonly _type: T

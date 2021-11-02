@@ -1,3 +1,7 @@
+export type TestTypesTTT = string
+
 export const nested = {
-  someFunction: async (): Promise<void> => {},
+  someFunction: async (test: TestTypesTTT): Promise<void> => {
+
+  },
 }

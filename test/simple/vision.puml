@@ -17,6 +17,36 @@
         abstract "AbstractClass" as abstract_class_eb5b4d10 {
           + {abstract} test(someParam: string): number
         }
+        card type_string_50fee832 [
+          TypeString
+          ---
+          string
+        ]
+        card type_number_50fee832 [
+          TypeNumber
+          ---
+          number
+        ]
+        card type_object_50fee832 [
+          TypeObject
+          ---
+          object
+        ]
+        enum "Types" as types_50fee832 {
+          NUMBER = 'number'
+          OBJECT = 'object'
+          STRING = 'string'
+          UNDEFINED = 'undefined'
+        }
+        card dynamic_type_50fee832 [
+          DynamicType
+          ---
+          T extends Types.STRING    ? TypeString
+            : T extends Types.NUMBER    ? TypeNumber
+            : T extends Types.OBJECT    ? TypeObject
+            : T extends Types.UNDEFINED ? undefined
+            : never
+        ]
         interface "OtherInterface" as other_interface_45739bff {
           + test: number
         }
@@ -50,13 +80,32 @@
           + test: number
         }
         folder "folder/subfolder" as folder_subfolder_85d5d271 {
+          object "nestedSecond" as nested_second_4e88e347 {
+            + otherFunction(test: TestTypesTTT): Promise<void>
+          }
+          card test_types_ttt_27b6e15a [
+            TestTypesTTT
+            ---
+            string
+          ]
           object "nested" as nested_27b6e15a {
-            + someFunction: Promise<void>
+            + someFunction(test: TestTypesTTT): Promise<void>
+          }
+          object "tsParserService" as ts_parser_service_b249c12a {
+            + findClassRelations(params: {\n statement: ts.Statement;\n parsedSource: ts.SourceFile;\n inProjectPath: string \n}): Reference[]
           }
         }
       }
     }
   index_ts_e4daf83f -up-> some_class_755b9f64
+  dynamic_type_50fee832 -up-> type_string_50fee832
+  dynamic_type_50fee832 -up-> type_number_50fee832
+  dynamic_type_50fee832 -up-> type_object_50fee832
+  dynamic_type_50fee832 -up-> types_50fee832
+  nested_second_4e88e347 -up-> some_class_755b9f64
+  nested_second_4e88e347 -up-> nested_27b6e15a
+  nested_second_4e88e347 -up-> test_types_ttt_27b6e15a
+  nested_27b6e15a -up-> test_types_ttt_27b6e15a
   some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
   some_class_755b9f64 -up-> some_type_755b9f64
   some_class_755b9f64 -up-|> abstract_class_eb5b4d10
