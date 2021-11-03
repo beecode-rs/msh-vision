@@ -23,6 +23,7 @@ export const config = Object.freeze({
     print: {
       ignorePaths: env('VISION_PRINT_IGNORE_PATHS_JSON_ARRAY').json<string[]>().default([]).required,
       ignoreExternal: env('VISION_PRINT_IGNORE_EXTERNAL').boolean.default(false).required,
+      ignoreTypes: env('VISION_PRINT_IGNORE_TYPES').boolean.default(false).required,
     },
   },
 })
@@ -43,6 +44,7 @@ export const visionConfig = (): VisionConfigReturn => {
       ...config._vision.print,
       ...(params.printIgnorePaths && { ignorePaths: params.printIgnorePaths.split(',').map((s) => s.trim()) }),
       ...(params.ignoreExternal && { ignoreExternal: params.printIgnoreExternal }),
+      ...(params.ignoreTypes && { ignoreTypes: params.printIgnoreTypes }),
     },
   }
 }

@@ -1,15 +1,6 @@
 @startuml
     folder "src" as src_b874d07 {
       folder "dal" as dal_fba75381 {
-        card exec_result_4f6edd5d [
-          ExecResult
-          ---
-          {
-            stdout: string
-            stderr: string
-            errorOccurred: boolean
-          }
-        ]
         object "shellDal" as shell_dal_4f6edd5d {
           + cd(dir: string): void
           + exec(cmd: string): Promise<ExecResult>
@@ -18,34 +9,6 @@
         }
       }
       folder "service" as service_c83a6ab5 {
-        card args_service_params_d268d804 [
-          ArgsServiceParams
-          ---
-          {
-            args: string[]
-            options: Options
-          }
-        ]
-        card cli_commands_d268d804 [
-          CliCommands
-          ---
-          minimist.ParsedArgs & {
-            help: boolean
-            h: boolean
-            version: boolean
-            v: boolean
-          }
-        ]
-        card cmd_generate_params_d268d804 [
-          CmdGenerateParams
-          ---
-          minimist.ParsedArgs & {
-            src: string
-            dest: string
-            appName: string
-            tsConfig: string
-          }
-        ]
         object "argsService" as args_service_d268d804 {
           + argToObject({\n args,\n options \n}: ArgsServiceParams): T
           + cliCommandOptions: Options
@@ -83,13 +46,6 @@
         interface "PrintStrategy" as print_strategy_22861314 {
           + print(params: { entities: Entity[] }): Promise<void>
         }
-        card print_std_message_db3f045d [
-          PrintStdMessage
-          ---
-          {
-            [key: string]: ExecResult
-          }
-        ]
         object "shellService" as shell_service_db3f045d {
           # _joinResults(results: PrintStdMessage[]): PrintStdMessage
           + cd: shellDal
@@ -121,17 +77,6 @@
             constructor({\n filePath,\n folderPath \n}: {\n filePath: string;\n folderPath: string \n})
             + convert: Promise<Entity[]>
           }
-          card ts_config_file_type_1baff2da [
-            TsConfigFileType
-            ---
-            {
-              compilerOptions?: {
-                paths?: {
-                  [k: string]: string[]
-                }
-              }
-            }
-          ]
           object "___tsConfigFileJson" as ts_config_file_json_1baff2da {
           }
           object "tsConfigFileService" as ts_config_file_service_1baff2da {
@@ -207,11 +152,6 @@
               constructor(params: {\n    parsedSource: ts.SourceFile\n    inProjectPath: string\n    fileName: string\n    importParseResults: TsParserImportParseResult[]\n  })
               + parse: Entity<EntityTypes.FILE>[]
             }
-            card ts_parser_import_parse_result_cf8881d4 [
-              TsParserImportParseResult
-              ---
-              { name: string; inProjectPath: string }
-            ]
             class "TsParserImport" as ts_parser_import_cf8881d4 {
               # _importedFileInProjectAbsPath(importPath: string): string
               # _inProjectPath: string
@@ -288,17 +228,6 @@
             # _returnType: string
             constructor(params: { returnType: string })
           }
-          card entity_meta_b03468e8 [
-            EntityMeta
-            ---
-            T extends EntityTypes.CLASS     ? EntityClass
-              : T extends EntityTypes.ENUM      ? EntityEnum
-              : T extends EntityTypes.INTERFACE ? EntityInterface
-              : T extends EntityTypes.OBJECT    ? EntityObject
-              : T extends EntityTypes.TYPE      ? EntityType
-              : T extends EntityTypes.FILE      ? undefined
-              : never
-          ]
           class "Entity" as entity_b03468e8 {
             + Id: string
             + InProjectPath: string
@@ -340,11 +269,6 @@
           interface "Referencable" as referencable_5553ad7 {
             + References: Reference[]
           }
-          card reference_direction_a6f99758 [
-            ReferenceDirection
-            ---
-            "'up' | 'down' | 'left' | 'right'"
-          ]
           class "Reference" as reference_a6f99758 {
             + Direction: ReferenceDirection | undefined
             + Id: string
@@ -507,11 +431,7 @@
         }
       }
     }
-  shell_dal_4f6edd5d -up-> shell_dal_4f6edd5d
-  args_service_d268d804 -up-> args_service_params_d268d804
-  args_service_d268d804 -up-> args_service_d268d804
   cli_service_317b6b45 -up-> help_service_20a1eb92
-  cli_service_317b6b45 -up-> shell_service_db3f045d
   generate_eb5ef3b0 -up-> puml_print_4aa046fc
   generate_eb5ef3b0 .up.|> executable_a85166eb
   print_help_2c3c3bf6 -up-> cli_service_317b6b45
@@ -520,7 +440,6 @@
   print_version_dc92b85d .up.|> executable_a85166eb
   convert_service_f40b6b4 -up-> convert_ts_e1b382dc
   convert_ts_e1b382dc -up-> ts_parser_file_7df94b8f
-  convert_ts_e1b382dc -up-> ts_config_file_service_1baff2da
   convert_ts_e1b382dc -up-> ts_entity_parser_818f015a
   convert_ts_e1b382dc -up-> ts_parser_service_a99fa6bc
   convert_ts_e1b382dc -up-> file_service_3f424ea5
@@ -531,7 +450,6 @@
   ts_parser_class_9848e147 .up.|> parsable_5aa78fd3
   ts_parser_enum_b5f7453a -up-> ts_parser_service_a99fa6bc
   ts_parser_enum_b5f7453a .up.|> parsable_5aa78fd3
-  ts_parser_file_7df94b8f -up-> reference_a6f99758
   ts_parser_file_7df94b8f .up.|> parsable_5aa78fd3
   ts_parser_import_cf8881d4 -up-> file_service_3f424ea5
   ts_parser_import_cf8881d4 .up.|> parsable_5aa78fd3
@@ -542,26 +460,15 @@
   ts_parser_object_400d2cfc -up-> ts_parser_service_a99fa6bc
   ts_parser_object_400d2cfc .up.|> parsable_5aa78fd3
   ts_parser_type_948f391 -up-> ts_parser_service_a99fa6bc
-  ts_parser_type_948f391 -up-> reference_a6f99758
   ts_parser_type_948f391 .up.|> parsable_5aa78fd3
-  ts_config_file_json_1baff2da -up-> ts_config_file_type_1baff2da
   ts_entity_parser_818f015a -up-> ts_parser_class_9848e147
   ts_entity_parser_818f015a -up-> ts_parser_enum_b5f7453a
   ts_entity_parser_818f015a -up-> ts_parser_interface_fda3c7ec
   ts_entity_parser_818f015a -up-> ts_parser_object_400d2cfc
   ts_entity_parser_818f015a -up-> ts_parser_type_948f391
-  ts_entity_parser_818f015a -up-> entity_b03468e8
-  entity_meta_b03468e8 -up-> entity_class_c3530bcb
-  entity_meta_b03468e8 -up-> entity_enum_aa45dd16
-  entity_meta_b03468e8 -up-> entity_interface_4f072400
-  entity_meta_b03468e8 -up-> entity_object_72801f10
-  entity_meta_b03468e8 -up-> entity_type_d40d85d
-  entity_b03468e8 -up-> entity_meta_b03468e8
-  entity_b03468e8 -up-> entity_b03468e8
   entity_b03468e8 .up.|> locatable_573e15ac
   entity_b03468e8 .up.|> referencable_5553ad7
   property_96110b14 -up-> property_96110b14
-  reference_a6f99758 -up-> reference_direction_a6f99758
   reference_a6f99758 .up.|> locatable_573e15ac
   puml_group_fictive_57cc180d .up.|> puml_group_strategy_ae5ed342
   puml_group_folder_63f7a3f9 -up-> puml_group_ae5ed342
@@ -576,25 +483,19 @@
   puml_group_ae5ed342 -up-> puml_group_strategy_ae5ed342
   puml_group_ae5ed342 -up-> puml_group_ae5ed342
   puml_group_ae5ed342 -up-|> puml_entity_85c02856
-  puml_printable_class_4b11e257 -up-> entity_b03468e8
   puml_printable_class_4b11e257 -up-> property_96110b14
   puml_printable_class_4b11e257 -up-> puml_printable_property_2d23f5de
   puml_printable_class_4b11e257 -up-|> puml_entity_85c02856
-  puml_printable_enum_1725040a -up-> entity_b03468e8
   puml_printable_enum_1725040a -up-|> puml_entity_85c02856
-  puml_printable_file_3f271d9f -up-> entity_b03468e8
   puml_printable_file_3f271d9f -up-|> puml_entity_85c02856
-  puml_printable_interface_2621ae9c -up-> entity_b03468e8
   puml_printable_interface_2621ae9c -up-> property_96110b14
   puml_printable_interface_2621ae9c -up-> puml_printable_property_2d23f5de
   puml_printable_interface_2621ae9c -up-|> puml_entity_85c02856
-  puml_printable_object_736b458c -up-> entity_b03468e8
   puml_printable_object_736b458c -up-> property_96110b14
   puml_printable_object_736b458c -up-> puml_printable_property_2d23f5de
   puml_printable_object_736b458c -up-|> puml_entity_85c02856
   puml_printable_property_2d23f5de -up-> property_96110b14
   puml_printable_property_2d23f5de -up-|> puml_entity_85c02856
-  puml_printable_type_f482c241 -up-> entity_b03468e8
   puml_printable_type_f482c241 -up-|> puml_entity_85c02856
   puml_printable_wrapper_e6265aaa -up-|> puml_entity_85c02856
   puml_document_f0161d62 -up-|> puml_entity_85c02856
@@ -605,16 +506,10 @@
   puml_print_4aa046fc -up-> puml_document_f0161d62
   puml_print_4aa046fc -up-> puml_service_f506c030
   puml_print_4aa046fc .up.|> print_strategy_22861314
-  puml_relation_ddbc15eb -up-> entity_b03468e8
-  puml_relation_ddbc15eb -up-> reference_a6f99758
-  puml_service_f506c030 -up-> entity_b03468e8
   puml_service_f506c030 -up-> puml_printable_class_4b11e257
   puml_service_f506c030 -up-> puml_printable_enum_1725040a
   puml_service_f506c030 -up-> puml_printable_file_3f271d9f
   puml_service_f506c030 -up-> puml_printable_interface_2621ae9c
   puml_service_f506c030 -up-> puml_printable_object_736b458c
   puml_service_f506c030 -up-> puml_printable_type_f482c241
-  shell_service_db3f045d -up-> shell_dal_4f6edd5d
-  shell_service_db3f045d -up-> print_std_message_db3f045d
-  shell_service_db3f045d -up-> shell_service_db3f045d
 @enduml

@@ -1,3 +1,4 @@
+import { EntityTypes } from 'src/enum/entity-types'
 import { ConvertStrategy, convertService } from 'src/service/convert-service'
 import { fileService } from 'src/service/file-service'
 import { Entity } from 'src/service/model/entity'
@@ -15,7 +16,8 @@ export const visionUseCase = {
     if (!entities) return
     const cleanEntities = visionUseCase._removeIgnoredPaths(entities)
     const noExternalEntities = visionUseCase._removeExternal(cleanEntities)
-    await printStrategy.print({ entities: noExternalEntities })
+    const noTypeEntities = visionUseCase._removeTypes(noExternalEntities)
+    await printStrategy.print({ entities: noTypeEntities })
   },
   _removeIgnoredPaths: (entities: Entity[]): Entity[] => {
     const {
@@ -33,5 +35,24 @@ export const visionUseCase = {
       entity.References = entity.References.filter((r) => entities.find((e) => r.InProjectPath === e.InProjectPath))
     })
     return entities
+  },
+  _removeTypes: (entities: Entity[]): Entity[] => {
+    if (!visionConfig().print.ignoreTypes) return entities
+
+    const { typeEntities, otherEntities } = entities.reduce<{ typeEntities: Entity[]; otherEntities: Entity[] }>(
+      (agg, cur) => {
+        if (cur.Type === EntityTypes.TYPE) agg.typeEntities.push(cur)
+        else agg.otherEntities.push(cur)
+        return agg
+      },
+      { typeEntities: [], otherEntities: [] }
+    )
+
+    otherEntities.forEach((entity) => {
+      if (entity.References.length === 0) return
+      entity.References = entity.References.filter((r) => !typeEntities.find((e) => r.InProjectPath === e.InProjectPath))
+    })
+
+    return otherEntities
   },
 }
