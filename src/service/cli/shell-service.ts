@@ -1,6 +1,6 @@
+import { ExecResult, shellDal } from '../../dal/shell-dal'
+import { constant } from '../../util/constant'
 import chalk from 'chalk'
-import { ExecResult, shellDal } from 'src/dal/shell-dal'
-import { constant } from 'src/util/constant'
 
 export type PrintStdMessage = {
   [key: string]: ExecResult

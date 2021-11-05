@@ -24,7 +24,7 @@ const _self = {
   findIdentifier: (identifierName: string, statement: any): boolean => {
     if (statement.kind === ts.SyntaxKind.Identifier && statement.escapedText === identifierName) return true
     if (!_self.isDeclaration(statement) && statement.name?.escapedText === identifierName) return true
-    if (statement.expression?.right && statement.expression.right.escapedText === identifierName) return true
+    // if (statement.expression?.right && statement.expression.right.escapedText === identifierName) return true
     // if (
     //   (statement.declarations ?? []).length > 0 &&
     //   statement.declarations.find((d) => d.initializer?.escapedText === identifierName)
@@ -48,6 +48,7 @@ const _self = {
         'caseBlock',
         'initializer',
         'type',
+        'right',
       ])
     ) {
       return true
@@ -61,6 +62,7 @@ const _self = {
         'parameters',
         'declarations',
         'arguments',
+        'typeArguments',
       ])
     ) {
       return true

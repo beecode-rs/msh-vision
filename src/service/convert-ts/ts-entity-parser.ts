@@ -9,6 +9,7 @@ import { TsParserObject } from 'src/service/convert-ts/parser/ts-parser-object'
 import { TsParserType } from 'src/service/convert-ts/parser/ts-parser-type'
 import { TsParsingError } from 'src/service/convert-ts/ts-parsing-error'
 import { Entity } from 'src/service/model/entity'
+import { Reference } from 'src/service/model/reference'
 import { constant } from 'src/util/constant'
 import { logger } from 'src/util/logger'
 
@@ -98,11 +99,23 @@ export class TsEntityParser {
     const aliasedEntities = withAliasRef.map((entity) => {
       const foundJoin = aliasRef.find((e) => e.Name === entity.Meta.AliasReference)
       if (!foundJoin) throw new Error(`Join not found for entity ${JSON.stringify(entity)}`)
+
+      const references = foundJoin.References.map((r) => {
+        if (r.Name !== foundJoin.Name) return r
+        return new Reference({
+          type: r.Type,
+          name: entity.Name,
+          inProjectPath: r.InProjectPath,
+          direction: r.Direction,
+        })
+      })
+
       return new Entity({
         type: entity.Type,
         name: entity.Name,
         isExported: foundJoin.IsExported,
         inProjectPath: foundJoin.InProjectPath,
+        references,
         meta: foundJoin.Meta,
       })
     })

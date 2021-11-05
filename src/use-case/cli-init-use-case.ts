@@ -1,9 +1,9 @@
 import { CliCommands, argsService } from 'src/service/args-service'
-import { cliService } from 'src/service/cli-service'
-import { Executable } from 'src/service/command/executable'
-import { Generate } from 'src/service/command/generate'
-import { PrintHelp } from 'src/service/command/print-help'
-import { PrintVersion } from 'src/service/command/print-version'
+import { cliService } from 'src/service/cli/cli-service'
+import { Executable } from 'src/service/cli/command/executable'
+import { Generate } from 'src/service/cli/command/generate'
+import { PrintHelp } from 'src/service/cli/command/print-help'
+import { PrintVersion } from 'src/service/cli/command/print-version'
 
 export const cliInitUseCase = {
   execArgsAsCommand: async (args: string[]): Promise<void> => {

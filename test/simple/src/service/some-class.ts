@@ -1,3 +1,4 @@
+import { PumlRelation } from '../../../../src/service/print-puml/puml-relation'
 import { AbstractClass } from './abstract-class'
 import { errors } from '../util/errors'
 import { OtherInterface } from './other-interface'
@@ -7,6 +8,8 @@ import { SomeInterface } from './some-interface'
 import path from 'path'
 
 export type SomeType = string
+
+export class DummyClass {}
 
 export type SomeOtherType = {
   test: string
@@ -26,6 +29,7 @@ export class SomeClass extends AbstractClass implements SomeInterface, OtherInte
     super()
     this._constParam = test
     this._constParam1 = test1
+    this._relations = entity.References.map((r) => new DummyClass({ reference: r, fromEntity: entity }))
   }
   public test1(): SomeEnumType {
     switch (true) {

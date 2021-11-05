@@ -5,7 +5,6 @@ import { EntityInterface } from 'src/service/model/entity-interface'
 import { EntityObject } from 'src/service/model/entity-object'
 import { EntityType } from 'src/service/model/entity-type'
 import { Locatable } from 'src/service/model/locatable'
-import { Referencable } from 'src/service/model/referencable'
 import { Reference } from 'src/service/model/reference'
 import { stringUtil } from 'src/util/string-util'
 
@@ -19,7 +18,7 @@ export type EntityMeta<T extends EntityTypes> =
   : T extends EntityTypes.FILE      ? undefined
   : never
 
-export class Entity<T extends EntityTypes = any> implements Locatable, Referencable {
+export class Entity<T extends EntityTypes = any> implements Locatable {
   protected readonly _type: T
   protected _name: string
   protected readonly _inProjectPath: string

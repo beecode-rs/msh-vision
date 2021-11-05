@@ -50,7 +50,9 @@ export const visionUseCase = {
 
     otherEntities.forEach((entity) => {
       if (entity.References.length === 0) return
-      entity.References = entity.References.filter((r) => !typeEntities.find((e) => r.InProjectPath === e.InProjectPath))
+      entity.References = entity.References.filter(
+        (r) => !typeEntities.find((e) => r.InProjectPath === e.InProjectPath && r.Name === e.Name)
+      )
     })
 
     return otherEntities

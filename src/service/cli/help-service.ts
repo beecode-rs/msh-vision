@@ -1,4 +1,4 @@
-import { constant } from 'src/util/constant'
+import { constant } from '../../util/constant'
 
 export const helpService = {
   text: (): string => {

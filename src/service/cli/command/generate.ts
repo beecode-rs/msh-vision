@@ -1,4 +1,4 @@
-import { Executable } from 'src/service/command/executable'
+import { Executable } from 'src/service/cli/command/executable'
 import { PumlPrint } from 'src/service/print-puml/puml-print'
 import { visionUseCase } from 'src/use-case/vision-use-case'
 import { visionConfig } from 'src/util/config'

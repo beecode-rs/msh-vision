@@ -26,6 +26,8 @@
         interface "OtherInterface" as other_interface_45739bff {
           + test: number
         }
+        class "DummyClass" as dummy_class_755b9f64 {
+        }
         class "SomeClass" as some_class_755b9f64 {
           # _constParam: string
           # _constParam1: string
@@ -40,18 +42,19 @@
         }
         folder "folder/subfolder" as folder_subfolder_85d5d271 {
           object "nestedSecond" as nested_second_4e88e347 {
-            + otherFunction(test: TestTypesTTT): Promise<void>
+            + otherFunction(test: TestTypesTTT): Promise<SomeClass>
           }
           object "nested" as nested_27b6e15a {
             + someFunction(test: TestTypesTTT): Promise<void>
           }
-          object "tsParserService" as ts_parser_service_b249c12a {
-            + findClassRelations(params: {\n statement: ts.Statement;\n parsedSource: ts.SourceFile;\n inProjectPath: string \n}): Reference[]
-          }
         }
       }
     }
+  index_ts_e4daf83f -up-> some_class_755b9f64
+  nested_second_4e88e347 -up-> some_class_755b9f64
+  nested_second_4e88e347 -up-> nested_27b6e15a
   some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
+  some_class_755b9f64 -up-> dummy_class_755b9f64
   some_class_755b9f64 -up-|> abstract_class_eb5b4d10
   some_class_755b9f64 .up.|> some_interface_4140baef
   some_class_755b9f64 .up.|> other_interface_45739bff
