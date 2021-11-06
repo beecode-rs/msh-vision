@@ -1,15 +1,5 @@
 @startuml
     folder "src" as src_b874d07 {
-      enum "DbSchema" as db_schema_4f0fda94 {
-        AUTH = 'auth'
-        PUBLIC = 'public'
-      }
-      object "databaseService" as database_service_4f0fda94 {
-        + defaultConnectionParams: PostgresConnectionOptions
-        + getConnection: Connection
-        + getRepository(entity: ObjectType<T>): Repository<T>
-        + publicConnectionParams: PostgresConnectionOptions
-      }
       artifact "index.ts" as index_ts_e4daf83f {
       }
       folder "enum" as enum_1eea471b {
@@ -60,7 +50,6 @@
         }
       }
     }
-  database_service_4f0fda94 -up-> db_schema_4f0fda94
   index_ts_e4daf83f -up-> some_class_755b9f64
   nested_second_4e88e347 -up-> some_class_755b9f64
   nested_second_4e88e347 -up-> nested_27b6e15a

@@ -1,3 +1,4 @@
+import { PrintStrategy } from '../print-service'
 import { PumlDocument } from './printable-entity/puml-document'
 import fs from 'fs'
 import plantuml from 'node-plantuml'
@@ -7,7 +8,6 @@ import { Entity } from 'src/service/model/entity'
 import { PumlGroup } from 'src/service/print-puml/group/puml-group'
 import { PumlPrintableWrapper } from 'src/service/print-puml/printable-entity/puml-printable-wrapper'
 import { pumlService } from 'src/service/print-puml/puml-service'
-import { PrintStrategy } from 'src/service/print-strategy'
 import { constant } from 'src/util/constant'
 
 export class PumlPrint implements PrintStrategy {
