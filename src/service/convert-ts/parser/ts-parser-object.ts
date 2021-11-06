@@ -33,6 +33,7 @@ export class TsParserObject implements Parsable {
     const result = this._nameFromDeclarationsList(this._statement['declarationList'])
     if (!result) throw new Error('Could not parse object from statement')
     const { name, declaration } = result
+    if (!name) return []
     const properties = this._findProperties(declaration?.initializer?.['properties'])
     const isExported = tsParserService.isExported(this._statement.modifiers)
     const aliasReference =

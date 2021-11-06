@@ -91,7 +91,7 @@ const _self = {
 
     // TODO find a better solution to finding entity links
     if (statement['name']) return [{ name: statement['name'].escapedText, inProjectPath }]
-    if (statement['declarationList'])
+    if (statement['declarationList'] && statement['declarationList'].declarations[0].name.escapedText)
       return [{ name: statement['declarationList'].declarations[0].name.escapedText, inProjectPath }]
 
     return []
