@@ -7,7 +7,7 @@ import { visionConfig } from 'src/util/config'
 export class Generate implements Executable {
   public async execute(): Promise<void> {
     const { projectSrcFolderPath: folderPath } = visionConfig()
-    const entities = await visionUseCase.processFolder({ folderPath })
+    const entities = await visionUseCase.parseFolder({ folderPath })
     const processedEntities = processingService.process(entities)
     await printService.print(processedEntities)
   }

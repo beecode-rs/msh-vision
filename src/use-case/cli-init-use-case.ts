@@ -1,4 +1,4 @@
-import { CliCommands, argsService } from 'src/service/args-service'
+import { CliCommands, argsService } from 'src/service/cli/args-service'
 import { cliService } from 'src/service/cli/cli-service'
 import { Executable } from 'src/service/cli/command/executable'
 import { Generate } from 'src/service/cli/command/generate'

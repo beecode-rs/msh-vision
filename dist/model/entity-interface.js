@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EntityInterface = void 0;
+class EntityInterface {
+    _references;
+    _properties;
+    constructor(params) {
+        const { references, properties } = params;
+        this._references = references ?? [];
+        this._properties = properties ?? [];
+    }
+    get References() {
+        return this._references;
+    }
+    get Properties() {
+        return this._properties;
+    }
+}
+exports.EntityInterface = EntityInterface;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW50aXR5LWludGVyZmFjZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbC9lbnRpdHktaW50ZXJmYWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUdBLE1BQWEsZUFBZTtJQUNQLFdBQVcsQ0FBYTtJQUN4QixXQUFXLENBQVk7SUFFMUMsWUFBWSxNQUE2RDtRQUN2RSxNQUFNLEVBQUUsVUFBVSxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQTtRQUN6QyxJQUFJLENBQUMsV0FBVyxHQUFHLFVBQVUsSUFBSSxFQUFFLENBQUE7UUFDbkMsSUFBSSxDQUFDLFdBQVcsR0FBRyxVQUFVLElBQUksRUFBRSxDQUFBO0lBQ3JDLENBQUM7SUFFRCxJQUFXLFVBQVU7UUFDbkIsT0FBTyxJQUFJLENBQUMsV0FBVyxDQUFBO0lBQ3pCLENBQUM7SUFFRCxJQUFXLFVBQVU7UUFDbkIsT0FBTyxJQUFJLENBQUMsV0FBVyxDQUFBO0lBQ3pCLENBQUM7Q0FDRjtBQWpCRCwwQ0FpQkMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQcm9wZXJ0eSB9IGZyb20gJ3NyYy9tb2RlbC9wcm9wZXJ0eSdcbmltcG9ydCB7IFJlZmVyZW5jZSB9IGZyb20gJ3NyYy9tb2RlbC9yZWZlcmVuY2UnXG5cbmV4cG9ydCBjbGFzcyBFbnRpdHlJbnRlcmZhY2Uge1xuICBwcm90ZWN0ZWQgcmVhZG9ubHkgX3JlZmVyZW5jZXM6IFJlZmVyZW5jZVtdXG4gIHByb3RlY3RlZCByZWFkb25seSBfcHJvcGVydGllczogUHJvcGVydHlbXVxuXG4gIGNvbnN0cnVjdG9yKHBhcmFtczogeyByZWZlcmVuY2VzPzogUmVmZXJlbmNlW107IHByb3BlcnRpZXM/OiBQcm9wZXJ0eVtdIH0pIHtcbiAgICBjb25zdCB7IHJlZmVyZW5jZXMsIHByb3BlcnRpZXMgfSA9IHBhcmFtc1xuICAgIHRoaXMuX3JlZmVyZW5jZXMgPSByZWZlcmVuY2VzID8/IFtdXG4gICAgdGhpcy5fcHJvcGVydGllcyA9IHByb3BlcnRpZXMgPz8gW11cbiAgfVxuXG4gIHB1YmxpYyBnZXQgUmVmZXJlbmNlcygpOiBSZWZlcmVuY2VbXSB7XG4gICAgcmV0dXJuIHRoaXMuX3JlZmVyZW5jZXNcbiAgfVxuXG4gIHB1YmxpYyBnZXQgUHJvcGVydGllcygpOiBQcm9wZXJ0eVtdIHtcbiAgICByZXR1cm4gdGhpcy5fcHJvcGVydGllc1xuICB9XG59XG4iXX0=

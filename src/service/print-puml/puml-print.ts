@@ -1,29 +1,31 @@
-import { PrintStrategy } from '../print-service'
-import { PumlDocument } from './printable-entity/puml-document'
 import fs from 'fs'
 import plantuml from 'node-plantuml'
+import { fileDao } from 'src/dal/file-dao'
 import { PumlGroupType } from 'src/enum/puml-group-type'
-import { fileService } from 'src/service/file-service'
-import { Entity } from 'src/service/model/entity'
+import { Entity } from 'src/model/entity'
+import { filePathService } from 'src/service/file-path-service'
 import { PumlGroup } from 'src/service/print-puml/group/puml-group'
+import { PumlDocument } from 'src/service/print-puml/printable-entity/puml-document'
 import { PumlPrintableWrapper } from 'src/service/print-puml/printable-entity/puml-printable-wrapper'
 import { pumlService } from 'src/service/print-puml/puml-service'
+import { PrintStrategy } from 'src/service/print-service'
 import { constant } from 'src/util/constant'
 
 export class PumlPrint implements PrintStrategy {
   protected readonly _destinationPath: string
-  protected readonly _fileName = 'vision.puml' // TODO implement export file name variable
+  protected readonly _fileName: string
   protected _rootGroup: PumlGroup
   protected readonly _pumlRelationStrings: string[] = []
 
   protected async _writeToFile(data: string): Promise<void> {
-    await fileService.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
+    await fileDao.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
   }
 
-  constructor(params: { appName?: string; destinationPath: string }) {
-    const { appName, destinationPath } = params
+  constructor(params: { appName?: string; destinationPath: string; fileName: string }) {
+    const { appName, destinationPath, fileName } = params
     const fallbackAppName = appName ?? ''
     this._destinationPath = destinationPath
+    this._fileName = `${fileName}.puml`
     this._rootGroup = new PumlGroup({
       name: fallbackAppName,
       type: appName ? PumlGroupType.RECTANGLE : PumlGroupType.FICTIVE,
@@ -32,7 +34,7 @@ export class PumlPrint implements PrintStrategy {
   }
 
   public get FilePath(): string {
-    return fileService.joinPaths(this._destinationPath, this._fileName)
+    return filePathService.joinPaths(this._destinationPath, this._fileName)
   }
 
   public async print(params: { entities: Entity[] }): Promise<void> {

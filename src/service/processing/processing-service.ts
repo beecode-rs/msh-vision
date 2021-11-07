@@ -1,4 +1,4 @@
-import { Entity } from 'src/service/model/entity'
+import { Entity } from 'src/model/entity'
 import { RemoveExternal } from 'src/service/processing/remove-external'
 import { RemoveIgnoredPaths } from 'src/service/processing/remove-ignored-paths'
 import { RemoveTypes } from 'src/service/processing/remove-types'

@@ -1,7 +1,7 @@
 import { EntityTypes } from 'src/enum/entity-types'
-import { Entity } from 'src/service/model/entity'
-import { EntityObject } from 'src/service/model/entity-object'
-import { Reference } from 'src/service/model/reference'
+import { Entity } from 'src/model/entity'
+import { EntityObject } from 'src/model/entity-object'
+import { Reference } from 'src/model/reference'
 import { ProcessingStrategy } from 'src/service/processing/processing-service'
 
 export class SimplifyEntities implements ProcessingStrategy {

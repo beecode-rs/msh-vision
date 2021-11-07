@@ -1,6 +1,6 @@
 import { EntityTypes } from 'src/enum/entity-types'
-import { Entity } from 'src/service/model/entity'
-import { Property } from 'src/service/model/property'
+import { Entity } from 'src/model/entity'
+import { Property } from 'src/model/property'
 import { PumlPrintableProperty } from 'src/service/print-puml/printable-entity/puml-printable-property'
 import { PumlEntity } from 'src/service/print-puml/puml-entity'
 

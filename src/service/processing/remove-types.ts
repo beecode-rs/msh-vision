@@ -1,5 +1,5 @@
 import { EntityTypes } from 'src/enum/entity-types'
-import { Entity } from 'src/service/model/entity'
+import { Entity } from 'src/model/entity'
 import { ProcessingStrategy } from 'src/service/processing/processing-service'
 
 export class RemoveTypes implements ProcessingStrategy {

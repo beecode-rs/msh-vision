@@ -3,7 +3,7 @@ import { LogLevelType } from '@beecode/msh-node-log'
 import { SimpleConsoleLog } from '@beecode/msh-node-log/lib/console-log-strategy/simple-console-log'
 import { ConsoleLogger } from '@beecode/msh-node-log/lib/console-logger'
 import dotenv from 'dotenv'
-import { CmdGenerateParams, argsService } from 'src/service/args-service'
+import { CmdGenerateParams, argsService } from 'src/service/cli/args-service'
 
 const env = MshNodeEnv({
   loggerStrategy: new ConsoleLogger({ logLevel: LogLevelType.INFO, consoleLogStrategy: new SimpleConsoleLog() }),
@@ -17,6 +17,7 @@ export const config = Object.freeze({
     applicationName: env('VISION_APPLICATION_NAME').string.default('').required,
     projectSrcFolderPath: env('VISION_PROJECT_SRC_FOLDER_PATH').string.default('./src').required,
     exportFilePath: env('VISION_EXPORT_FILE_PATH').string.default(`${process.cwd()}/`).required,
+    exportFileName: env('VISION_EXPORT_FILE_NAME').string.default('vision').required,
     ts: {
       tsconfigPath: env('VISION_TS_TSCONFIG_PATH').string.default(`${process.cwd()}/tsconfig.json`).required,
     },
@@ -37,6 +38,7 @@ export const visionConfig = (): VisionConfigReturn => {
     ...(params.appName && { applicationName: params.appName }),
     ...(params.src && { projectSrcFolderPath: params.src }),
     ...(params.dest && { exportFilePath: params.dest }),
+    ...(params.destName && { exportFileName: params.destName }),
     ts: {
       ...config._vision.ts,
       ...(params.tsConfig && { tsconfigPath: params.tsConfig }),

@@ -1,4 +1,4 @@
-import { Entity } from 'src/service/model/entity'
+import { Entity } from 'src/model/entity'
 import { ProcessingStrategy } from 'src/service/processing/processing-service'
 
 export class RemoveExternal implements ProcessingStrategy {

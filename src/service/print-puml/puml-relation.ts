@@ -1,6 +1,6 @@
 import { ReferenceType } from 'src/enum/reference-type'
-import { Entity } from 'src/service/model/entity'
-import { Reference } from 'src/service/model/reference'
+import { Entity } from 'src/model/entity'
+import { Reference } from 'src/model/reference'
 
 export class PumlRelation {
   protected readonly _reference: Reference

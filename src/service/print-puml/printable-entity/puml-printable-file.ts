@@ -1,5 +1,5 @@
 import { EntityTypes } from 'src/enum/entity-types'
-import { Entity } from 'src/service/model/entity'
+import { Entity } from 'src/model/entity'
 import { PumlEntity } from 'src/service/print-puml/puml-entity'
 import { PumlRelation } from 'src/service/print-puml/puml-relation'
 
