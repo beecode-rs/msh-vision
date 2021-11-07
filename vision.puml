@@ -42,6 +42,8 @@
         object "printService" as print_service_65df30d2 {
           + print(entities: Entity[]): Promise<void>
         }
+        object "MODEL" as model_367b0d5 {
+        }
         folder "convert-ts" as convert_ts_ecf50f67 {
           class "ConvertTs" as convert_ts_e1b382dc {
             # _filePath: string
@@ -333,6 +335,15 @@
           class "RemoveTypes" as remove_types_81d79677 {
             + process(entities: Entity[]): Entity[]
           }
+          class "SimplifyEntities" as simplify_entities_bd2d7fda {
+            # _findSimplifiedEntityByPath(path: string): string | undefined
+            # _processReferences(entities: Entity[]): Entity[]
+            # _removeDuplicatedReferences(references: Reference[]): Reference[]
+            # _simplifyConfig: { [k: string]: string }
+            # _simplifyEntities(entities: Entity[]): Entity[]
+            constructor(simplifyConfig: [string,\n string][])
+            + process(entities: Entity[]): Entity[]
+          }
         }
       }
       folder "use-case" as use_case_fcef54f2 {
@@ -358,18 +369,22 @@
   convert_ts_e1b382dc .up.|> convert_strategy_f40b6b4
   ts_parser_class_9848e147 -up-> ts_parser_import_relations_b8587b04
   ts_parser_class_9848e147 -up-> ts_parser_service_a99fa6bc
+  ts_parser_class_9848e147 -up-> model_367b0d5
   ts_parser_class_9848e147 .up.|> parsable_5aa78fd3
   ts_parser_enum_b5f7453a -up-> ts_parser_service_a99fa6bc
   ts_parser_enum_b5f7453a .up.|> parsable_5aa78fd3
+  ts_parser_file_7df94b8f -up-> model_367b0d5
   ts_parser_file_7df94b8f .up.|> parsable_5aa78fd3
   ts_parser_import_cf8881d4 -up-> file_service_3f424ea5
   ts_parser_import_cf8881d4 .up.|> parsable_5aa78fd3
   ts_parser_interface_fda3c7ec -up-> ts_parser_service_a99fa6bc
+  ts_parser_interface_fda3c7ec -up-> model_367b0d5
   ts_parser_interface_fda3c7ec .up.|> parsable_5aa78fd3
   ts_parser_object_400d2cfc -up-> ts_parser_import_relations_b8587b04
   ts_parser_object_400d2cfc -up-> ts_parser_service_a99fa6bc
   ts_parser_object_400d2cfc .up.|> parsable_5aa78fd3
   ts_parser_type_948f391 -up-> ts_parser_service_a99fa6bc
+  ts_parser_type_948f391 -up-> model_367b0d5
   ts_parser_type_948f391 .up.|> parsable_5aa78fd3
   ts_config_file_service_1baff2da -up-> file_service_3f424ea5
   ts_config_file_service_1baff2da -up-> ts_config_file_json_1baff2da
@@ -379,8 +394,11 @@
   ts_entity_parser_818f015a -up-> ts_parser_interface_fda3c7ec
   ts_entity_parser_818f015a -up-> ts_parser_object_400d2cfc
   ts_entity_parser_818f015a -up-> ts_parser_type_948f391
+  ts_entity_parser_818f015a -up-> model_367b0d5
+  ts_parser_import_relations_b8587b04 -up-> model_367b0d5
   ts_parser_import_relations_b8587b04 -up-> ts_parser_import_relations_b8587b04
   ts_parser_service_a99fa6bc -up-> ts_parser_import_cf8881d4
+  ts_parser_service_a99fa6bc -up-> model_367b0d5
   ts_parser_service_a99fa6bc -up-> ts_parser_service_a99fa6bc
   file_service_3f424ea5 -up-> ts_config_file_service_1baff2da
   file_service_3f424ea5 -up-> file_service_3f424ea5
@@ -399,18 +417,25 @@
   puml_group_ae5ed342 -up-> puml_group_ae5ed342
   puml_group_ae5ed342 -up-|> puml_entity_85c02856
   puml_document_6f206380 -up-|> puml_entity_85c02856
+  puml_printable_class_4b11e257 -up-> model_367b0d5
   puml_printable_class_4b11e257 -up-> puml_printable_property_2d23f5de
   puml_printable_class_4b11e257 -up-> puml_relation_ddbc15eb
   puml_printable_class_4b11e257 -up-|> puml_entity_85c02856
+  puml_printable_enum_1725040a -up-> model_367b0d5
   puml_printable_enum_1725040a -up-|> puml_entity_85c02856
+  puml_printable_file_3f271d9f -up-> model_367b0d5
   puml_printable_file_3f271d9f -up-> puml_relation_ddbc15eb
   puml_printable_file_3f271d9f -up-|> puml_entity_85c02856
+  puml_printable_interface_2621ae9c -up-> model_367b0d5
   puml_printable_interface_2621ae9c -up-> puml_printable_property_2d23f5de
   puml_printable_interface_2621ae9c -up-|> puml_entity_85c02856
+  puml_printable_object_736b458c -up-> model_367b0d5
   puml_printable_object_736b458c -up-> puml_printable_property_2d23f5de
   puml_printable_object_736b458c -up-> puml_relation_ddbc15eb
   puml_printable_object_736b458c -up-|> puml_entity_85c02856
+  puml_printable_property_2d23f5de -up-> model_367b0d5
   puml_printable_property_2d23f5de -up-|> puml_entity_85c02856
+  puml_printable_type_f482c241 -up-> model_367b0d5
   puml_printable_type_f482c241 -up-> puml_relation_ddbc15eb
   puml_printable_type_f482c241 -up-|> puml_entity_85c02856
   puml_printable_wrapper_e6265aaa -up-|> puml_entity_85c02856
@@ -421,6 +446,8 @@
   puml_print_4aa046fc -up-> puml_printable_wrapper_e6265aaa
   puml_print_4aa046fc -up-> puml_service_f506c030
   puml_print_4aa046fc .up.|> print_strategy_65df30d2
+  puml_relation_ddbc15eb -up-> model_367b0d5
+  puml_service_f506c030 -up-> model_367b0d5
   puml_service_f506c030 -up-> puml_printable_class_4b11e257
   puml_service_f506c030 -up-> puml_printable_enum_1725040a
   puml_service_f506c030 -up-> puml_printable_file_3f271d9f
@@ -431,11 +458,15 @@
   processing_service_1c38bdac -up-> remove_external_fd440761
   processing_service_1c38bdac -up-> remove_ignored_paths_548c5253
   processing_service_1c38bdac -up-> remove_types_81d79677
+  processing_service_1c38bdac -up-> simplify_entities_bd2d7fda
   remove_external_fd440761 .up.|> processing_strategy_1c38bdac
   remove_ignored_paths_548c5253 .up.|> processing_strategy_1c38bdac
   remove_types_81d79677 .up.|> processing_strategy_1c38bdac
+  simplify_entities_bd2d7fda -up-> model_367b0d5
+  simplify_entities_bd2d7fda .up.|> processing_strategy_1c38bdac
   cli_init_use_case_9439e852 -up-> args_service_d268d804
   cli_init_use_case_9439e852 -up-> cli_init_use_case_9439e852
   vision_use_case_dd084107 -up-> convert_service_f40b6b4
   vision_use_case_dd084107 -up-> file_service_3f424ea5
+  model_367b0d5 -up-> model_367b0d5
 @enduml

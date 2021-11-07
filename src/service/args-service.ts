@@ -53,6 +53,9 @@ export const argsService = {
     printIgnoreTypes: {
       type: 'boolean',
     },
+    printSimplifyEntities: {
+      type: 'string',
+    },
   } as Options,
   selectedCommandCount: ({ args, options }: ArgsServiceParams): number => {
     const miniOpts = minimistOptions(options)

@@ -18,6 +18,15 @@ export type EntityMeta<T extends EntityTypes> =
   : T extends EntityTypes.FILE      ? undefined
   : never
 
+export type EntityParams<T extends EntityTypes = any> = {
+  type: T
+  name: string
+  inProjectPath: string
+  isExported: boolean
+  references?: Reference[]
+  meta: EntityMeta<T>
+}
+
 export class Entity<T extends EntityTypes = any> implements Locatable {
   protected readonly _type: T
   protected _name: string
@@ -26,15 +35,7 @@ export class Entity<T extends EntityTypes = any> implements Locatable {
   protected _references: Reference[]
   protected readonly _meta: EntityMeta<T>
 
-  constructor(params: {
-    type: T
-    name: string
-    inProjectPath: string
-    isExported: boolean
-    references?: Reference[]
-    meta: EntityMeta<T>
-  }) {
-    const { type, name, inProjectPath, isExported, references, meta } = params
+  constructor({ type, name, inProjectPath, isExported, references, meta }: EntityParams<T>) {
     this._type = type
     this._name = name
     this._inProjectPath = inProjectPath
@@ -83,5 +84,21 @@ export class Entity<T extends EntityTypes = any> implements Locatable {
     if (a.Name < b.Name) return -1
     if (a.Name > b.Name) return 1
     return 0
+  }
+
+  public static cloneAndModify<T extends EntityTypes = any>(
+    toClone: Entity<T>,
+    overrideParams: Partial<EntityParams> = {}
+  ): Entity<T> {
+    const params: EntityParams = {
+      name: overrideParams.name ?? toClone._name,
+      type: overrideParams.type ?? toClone._type,
+      inProjectPath: overrideParams.inProjectPath ?? toClone._inProjectPath,
+      isExported: overrideParams.isExported ?? toClone._isExported,
+      meta: overrideParams.meta ?? toClone._meta,
+      references: (overrideParams.references ?? toClone._references).map((ref) => Reference.cloneAndModify(ref)),
+    }
+
+    return new Entity<T>(params)
   }
 }
