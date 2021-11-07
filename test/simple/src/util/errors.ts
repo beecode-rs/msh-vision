@@ -1,6 +1,12 @@
+export class CustomError extends Error {}
+
 const _self = {
   throwError: (msg: string): void => {
-    console.log(msg)
+    try {
+      console.log(msg)
+    } catch (error) {
+      if (error instanceof Error) throw new CustomError()
+    }
   },
 }
 

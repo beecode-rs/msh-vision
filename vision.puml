@@ -382,6 +382,8 @@
   ts_parser_interface_fda3c7ec .up.|> parsable_5aa78fd3
   ts_parser_object_400d2cfc -up-> ts_parser_import_relations_b8587b04
   ts_parser_object_400d2cfc -up-> ts_parser_service_a99fa6bc
+  ts_parser_object_400d2cfc -up-> ts_parsing_error_736e602e
+  ts_parser_object_400d2cfc -up-> model_367b0d5
   ts_parser_object_400d2cfc .up.|> parsable_5aa78fd3
   ts_parser_type_948f391 -up-> ts_parser_service_a99fa6bc
   ts_parser_type_948f391 -up-> model_367b0d5

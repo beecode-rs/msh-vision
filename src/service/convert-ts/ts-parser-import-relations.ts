@@ -49,6 +49,10 @@ const _self = {
         'initializer',
         'type',
         'right',
+        'tryBlock',
+        'catchClause',
+        'finallyBlock',
+        'block',
       ])
     ) {
       return true
