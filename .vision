@@ -1,14 +1,5 @@
-##VISION_APPLICATION_NAME=simple-app-name
-##VISION_PROJECT_SRC_FOLDER_PATH=
-##VISION_EXPORT_FILE_PATH=
-##VISION_TS_TSCONFIG_PATH=./tsconfig.json
 ##VISION_PRINT_IGNORE_PATHS_JSON_ARRAY=["src/util","src/module","src/index.ts","src/enum","src/app","src/service/cli"]
 #VISION_PRINT_IGNORE_PATHS_JSON_ARRAY=["src/util","src/module","src/index.ts","src/enum","src/app","src/service/cli","src/model"]
 #VISION_PRINT_IGNORE_EXTERNAL=true
 #VISION_PRINT_IGNORE_TYPES=true
 #VISION_PRINT_SIMPLIFY_ENTITIES_JSON_ARRAY=[["src/model", "MODEL"]]
-
-
-
-VISION_PROJECT_SRC_FOLDER_PATH=src/model
-VISION_EXPORT_FILE_NAME=vision-model

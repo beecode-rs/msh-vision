@@ -1,4 +1,7 @@
 @startuml
+    object "path" as path_6f8e1be1 {
+      path.ts
+    }
     folder "src" as src_b874d07 {
       artifact "index.ts" as index_ts_e4daf83f {
       }
@@ -17,17 +20,58 @@
         abstract "AbstractClass" as abstract_class_eb5b4d10 {
           + {abstract} test(someParam: string): number
         }
+        card type_string_50fee832 [
+          TypeString
+          ---
+          string
+        ]
+        card type_number_50fee832 [
+          TypeNumber
+          ---
+          number
+        ]
+        card type_object_50fee832 [
+          TypeObject
+          ---
+          object
+        ]
         enum "Types" as types_50fee832 {
           NUMBER = 'number'
           OBJECT = 'object'
           STRING = 'string'
           UNDEFINED = 'undefined'
         }
+        card dynamic_type_50fee832 [
+          DynamicType
+          ---
+          T extends Types.STRING    ? TypeString
+            : T extends Types.NUMBER    ? TypeNumber
+            : T extends Types.OBJECT    ? TypeObject
+            : T extends Types.UNDEFINED ? undefined
+            : never
+        ]
         interface "OtherInterface" as other_interface_45739bff {
           + test: number
         }
+        card some_type_755b9f64 [
+          SomeType
+          ---
+          string
+        ]
         class "DummyClass" as dummy_class_755b9f64 {
         }
+        card some_other_type_755b9f64 [
+          SomeOtherType
+          ---
+          {
+            test: string
+            flag: boolean
+            obj: {
+              test1: true
+              test2: true
+            }
+          }
+        ]
         class "SomeClass" as some_class_755b9f64 {
           # _constParam: string
           # _constParam1: string
@@ -41,6 +85,11 @@
           + test: number
         }
         object "SIMPLIFIED" as simplified_c00569ac {
+          TestTypesTTT (src/service/folder/subfolder/nested-third.ts)
+          TestTypesTTT (src/service/folder/subfolder/nested.ts)
+          nested (src/service/folder/subfolder/nested.ts)
+          nestedSecond (src/service/folder/subfolder/nested-second.ts)
+          nestedThird (src/service/folder/subfolder/nested-third.ts)
         }
       }
       folder "util" as util_28bcbc6c {
@@ -56,8 +105,14 @@
     }
   index_ts_e4daf83f -up-> some_class_755b9f64
   index_ts_e4daf83f -up-> logger_d1ee5f1e
+  dynamic_type_50fee832 -up-> type_string_50fee832
+  dynamic_type_50fee832 -up-> type_number_50fee832
+  dynamic_type_50fee832 -up-> type_object_50fee832
+  dynamic_type_50fee832 -up-> types_50fee832
   some_class_755b9f64 -up-> errors_90641da1
   some_class_755b9f64 -up-> some_enum_type_6a1c7ee2
+  some_class_755b9f64 -up-> path_6f8e1be1
+  some_class_755b9f64 -up-> some_type_755b9f64
   some_class_755b9f64 -up-> dummy_class_755b9f64
   some_class_755b9f64 -up-|> abstract_class_eb5b4d10
   some_class_755b9f64 .up.|> some_interface_4140baef

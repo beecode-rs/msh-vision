@@ -1,8 +1,11 @@
 import fs from 'fs'
 import plantuml from 'node-plantuml'
 import { fileDao } from 'src/dal/file-dao'
+import { EntityTypes } from 'src/enum/entity-types'
 import { PumlGroupType } from 'src/enum/puml-group-type'
 import { Entity } from 'src/model/entity'
+import { EntityObject } from 'src/model/entity-object'
+import { Property } from 'src/model/property'
 import { filePathService } from 'src/service/file-path-service'
 import { PumlGroup } from 'src/service/print-puml/group/puml-group'
 import { PumlDocument } from 'src/service/print-puml/printable-entity/puml-document'
@@ -39,7 +42,8 @@ export class PumlPrint implements PrintStrategy {
 
   public async print(params: { entities: Entity[] }): Promise<void> {
     const { entities } = params
-    this._generateGroups(entities)
+    const withMissingEntities = this._missingEntities(entities)
+    this._generateGroups(withMissingEntities)
     this._flattenGroups(this._rootGroup)
     const template = new PumlDocument()
     template.addChildren(this._rootGroup)
@@ -47,6 +51,24 @@ export class PumlPrint implements PrintStrategy {
     const pumlBody = template.print()
     await this._writeToFile(pumlBody)
     // await this._exportFile() // TODO add parameter flag
+  }
+
+  protected _missingEntities(entities: Entity[]): Entity[] {
+    const allReferences = entities.map((e) => e.References).flat()
+    const newEntities = allReferences.reduce<Entity[]>((acc, cur) => {
+      if ([...entities, ...acc].find((e) => e.Name === cur.Name && e.InProjectPath === cur.InProjectPath)) return acc
+      acc.push(
+        new Entity({
+          type: EntityTypes.OBJECT,
+          name: cur.Name,
+          inProjectPath: cur.InProjectPath,
+          isExported: false,
+          meta: new EntityObject({ properties: [new Property({ name: cur.InProjectPath, returnType: '' })] }),
+        })
+      )
+      return acc
+    }, [])
+    return [...entities, ...newEntities]
   }
 
   protected async _exportFile(): Promise<void> {

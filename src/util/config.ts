@@ -33,7 +33,7 @@ export type VisionConfigReturn = typeof config._vision
 export const visionConfig = (): VisionConfigReturn => {
   const args = process.argv.slice(2)
   const params = argsService.argToObject<CmdGenerateParams>({ args, options: argsService.cmdGenerateParams })
-  return {
+  const result = {
     ...config._vision,
     ...(params.appName && { applicationName: params.appName }),
     ...(params.src && { projectSrcFolderPath: params.src }),
@@ -46,9 +46,10 @@ export const visionConfig = (): VisionConfigReturn => {
     print: {
       ...config._vision.print,
       ...(params.printIgnorePaths && { ignorePaths: params.printIgnorePaths.split(',').map((s) => s.trim()) }),
-      ...(params.ignoreExternal && { ignoreExternal: params.printIgnoreExternal }),
-      ...(params.ignoreTypes && { ignoreTypes: params.printIgnoreTypes }),
-      ...(params.simplifyEntities && { simplifyEntities: JSON.parse(params.printSimplifyEntities) }),
+      ...(params.printIgnoreExternal && { ignoreExternal: params.printIgnoreExternal }),
+      ...(params.printIgnoreTypes && { ignoreTypes: params.printIgnoreTypes }),
+      ...(params.printSimplifyEntities && { simplifyEntities: JSON.parse(params.printSimplifyEntities) }),
     },
   }
+  return result
 }

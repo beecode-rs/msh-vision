@@ -1,6 +1,7 @@
 import { EntityTypes } from 'src/enum/entity-types'
 import { Entity } from 'src/model/entity'
 import { EntityObject } from 'src/model/entity-object'
+import { Property } from 'src/model/property'
 import { Reference } from 'src/model/reference'
 import { ProcessingStrategy } from 'src/service/processing/processing-service'
 
@@ -49,7 +50,11 @@ export class SimplifyEntities implements ProcessingStrategy {
         inProjectPath: this._simplifyConfig[simplifyName],
         isExported: true,
         references: this._removeDuplicatedReferences(references),
-        meta: new EntityObject({}),
+        meta: new EntityObject({
+          properties: simplifiedEntities.map((se) => {
+            return new Property({ name: `${se.Name} (${se.InProjectPath})`, returnType: '' })
+          }),
+        }),
       })
     })
 
