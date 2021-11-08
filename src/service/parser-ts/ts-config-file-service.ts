@@ -8,10 +8,11 @@ type TsConfigFileType = {
     }
   }
 }
-let __tsConfigFileJson: TsConfigFileType = {}
+let __tsConfigFileJson: TsConfigFileType | undefined = undefined
 
 const _self = {
   init: async (): Promise<void> => {
+    if (__tsConfigFileJson) return
     const tsConfigAbsPath = filePathService.relativeToAbsPath(visionConfig().ts.tsconfigPath)
     __tsConfigFileJson = require(tsConfigAbsPath) // eslint-disable-line @typescript-eslint/no-var-requires
   },

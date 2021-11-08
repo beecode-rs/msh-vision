@@ -135,8 +135,9 @@ export class PumlPrint implements PrintStrategy {
       name: [group.Name, childGroup.Name].join(constant.folderSep),
       type: group.Type,
       groupPath: childGroup.GroupPath,
+      groups: childGroup.groups,
     })
     childGroup.Children.forEach((cg) => flatGroup.addChildren(cg))
-    return flatGroup
+    return Object.keys(flatGroup.groups).length > 0 ? this._flattenGroups(flatGroup) : flatGroup
   }
 }

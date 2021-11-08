@@ -1,0 +1,158 @@
+@startuml
+    folder "src" as src_b874d07 {
+      folder "model" as model_40d91327 {
+        class "EntityClass" as entity_class_87e50b39 {
+          + IsAbstract: boolean
+          + Properties: Property[]
+          # _isAbstract: boolean
+          # _properties: Property[]
+          constructor(params: {\n isAbstract?: boolean;\n properties?: Property[] \n})
+        }
+        class "EntityEnum" as entity_enum_f7c58024 {
+          + Properties: string[]
+          # _properties: string[]
+          constructor(params: { properties: string[] })
+        }
+        class "EntityInterface" as entity_interface_590b4132 {
+          + Properties: Property[]
+          + References: Reference[]
+          # _properties: Property[]
+          # _references: Reference[]
+          constructor(params: {\n references?: Reference[];\n properties?: Property[] \n})
+        }
+        class "EntityObject" as entity_object_784a4022 {
+          + AliasReference: string
+          + Properties: Property[]
+          # _aliasReference: string
+          # _properties: Property[]
+          constructor(params: {\n properties?: Property[];\n aliasReference?: string \n})
+        }
+        class "EntityType" as entity_type_a3fb7caf {
+          + ReturnType: string
+          # _returnType: string
+          constructor(params: { returnType: string })
+        }
+        card entity_meta_9581579a [
+          EntityMeta
+          ---
+          T extends EntityTypes.CLASS     ? EntityClass
+            : T extends EntityTypes.ENUM      ? EntityEnum
+            : T extends EntityTypes.INTERFACE ? EntityInterface
+            : T extends EntityTypes.OBJECT    ? EntityObject
+            : T extends EntityTypes.TYPE      ? EntityType
+            : T extends EntityTypes.FILE      ? undefined
+            : never
+        ]
+        card entity_params_9581579a [
+          EntityParams
+          ---
+          {
+            type: T
+            name: string
+            inProjectPath: string
+            isExported: boolean
+            references?: Reference[]
+            meta: EntityMeta<T>
+          }
+        ]
+        class "Entity" as entity_9581579a {
+          + Id: string
+          + InProjectPath: string
+          + IsExported: boolean
+          + Meta: EntityMeta<T>
+          + Name: string
+          + References: Reference[]
+          + References(references: Reference[])
+          + SortByName(a: Entity,\n b: Entity): number
+          + Type: T
+          # _inProjectPath: string
+          # _isExported: boolean
+          # _meta: EntityMeta<T>
+          # _name: string
+          # _references: Reference[]
+          # _type: T
+          + cloneAndModify(toClone: Entity<T>,\n overrideParams: Partial<EntityParams> = {\n\n}): Entity<T>
+          constructor({\n type,\n name,\n inProjectPath,\n isExported,\n references,\n meta \n}: EntityParams<T>)
+          + removeIgnoredReferences(ignoredPaths: string[]): void
+        }
+        interface "Locatable" as locatable_b011d3de {
+          + Id: string
+          + Name: string
+          + InProjectPath: string
+        }
+        class "Property" as property_d5a84d26 {
+          + AccessLevel: PropertyAccessLevelType
+          + FunctionParams: string | undefined
+          + IsAbstract: boolean
+          + Name: string
+          + ReturnType: string
+          + SortByName(a: Property,\n b: Property): number
+          # _accessLevel: PropertyAccessLevelType
+          # _functionParams: string | undefined
+          # _isAbstract: boolean
+          # _name: string
+          # _returnType: string
+          constructor(params: {\n    name: string\n    returnType: string\n    accessLevel?: PropertyAccessLevelType\n    isAbstract?: boolean\n    functionParams?: string\n  })
+        }
+        card reference_direction_aaef6aea [
+          ReferenceDirection
+          ---
+          "'up' | 'down' | 'left' | 'right'"
+        ]
+        card reference_params_aaef6aea [
+          ReferenceParams
+          ---
+          { name: string; inProjectPath: string; type: ReferenceType; direction?: ReferenceDirection }
+        ]
+        class "Reference" as reference_aaef6aea {
+          + Direction: ReferenceDirection | undefined
+          + Id: string
+          + InProjectPath: string
+          + Name: string
+          + Type: ReferenceType
+          # _direction: ReferenceDirection
+          # _inProjectPath: string
+          # _name: string
+          # _type: ReferenceType
+          + cloneAndModify(toClone: Reference,\n overrideParams: Partial<ReferenceParams> = {\n\n}): Reference
+          constructor({\n name,\n inProjectPath,\n type,\n direction \n}: ReferenceParams)
+        }
+      }
+      folder "enum" as enum_1eea471b {
+        object "EntityTypes" as entity_types_7cf791e0 {
+          src/enum/entity-types.ts
+        }
+        object "PropertyAccessLevelType" as property_access_level_type_daa2367d {
+          src/enum/property-access-level-type.ts
+        }
+        object "ReferenceType" as reference_type_1f38c983 {
+          src/enum/reference-type.ts
+        }
+      }
+      folder "util" as util_28bcbc6c {
+        object "stringUtil" as string_util_20f7f236 {
+          src/util/string-util.ts
+        }
+      }
+    }
+  entity_meta_9581579a -up-> entity_types_7cf791e0
+  entity_meta_9581579a -up-> entity_class_87e50b39
+  entity_meta_9581579a -up-> entity_enum_f7c58024
+  entity_meta_9581579a -up-> entity_interface_590b4132
+  entity_meta_9581579a -up-> entity_object_784a4022
+  entity_meta_9581579a -up-> entity_type_a3fb7caf
+  entity_9581579a -up-> reference_aaef6aea
+  entity_9581579a -up-> string_util_20f7f236
+  entity_9581579a -up-> entity_meta_9581579a
+  entity_9581579a -up-> entity_params_9581579a
+  entity_9581579a -up-> entity_9581579a
+  entity_9581579a .up.|> locatable_b011d3de
+  property_d5a84d26 -up-> property_access_level_type_daa2367d
+  property_d5a84d26 -up-> property_d5a84d26
+  reference_aaef6aea -up-> reference_type_1f38c983
+  reference_aaef6aea -up-> string_util_20f7f236
+  reference_aaef6aea -up-> reference_direction_aaef6aea
+  reference_aaef6aea -up-> reference_params_aaef6aea
+  reference_aaef6aea -up-> reference_aaef6aea
+  reference_aaef6aea .up.|> locatable_b011d3de
+@enduml

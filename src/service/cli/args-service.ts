@@ -15,6 +15,7 @@ export type CliCommands = minimist.ParsedArgs & {
 
 export type CmdGenerateParams = minimist.ParsedArgs & {
   src: string
+  projectRootPath: string
   dest: string
   destName: string
   appName: string
@@ -38,6 +39,9 @@ export const argsService = {
   } as Options,
   cmdGenerateParams: {
     src: {
+      type: 'string',
+    },
+    projectRootPath: {
       type: 'string',
     },
     dest: {

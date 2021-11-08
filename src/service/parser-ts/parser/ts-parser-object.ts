@@ -36,8 +36,7 @@ export class TsParserObject implements Parsable {
     if (!name) return []
     const properties = this._findProperties(declaration?.initializer?.['properties'])
     const isExported = tsParserService.isExported(this._statement.modifiers)
-    const aliasReference =
-      declaration.initializer?.kind === ts.SyntaxKind.Identifier ? declaration.initializer['escapedText'] : ''
+    const aliasReference = this._aliasReferenceName(declaration)
 
     const imports = tsParserImportRelations.findImportRelations(declaration, this._importParseResults)
 
@@ -54,6 +53,12 @@ export class TsParserObject implements Parsable {
         }),
       }),
     ]
+  }
+
+  protected _aliasReferenceName(declaration: any): string {
+    if (declaration.initializer?.kind !== ts.SyntaxKind.Identifier) return ''
+    if (declaration.initializer['escapedText'] === 'undefined') return ''
+    return declaration.initializer['escapedText']
   }
 
   protected _nameFromDeclarationsList(

@@ -1,0 +1,453 @@
+@startuml
+    folder "src" as src_b874d07 {
+      folder "dal" as dal_fba75381 {
+        object "fileDao" as file_dao_ae443ec6 {
+          + fileListFromFolder(folderPath: string): Promise<string[]>
+          + makeFolderIfNotExist(folderPath: string): Promise<void>
+          + mkdirAndWriteToFile(params: {\n folderPath: string;\n fileName: string;\n data: string \n}): Promise<void>
+          + readFile(filePath: string): Promise<string>
+          + writeToFile(params: {\n filePath: string;\n data: string \n}): Promise<void>
+        }
+        object "shellDal" as shell_dal_4f6edd5d {
+          + cd(dir: string): void
+          + exec(cmd: string): Promise<ExecResult>
+          + print(message: string): void
+          + pwd: string
+        }
+      }
+      folder "service" as service_c83a6ab5 {
+        object "filePathService" as file_path_service_4f9e5705 {
+          + cleanupPath(relativeOrAbsPath: string): string
+          + fileNameFromPath(filePath: string,\n options: {\n withExtension?: boolean \n} = {\n\n}): string
+          + isAbsPath(relativeOrAbsPath: string): boolean
+          + isDotPath(path: string): boolean
+          + joinPaths(...paths: string[]): string
+          + lastFolderFromPath(filePath: string): string
+          + relativeToAbsPath(relativeOrAbsPath: string): string
+        }
+        interface "ConvertStrategy" as convert_strategy_164aa424 {
+          + convert: Promise<Entity[]>
+        }
+        object "parserService" as parser_service_164aa424 {
+          + strategyByFile(params: {\n filePath: string;\n folderPath: string \n}): ConvertStrategy | undefined
+        }
+        interface "PrintStrategy" as print_strategy_65df30d2 {
+          + print(params: { entities: Entity[] }): Promise<void>
+        }
+        object "printService" as print_service_65df30d2 {
+          + print(entities: Entity[]): Promise<void>
+        }
+        folder "parser-ts" as parser_ts_fb9203d7 {
+          class "ParserTs" as parser_ts_334599dc {
+            # _filePath: string
+            # _folderPath: string
+            # _parseFile(params: {\n filePath: string;\n fileName: string \n}): Promise<ts.SourceFile>
+            constructor({\n filePath,\n folderPath \n}: {\n filePath: string;\n folderPath: string \n})
+            + convert: Promise<Entity[]>
+          }
+          object "___tsConfigFileJson" as ts_config_file_json_7e5eaca {
+          }
+          object "tsConfigFileService" as ts_config_file_service_7e5eaca {
+            # _cleanReplacePaths: {\n startsWith: string;\n replaceWith: string \n}[]
+            # _cleanReplaceWith(path: string): string
+            # _getFileJson: TsConfigFileType
+            + init: Promise<void>
+            + moduleAliasResolve(path: string): string
+          }
+          class "TsEntityParser" as ts_entity_parser_8edd294a {
+            # _fileName: string
+            # _importParseResults: TsParserImportParseResult[]
+            # _inProjectPath: string
+            # _joinEntitiesByAliasReference(entities: Entity[]): Entity[]
+            # _parseStatement(statement: ts.Statement): Entity[]
+            # _parseStatements: Entity[]
+            # _parsedSource: ts.SourceFile
+            # _parserByStatementKind(statement: ts.Statement): Parsable | undefined
+            constructor(params: {\n    parsedSource: ts.SourceFile\n    fileName: string\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+            + parsedEntities: Entity[]
+          }
+          object "tsParserImportRelations" as ts_parser_import_relations_a116d5d4 {
+            + findIdentifier(identifierName: string,\n statement: any): boolean
+            + findImportRelations(statement: ts.Statement | ts.VariableDeclaration,\n importParseResults: TsParserImportParseResult[]): Reference[]
+            + isDeclaration(statement: any): boolean
+            + stepIntoArray(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
+            + stepIntoNode(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
+          }
+          object "tsParserService" as ts_parser_service_d0bdf32c {
+            # _isViableExportableStatementKind(kind: number): boolean
+            + accessLevel(modifiers?: ts.ModifiersArray): PropertyAccessLevelType
+            + checkIfThereAreAnyExports(parsedSource: ts.SourceFile): boolean
+            + entityLinksFromStatement(params: {\n statement: ts.Statement;\n inProjectPath: string \n}): TsParserImportParseResult[]
+            + entityLinksFromStatements(params: {\n parsedSource: ts.SourceFile;\n inProjectPath: string \n}): TsParserImportParseResult[]
+            + findClassRelations(params: {\n statement: ts.Statement;\n parsedSource: ts.SourceFile;\n inProjectPath: string \n}): Reference[]
+            + importsFromStatement(params: {\n statement: ts.Statement;\n inProjectPath: string \n}): TsParserImportParseResult[]
+            + importsFromStatements(params: {\n parsedSource: ts.SourceFile;\n inProjectPath: string \n}): TsParserImportParseResult[]
+            + isAbstract(modifiers?: ts.ModifiersArray): boolean
+            + isExported(modifiers?: ts.ModifiersArray): boolean
+          }
+          class "TsParsingError" as ts_parsing_error_b4de97fe {
+            + CanPrintCode: boolean
+            + Statement: any
+            constructor(error: Error,\n message: string,\n protected _statement: any)
+          }
+          folder "parser" as parser_4077a3ff {
+            interface "Parsable" as parsable_77cdce3 {
+              + parse: T
+            }
+            class "TsParserClass" as ts_parser_class_f5081ff7 {
+              # _findProperties: Property[]
+              # _importParseResults: TsParserImportParseResult[]
+              # _inProjectPath: string
+              # _parsedSource: ts.SourceFile
+              # _propertiesToString(parameters?: any[]): string
+              # _returnTypeValue(member: any): string
+              # _statement: ts.Statement
+              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+              + parse: Entity<EntityTypes.CLASS>[]
+            }
+            class "TsParserEnum" as ts_parser_enum_37d0bb6a {
+              # _inProjectPath: string
+              # _parsedSource: ts.SourceFile
+              # _statement: ts.Statement
+              constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
+              + parse: Entity<EntityTypes.ENUM>[]
+            }
+            class "TsParserFile" as ts_parser_file_6f5991bf {
+              # _fileName: string
+              # _importParseResults: TsParserImportParseResult[]
+              # _inProjectPath: string
+              # _parsedSource: ts.SourceFile
+              constructor(params: {\n    parsedSource: ts.SourceFile\n    inProjectPath: string\n    fileName: string\n    importParseResults: TsParserImportParseResult[]\n  })
+              + parse: Entity<EntityTypes.FILE>[]
+            }
+            class "TsParserImport" as ts_parser_import_6ba10304 {
+              + ImportPathFind(params: {\n filePathImportedFrom: string;\n importPath: string \n}): string
+              # _importedFileInProjectAbsPath(importPath: string): string
+              # _inProjectPath: string
+              # _parseBindingName(importClause: any): string[]
+              # _parseDefaultImport(importClause: any): string[]
+              # _parseElements(elements: any): string[]
+              # _statement: ts.Statement
+              constructor(params: {\n statement: ts.Statement;\n inProjectPath: string \n})
+              + parse: TsParserImportParseResult[]
+            }
+            class "TsParserInterface" as ts_parser_interface_6a86ffc {
+              # _findProperties: Property[]
+              # _inProjectPath: string
+              # _parsedSource: ts.SourceFile
+              # _statement: ts.Statement
+              constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
+              + parse: Entity<EntityTypes.INTERFACE>[]
+            }
+            class "TsParserObject" as ts_parser_object_356082ec {
+              # _accessLevel(propName: string): PropertyAccessLevelType
+              # _aliasReferenceName(declaration: any): string
+              # _findProperties(properties?: any[]): Property[]
+              # _importParseResults: TsParserImportParseResult[]
+              # _inProjectPath: string
+              # _nameFromDeclarationsList(declarationList: ts.VariableDeclarationList): {\n name: string;\n declaration: ts.VariableDeclaration \n} | undefined
+              # _parsedSource: ts.SourceFile
+              # _returnTypeValue(property: any): string
+              # _statement: ts.Statement
+              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+              + parse: Entity<EntityTypes.OBJECT>[]
+            }
+            class "TsParserType" as ts_parser_type_b98711e1 {
+              # _findIdentifier(identifierName: string,\n statement: any): boolean
+              # _findImportRelations(statement: ts.Statement | ts.VariableDeclaration,\n importParseResults: TsParserImportParseResult[]): Reference[]
+              # _importParseResults: TsParserImportParseResult[]
+              # _inProjectPath: string
+              # _parsedSource: ts.SourceFile
+              # _statement: ts.Statement
+              # _stepIntoArray(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
+              # _stepIntoNode(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
+              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+              + parse: Entity<EntityTypes.TYPE>[]
+            }
+          }
+        }
+        folder "print-puml" as print_puml_3460a902 {
+          abstract "PumlEntity" as puml_entity_85c02856 {
+            + Children: PumlEntity[]
+            # _children: PumlEntity[]
+            # _indentRows(templates: string[]): string[]
+            # {abstract} _print: string[]
+            # _relations: PumlRelation[]
+            # {abstract} _templateEnd: string
+            # {abstract} _templateStart: string
+            + addChildren(printable: PumlEntity): void
+            + print: string
+            + printRelations: string
+          }
+          class "PumlPrint" as puml_print_4aa046fc {
+            + FilePath: string
+            # _destinationPath: string
+            # _exportFile: Promise<void>
+            # _fileName: string
+            # _flattenGroups(group: PumlGroup): PumlGroup | undefined
+            # _generateGroups(entities: Entity[]): void
+            # _missingEntities(entities: Entity[]): Entity[]
+            # _pumlRelationStrings: string[]
+            # _rootGroup: PumlGroup
+            # _svgPromiseGenerator(source,\n dest): Promise<void>
+            # _writeToFile(data: string): Promise<void>
+            constructor(params: {\n appName?: string;\n destinationPath: string;\n fileName: string \n})
+            + print(params: { entities: Entity[] }): Promise<void>
+          }
+          class "PumlRelation" as puml_relation_ddbc15eb {
+            # _fromEntity: Entity
+            # _linkByReferenceType: string
+            # _reference: Reference
+            constructor(params: {\n reference: Reference;\n fromEntity: Entity \n})
+            + print: string
+          }
+          object "pumlService" as puml_service_f506c030 {
+            + printableStrategyFromEntity(entity: Entity): PumlEntity | undefined
+          }
+          folder "group" as group_3af81c52 {
+            class "PumlGroupFictive" as puml_group_fictive_57cc180d {
+              + templateEnd: string
+              + templateStart: string
+            }
+            class "PumlGroupFolder" as puml_group_folder_63f7a3f9 {
+              + constructor(protected _group: PumlGroup)
+              + templateEnd: string
+              + templateStart: string
+            }
+            class "PumlGroupRectangle" as puml_group_rectangle_f37cc84e {
+              + constructor(protected _group: PumlGroup)
+              + templateEnd: string
+              + templateStart: string
+            }
+            object "pumlGroupService" as puml_group_service_f4199df2 {
+              + strategyFromGroup(group: PumlGroup): PumlGroupStrategy
+            }
+            interface "PumlGroupStrategy" as puml_group_strategy_ae5ed342 {
+              + templateStart: string
+              + templateEnd: string
+            }
+            class "PumlGroup" as puml_group_ae5ed342 {
+              + GroupPath: string
+              + Id: string
+              + Name: string
+              + Type: PumlGroupType
+              # _groupPath: string
+              # _groupStrategy: PumlGroupStrategy
+              # _name: string
+              # _print: string[]
+              # _printGroups(groups: { [k: string]: PumlGroup }): string
+              # _templateEnd: string
+              # _templateStart: string
+              # _type: PumlGroupType
+              constructor(params: {\n name: string;\n type: PumlGroupType;\n groupPath: string \n})
+              + groups: { [k: string]: PumlGroup }
+            }
+          }
+          folder "printable-entity" as printable_entity_91ba4e0 {
+            class "PumlDocument" as puml_document_6f206380 {
+              # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
+            }
+            class "PumlPrintableClass" as puml_printable_class_4b11e257 {
+              # _entity: Entity<EntityTypes.CLASS>
+              # _print: string[]
+              # _printProperty(property: Property): string
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { entity: Entity<EntityTypes.CLASS> })
+            }
+            class "PumlPrintableEnum" as puml_printable_enum_1725040a {
+              # _entity: Entity<EntityTypes.ENUM>
+              # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { entity: Entity<EntityTypes.ENUM> })
+            }
+            class "PumlPrintableFile" as puml_printable_file_3f271d9f {
+              # _entity: Entity<EntityTypes.FILE>
+              # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { entity: Entity<EntityTypes.FILE> })
+            }
+            class "PumlPrintableInterface" as puml_printable_interface_2621ae9c {
+              # _entity: Entity<EntityTypes.INTERFACE>
+              # _print: string[]
+              # _printProperty(property: Property): string
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { entity: Entity<EntityTypes.INTERFACE> })
+            }
+            class "PumlPrintableObject" as puml_printable_object_736b458c {
+              # _entity: Entity<EntityTypes.OBJECT>
+              # _print: string[]
+              # _printProperty(property: Property): string
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { entity: Entity<EntityTypes.OBJECT> })
+            }
+            class "PumlPrintableProperty" as puml_printable_property_2d23f5de {
+              # _abstractAttribute: string
+              # _accessLevel: string
+              # _addNewRows(template: string): string
+              # _print: string[]
+              # _property: Property
+              # _propertyName: string
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(params: { property: Property })
+            }
+            class "PumlPrintableType" as puml_printable_type_f482c241 {
+              # _entity: Entity<EntityTypes.TYPE>
+              # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
+              # _wrapWithDoubleQuotesIfItStartsWithSingleQuote(text: string): string
+              constructor(params: { entity: Entity<EntityTypes.TYPE> })
+            }
+            class "PumlPrintableWrapper" as puml_printable_wrapper_e6265aaa {
+              # _print: string[]
+              # _templateEnd: string
+              # _templateStart: string
+              constructor(protected readonly _string: string)
+            }
+          }
+        }
+        folder "processing" as processing_592b511 {
+          interface "ProcessingStrategy" as processing_strategy_1c38bdac {
+            + process(entities: Entity[]): Entity[]
+          }
+          object "processingService" as processing_service_1c38bdac {
+            + process(entities: Entity[]): Entity[]
+          }
+          class "RemoveExternal" as remove_external_fd440761 {
+            + process(entities: Entity[]): Entity[]
+          }
+          class "RemoveIgnoredPaths" as remove_ignored_paths_548c5253 {
+            constructor(protected _ignorePaths: string[])
+            + process(entities: Entity[]): Entity[]
+          }
+          class "RemoveTypes" as remove_types_81d79677 {
+            + process(entities: Entity[]): Entity[]
+          }
+          class "SimplifyEntities" as simplify_entities_bd2d7fda {
+            # _findSimplifiedEntityByPath(path: string): string | undefined
+            # _processReferences(entities: Entity[]): Entity[]
+            # _removeDuplicatedReferences(references: Reference[]): Reference[]
+            # _simplifyConfig: { [k: string]: string }
+            # _simplifyEntities(entities: Entity[]): Entity[]
+            constructor(simplifyConfig: [string,\n string][])
+            + process(entities: Entity[]): Entity[]
+          }
+        }
+      }
+      folder "use-case" as use_case_fcef54f2 {
+        object "cliInitUseCase" as cli_init_use_case_9439e852 {
+          + createCommandFromCliArgs(args: string[]): Executable
+          + execArgsAsCommand(args: string[]): Promise<void>
+          + ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args: string[]): void
+          + ifNoCommandSelectedThrowErrorAndPrintHelp(args: string[]): void
+        }
+        object "visionUseCase" as vision_use_case_dd084107 {
+          + parseFolder(params: { folderPath: string }): Promise<Entity[]>
+        }
+      }
+    }
+  file_dao_ae443ec6 -up-> file_path_service_4f9e5705
+  file_dao_ae443ec6 -up-> file_dao_ae443ec6
+  shell_dal_4f6edd5d -up-> shell_dal_4f6edd5d
+  parser_service_164aa424 -up-> parser_ts_334599dc
+  parser_ts_334599dc -up-> file_dao_ae443ec6
+  parser_ts_334599dc -up-> file_path_service_4f9e5705
+  parser_ts_334599dc -up-> ts_parser_file_6f5991bf
+  parser_ts_334599dc -up-> ts_config_file_service_7e5eaca
+  parser_ts_334599dc -up-> ts_entity_parser_8edd294a
+  parser_ts_334599dc -up-> ts_parser_service_d0bdf32c
+  parser_ts_334599dc .up.|> convert_strategy_164aa424
+  ts_parser_class_f5081ff7 -up-> ts_parser_import_relations_a116d5d4
+  ts_parser_class_f5081ff7 -up-> ts_parser_service_d0bdf32c
+  ts_parser_class_f5081ff7 .up.|> parsable_77cdce3
+  ts_parser_enum_37d0bb6a -up-> ts_parser_service_d0bdf32c
+  ts_parser_enum_37d0bb6a .up.|> parsable_77cdce3
+  ts_parser_file_6f5991bf .up.|> parsable_77cdce3
+  ts_parser_import_6ba10304 -up-> file_path_service_4f9e5705
+  ts_parser_import_6ba10304 -up-> ts_config_file_service_7e5eaca
+  ts_parser_import_6ba10304 -up-> ts_parser_import_6ba10304
+  ts_parser_import_6ba10304 .up.|> parsable_77cdce3
+  ts_parser_interface_6a86ffc -up-> ts_parser_service_d0bdf32c
+  ts_parser_interface_6a86ffc .up.|> parsable_77cdce3
+  ts_parser_object_356082ec -up-> ts_parser_import_relations_a116d5d4
+  ts_parser_object_356082ec -up-> ts_parser_service_d0bdf32c
+  ts_parser_object_356082ec -up-> ts_parsing_error_b4de97fe
+  ts_parser_object_356082ec .up.|> parsable_77cdce3
+  ts_parser_type_b98711e1 -up-> ts_parser_service_d0bdf32c
+  ts_parser_type_b98711e1 .up.|> parsable_77cdce3
+  ts_config_file_service_7e5eaca -up-> file_path_service_4f9e5705
+  ts_config_file_service_7e5eaca -up-> ts_config_file_json_7e5eaca
+  ts_config_file_service_7e5eaca -up-> ts_config_file_service_7e5eaca
+  ts_entity_parser_8edd294a -up-> ts_parser_class_f5081ff7
+  ts_entity_parser_8edd294a -up-> ts_parser_enum_37d0bb6a
+  ts_entity_parser_8edd294a -up-> ts_parser_interface_6a86ffc
+  ts_entity_parser_8edd294a -up-> ts_parser_object_356082ec
+  ts_entity_parser_8edd294a -up-> ts_parser_type_b98711e1
+  ts_parser_import_relations_a116d5d4 -up-> ts_parser_import_relations_a116d5d4
+  ts_parser_service_d0bdf32c -up-> ts_parser_import_6ba10304
+  ts_parser_service_d0bdf32c -up-> ts_parser_service_d0bdf32c
+  puml_group_fictive_57cc180d .up.|> puml_group_strategy_ae5ed342
+  puml_group_folder_63f7a3f9 -up-> puml_group_ae5ed342
+  puml_group_folder_63f7a3f9 .up.|> puml_group_strategy_ae5ed342
+  puml_group_rectangle_f37cc84e -up-> puml_group_ae5ed342
+  puml_group_rectangle_f37cc84e .up.|> puml_group_strategy_ae5ed342
+  puml_group_service_f4199df2 -up-> puml_group_ae5ed342
+  puml_group_service_f4199df2 -up-> puml_group_strategy_ae5ed342
+  puml_group_service_f4199df2 -up-> puml_group_fictive_57cc180d
+  puml_group_service_f4199df2 -up-> puml_group_folder_63f7a3f9
+  puml_group_service_f4199df2 -up-> puml_group_rectangle_f37cc84e
+  puml_group_ae5ed342 -up-> puml_group_service_f4199df2
+  puml_group_ae5ed342 -up-> puml_group_strategy_ae5ed342
+  puml_group_ae5ed342 -up-> puml_group_ae5ed342
+  puml_group_ae5ed342 -up-|> puml_entity_85c02856
+  puml_document_6f206380 -up-|> puml_entity_85c02856
+  puml_printable_class_4b11e257 -up-> puml_printable_property_2d23f5de
+  puml_printable_class_4b11e257 -up-> puml_relation_ddbc15eb
+  puml_printable_class_4b11e257 -up-|> puml_entity_85c02856
+  puml_printable_enum_1725040a -up-|> puml_entity_85c02856
+  puml_printable_file_3f271d9f -up-> puml_relation_ddbc15eb
+  puml_printable_file_3f271d9f -up-|> puml_entity_85c02856
+  puml_printable_interface_2621ae9c -up-> puml_printable_property_2d23f5de
+  puml_printable_interface_2621ae9c -up-|> puml_entity_85c02856
+  puml_printable_object_736b458c -up-> puml_printable_property_2d23f5de
+  puml_printable_object_736b458c -up-> puml_relation_ddbc15eb
+  puml_printable_object_736b458c -up-|> puml_entity_85c02856
+  puml_printable_property_2d23f5de -up-|> puml_entity_85c02856
+  puml_printable_type_f482c241 -up-> puml_relation_ddbc15eb
+  puml_printable_type_f482c241 -up-|> puml_entity_85c02856
+  puml_printable_wrapper_e6265aaa -up-|> puml_entity_85c02856
+  puml_entity_85c02856 -up-> puml_entity_85c02856
+  puml_print_4aa046fc -up-> file_dao_ae443ec6
+  puml_print_4aa046fc -up-> file_path_service_4f9e5705
+  puml_print_4aa046fc -up-> puml_group_ae5ed342
+  puml_print_4aa046fc -up-> puml_document_6f206380
+  puml_print_4aa046fc -up-> puml_printable_wrapper_e6265aaa
+  puml_print_4aa046fc -up-> puml_service_f506c030
+  puml_print_4aa046fc .up.|> print_strategy_65df30d2
+  puml_service_f506c030 -up-> puml_printable_class_4b11e257
+  puml_service_f506c030 -up-> puml_printable_enum_1725040a
+  puml_service_f506c030 -up-> puml_printable_file_3f271d9f
+  puml_service_f506c030 -up-> puml_printable_interface_2621ae9c
+  puml_service_f506c030 -up-> puml_printable_object_736b458c
+  puml_service_f506c030 -up-> puml_printable_type_f482c241
+  print_service_65df30d2 -up-> puml_print_4aa046fc
+  processing_service_1c38bdac -up-> remove_external_fd440761
+  processing_service_1c38bdac -up-> remove_ignored_paths_548c5253
+  processing_service_1c38bdac -up-> remove_types_81d79677
+  processing_service_1c38bdac -up-> simplify_entities_bd2d7fda
+  remove_external_fd440761 .up.|> processing_strategy_1c38bdac
+  remove_ignored_paths_548c5253 .up.|> processing_strategy_1c38bdac
+  remove_types_81d79677 .up.|> processing_strategy_1c38bdac
+  simplify_entities_bd2d7fda .up.|> processing_strategy_1c38bdac
+  cli_init_use_case_9439e852 -up-> cli_init_use_case_9439e852
+  vision_use_case_dd084107 -up-> file_dao_ae443ec6
+  vision_use_case_dd084107 -up-> parser_service_164aa424
+@enduml

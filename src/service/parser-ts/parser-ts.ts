@@ -7,6 +7,7 @@ import { TsParserFile } from 'src/service/parser-ts/parser/ts-parser-file'
 import { tsConfigFileService } from 'src/service/parser-ts/ts-config-file-service'
 import { TsEntityParser } from 'src/service/parser-ts/ts-entity-parser'
 import { tsParserService } from 'src/service/parser-ts/ts-parser-service'
+import { visionConfig } from 'src/util/config'
 
 export class ParserTs implements ConvertStrategy {
   protected readonly _filePath: string
@@ -45,7 +46,7 @@ export class ParserTs implements ConvertStrategy {
    */
   protected async _parseFile(params: { filePath: string; fileName: string }): Promise<ts.SourceFile> {
     const { filePath, fileName } = params
-    const fileSource = await fileDao.readFile(filePath)
+    const fileSource = await fileDao.readFile(filePathService.joinPaths(visionConfig().projectRootPath, filePath))
     return ts.createSourceFile(fileName, fileSource, ts.ScriptTarget.ES2020) // TODO implement param for script target
   }
 }

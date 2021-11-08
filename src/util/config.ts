@@ -15,6 +15,7 @@ export const config = Object.freeze({
   logLevel: env('LOG_LEVEL').string.default('info').required as 'error' | 'warn' | 'info' | 'debug',
   _vision: {
     applicationName: env('VISION_APPLICATION_NAME').string.default('').required,
+    projectRootPath: env('VISION_PROJECT_ROOT_PATH').string.default(process.cwd()).required,
     projectSrcFolderPath: env('VISION_PROJECT_SRC_FOLDER_PATH').string.default('./src').required,
     exportFilePath: env('VISION_EXPORT_FILE_PATH').string.default(`${process.cwd()}/`).required,
     exportFileName: env('VISION_EXPORT_FILE_NAME').string.default('vision').required,
@@ -36,6 +37,7 @@ export const visionConfig = (): VisionConfigReturn => {
   const result = {
     ...config._vision,
     ...(params.appName && { applicationName: params.appName }),
+    ...(params.projectRootPath && { projectRootPath: params.projectRootPath }),
     ...(params.src && { projectSrcFolderPath: params.src }),
     ...(params.dest && { exportFilePath: params.dest }),
     ...(params.destName && { exportFileName: params.destName }),

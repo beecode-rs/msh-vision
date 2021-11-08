@@ -14,7 +14,7 @@ export class PumlGroup extends PumlEntity {
   protected readonly _name: string
   protected readonly _type: PumlGroupType
   protected readonly _groupPath: string
-  public groups: { [k: string]: PumlGroup } = {}
+  public groups: { [k: string]: PumlGroup }
 
   protected _templateEnd(): string {
     return this._groupStrategy.templateEnd()
@@ -35,13 +35,14 @@ export class PumlGroup extends PumlEntity {
       .join(constant.newRow)
   }
 
-  constructor(params: { name: string; type: PumlGroupType; groupPath: string }) {
-    const { name, type, groupPath } = params
+  constructor(params: { name: string; type: PumlGroupType; groupPath: string; groups?: { [k: string]: PumlGroup } }) {
+    const { name, type, groupPath, groups = {} } = params
     super()
     this._name = name
     this._type = type
     this._groupPath = groupPath
     this._groupStrategy = pumlGroupService.strategyFromGroup(this)
+    this.groups = groups
   }
 
   public get Id(): string {
