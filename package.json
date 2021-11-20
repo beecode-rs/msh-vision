@@ -36,7 +36,6 @@
     "minimist-options": "4.1.0",
     "module-alias": "2.2.2",
     "mz": "2.7.0",
-    "node-plantuml": "0.9.0",
     "recast": "0.20.5",
     "short-hash": "1.0.0",
     "source-map-support": "0.5.21"
@@ -108,8 +107,9 @@
   },
   "resolutions": {
     "ansi-regex": "^5.0.1",
-    "minimist": "^0.2.1",
-    "diff": "^3.5.0"
+    "diff": "^3.5.0",
+    "json-schema": "^0.4.0",
+    "minimist": "^0.2.1"
   },
   "scripts": {
     "audit:fix": "npx --yes npm-force-resolutions && npm i",
@@ -123,11 +123,11 @@
     "coverage": "nyc npm run test:unit",
     "coverage:publish": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "debug": "npm run build:watch:debug",
-    "doc:toc": "npx markdown-toc -i ./README.md",
     "doc:diagram": "npm run doc:diagram:model && npm run doc:diagram:no-model",
-    "doc:diagram:model": "vision --src=src/model --destName=vision-model",
     "doc:diagram:full": "vision --destName=vision-full --printIgnoreExternal --printIgnoreTypes --printSimplifyEntities=\"[[\\\"src/model\\\",\\\"MODEL\\\"]]\" --printIgnorePaths=\"src/util,src/module,src/index.ts,src/enum,src/app,src/service/cli,src/model\"",
+    "doc:diagram:model": "vision --src=src/model --destName=vision-model",
     "doc:diagram:no-model": "vision --printIgnoreExternal --printIgnoreTypes --printIgnorePaths=\"src/util,src/module,src/index.ts,src/enum,src/app,src/service/cli,src/model\"",
+    "doc:toc": "npx markdown-toc -i ./README.md",
     "eslint": "eslint . --ext .ts --quiet",
     "eslint:fix": "npm run eslint -- --fix",
     "lint": "npm run eslint && npm run prettier",

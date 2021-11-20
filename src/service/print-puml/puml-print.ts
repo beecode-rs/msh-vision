@@ -1,5 +1,3 @@
-import fs from 'fs'
-import plantuml from 'node-plantuml'
 import { fileDao } from 'src/dal/file-dao'
 import { EntityTypes } from 'src/enum/entity-types'
 import { PumlGroupType } from 'src/enum/puml-group-type'
@@ -50,7 +48,6 @@ export class PumlPrint implements PrintStrategy {
     this._pumlRelationStrings.forEach((s) => template.addChildren(new PumlPrintableWrapper(s)))
     const pumlBody = template.print()
     await this._writeToFile(pumlBody)
-    // await this._exportFile() // TODO add parameter flag
   }
 
   protected _missingEntities(entities: Entity[]): Entity[] {
@@ -69,32 +66,6 @@ export class PumlPrint implements PrintStrategy {
       return acc
     }, [])
     return [...entities, ...newEntities]
-  }
-
-  protected async _exportFile(): Promise<void> {
-    const exportFilePath = `${this.FilePath.split('.')[0]}.svg`
-    await this._svgPromiseGenerator(this.FilePath, exportFilePath)
-    // return new Promise((resolve) => {
-    //   const gen = plantuml.generate(this.FilePath, { format: 'svg' })
-    //   gen.out.pipe(fs.createWriteStream(exportFilePath))
-    //   gen.out.on('end', resolve)
-    // })
-  }
-
-  protected _svgPromiseGenerator(source, dest): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const generator = plantuml.generate(source, { format: 'svg' })
-      const fileStream = fs.createWriteStream(dest)
-
-      fileStream.on('error', reject)
-      generator.out.on('error', reject)
-
-      generator.out.pipe(fileStream)
-
-      fileStream.on('finish', () => {
-        resolve()
-      })
-    })
   }
 
   protected _generateGroups(entities: Entity[]): void {
