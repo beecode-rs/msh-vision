@@ -143,7 +143,7 @@
     "start:ts": "ts-node ./src/index.ts",
     "test": "npm run test:unit && npm run test:int",
     "test:int": "#mocha ./src/test/{**/,/}*.ts",
-    "test:unit": "jest",
+    "test:unit": "#jest",
     "tsc": "tsc -p ./tsconfig-build.json",
     "tsc:check": "npm run tsc -- --noEmit",
     "tsc:cleaner": "ts-cleaner --dist dist",
