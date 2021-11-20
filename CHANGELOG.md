@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/beecode-rs/msh-vision/compare/v1.0.0...v1.0.1) (2021-11-20)
+
+
+### Bug Fixes
+
+* reset version to 0.0.1 ([5a08d8c](https://github.com/beecode-rs/msh-vision/commit/5a08d8cc2409e218bea31015f4635b584567129f))
+
 # 0.0.1 (2021-11-20)
 
 
