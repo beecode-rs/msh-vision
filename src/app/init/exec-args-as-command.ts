@@ -1,17 +1,15 @@
-import { Initiate } from '@beecode/msh-node-app'
+import { LifeCycle } from '@beecode/msh-node-app'
 import { cliInitUseCase } from 'src/use-case/cli-init-use-case'
 
-export class ExecArgsAsCommand extends Initiate {
+export class ExecArgsAsCommand extends LifeCycle {
   private readonly __args: string[]
-  constructor(args: string[]) {
-    super()
-    this.__args = args
+
+  constructor() {
+    super({ name: 'ArgsToCommand' })
+    this.__args = process.argv.slice(2)
   }
 
-  get Name(): string {
-    return 'ArgsToCommand'
-  }
-  protected async _initFn(): Promise<void> {
+  protected async _createFn(): Promise<void> {
     await cliInitUseCase.execArgsAsCommand(this.__args)
   }
   protected async _destroyFn(): Promise<void> {
