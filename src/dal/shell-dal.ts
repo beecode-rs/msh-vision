@@ -10,7 +10,7 @@ export type ExecResult = {
 export const shellDal = {
   exec: (cmd: string): Promise<ExecResult> =>
     new Promise((resolve) => {
-      logger.debug(shellDal.pwd())
+      logger().debug(shellDal.pwd())
       shell.exec(cmd, { silent: true }, (code, stdout, stderr) => {
         const errorOccurred = code !== 0
         return resolve({ stdout, stderr, errorOccurred })

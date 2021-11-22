@@ -3,7 +3,7 @@ import { RemoveExternal } from 'src/service/processing/remove-external'
 import { RemoveIgnoredPaths } from 'src/service/processing/remove-ignored-paths'
 import { RemoveTypes } from 'src/service/processing/remove-types'
 import { SimplifyEntities } from 'src/service/processing/simplify-entities'
-import { visionConfig } from 'src/util/config'
+import { config } from 'src/util/config'
 
 export interface ProcessingStrategy {
   process(entities: Entity[]): Entity[]
@@ -15,7 +15,7 @@ export const processingService = {
 
     const {
       print: { ignorePaths, ignoreTypes, ignoreExternal, simplifyEntities },
-    } = visionConfig()
+    } = config().vision
 
     if (ignorePaths.length > 0) processingStrategies.push(new RemoveIgnoredPaths(ignorePaths))
     if (ignoreExternal) processingStrategies.push(new RemoveExternal())

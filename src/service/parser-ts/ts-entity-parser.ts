@@ -47,8 +47,8 @@ export class TsEntityParser {
       if (!parser) return []
       return parser.parse()
     } catch (error) {
-      logger.error(`Error in file ${[this._inProjectPath, this._fileName].join(constant.folderSep)}`)
-      if (error instanceof TsParsingError && error.CanPrintCode) logger.error(error.Statement.getText(this._parsedSource))
+      logger().error(`Error in file ${[this._inProjectPath, this._fileName].join(constant.folderSep)}`)
+      if (error instanceof TsParsingError && error.CanPrintCode) logger().error(error.Statement.getText(this._parsedSource))
       throw error
     }
   }
@@ -74,7 +74,7 @@ export class TsEntityParser {
       case ts.SyntaxKind.ImportDeclaration:
         return undefined
       default:
-        logger.warn(`Unknown parser for type "${ts.SyntaxKind[statement.kind]}"`)
+        logger().warn(`Unknown parser for type "${ts.SyntaxKind[statement.kind]}"`)
         return undefined
     }
   }

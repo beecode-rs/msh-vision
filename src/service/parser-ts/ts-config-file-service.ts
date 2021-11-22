@@ -1,5 +1,5 @@
 import { filePathService } from 'src/service/file-path-service'
-import { visionConfig } from 'src/util/config'
+import { config } from 'src/util/config'
 
 type TsConfigFileType = {
   compilerOptions?: {
@@ -13,7 +13,7 @@ let __tsConfigFileJson: TsConfigFileType | undefined = undefined
 const _self = {
   init: async (): Promise<void> => {
     if (__tsConfigFileJson) return
-    const tsConfigAbsPath = filePathService.relativeToAbsPath(visionConfig().ts.tsconfigPath)
+    const tsConfigAbsPath = filePathService.relativeToAbsPath(config().vision.ts.tsconfigPath)
     __tsConfigFileJson = require(tsConfigAbsPath) // eslint-disable-line @typescript-eslint/no-var-requires
   },
   _getFileJson: (): TsConfigFileType => {
@@ -30,8 +30,8 @@ const _self = {
       .filter((r) => r.startsWith)
   },
   _cleanReplaceWith: (path: string): string => {
-    if (!path.startsWith(visionConfig().projectSrcFolderPath)) return path
-    return `.${filePathService.cleanupPath(path.slice(visionConfig().projectSrcFolderPath.length))}`
+    if (!path.startsWith(config().vision.projectSrcFolderPath)) return path
+    return `.${filePathService.cleanupPath(path.slice(config().vision.projectSrcFolderPath.length))}`
   },
   moduleAliasResolve: (path: string): string => {
     const resolver = _self._cleanReplacePaths().find((r) => path.startsWith(r.startsWith))

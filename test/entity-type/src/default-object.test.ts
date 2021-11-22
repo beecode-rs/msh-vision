@@ -1,15 +1,15 @@
-import { TypescriptParserConvert } from '../../src/service/convert/typescript-parser/typescript-parser-convert'
+import { ParserTs } from '../../../src/service/parser-ts/parser-ts'
 
-const filePath = './default-object.ts'
-const folderPath = './test/entity-type/'
+const filePath = './src/default-object.ts'
 const result = [
   {
-    _type: 'object',
-    filePath: 'default-object.ts',
-    importReferences: [],
-    name: 'obj',
+    _inProjectPath: 'src/default-object.ts',
+    _isExported: true,
+    _name: 'default-object.ts',
+    _references: [],
+    _type: 'file',
   },
 ]
 it('should pass ' + filePath, async () => {
-  expect(await new TypescriptParserConvert({ filePath, folderPath }).convert()).toEqual(result)
+  expect(await new ParserTs({ filePath, projectPath: process.cwd() + '/test/entity-type' }).convert()).toEqual(result)
 })

@@ -1,15 +1,38 @@
-import { TypescriptParserConvert } from '../../../../src/service/convert/typescript-parser/typescript-parser-convert'
+import { ParserTs } from '../../../../src/service/parser-ts/parser-ts'
 
-const filePath = './util/logger.ts'
-const folderPath = './test/simple/src'
+const filePath = './src/util/logger.ts'
 const result = [
   {
+    _inProjectPath: 'src/util/logger.ts',
+    _isExported: false,
+    _meta: {
+      _aliasReference: '',
+      _properties: [
+        {
+          _accessLevel: 'public',
+          _functionParams: 'msg: string',
+          _isAbstract: false,
+          _name: 'debug',
+          _returnType: 'void',
+        },
+      ],
+    },
+    _name: 'logger',
+    _references: [
+      {
+        _inProjectPath: 'src/util/errors.ts',
+        _name: 'errors',
+        _type: 'association',
+      },
+      {
+        _inProjectPath: 'src/enum/logger-type.ts',
+        _name: 'LoggerType',
+        _type: 'association',
+      },
+    ],
     _type: 'object',
-    filePath: 'util/logger.ts',
-    importReferences: [],
-    name: 'logger',
   },
 ]
 it('should pass ' + filePath, async () => {
-  expect(await new TypescriptParserConvert({ filePath, folderPath }).convert()).toEqual(result)
+  expect(await new ParserTs({ filePath, projectPath: process.cwd() + '/test/simple' }).convert()).toEqual(result)
 })

@@ -1,13 +1,13 @@
 import { promises as fs } from 'fs'
 import glob from 'glob'
 import { filePathService } from 'src/service/file-path-service'
-import { visionConfig } from 'src/util/config'
+import { config } from 'src/util/config'
 
 const _self = {
   fileListFromFolder: async (folderPath: string): Promise<string[]> => {
     return new Promise<string[]>((resolve, reject) => {
-      const cwd = filePathService.relativeToAbsPath(filePathService.joinPaths(visionConfig().projectRootPath, folderPath))
-      glob('**/*', { cwd, dot: true, nodir: true, ignore: ['**/*.test.ts', '**/*.contract.ts'] }, (err, files) => {
+      const cwd = filePathService.relativeToAbsPath(filePathService.joinPaths(config().vision.projectRootPath, folderPath))
+      glob('**/*', { cwd, dot: true, nodir: true, ignore: config().vision.ignoreGlobPaths }, (err, files) => {
         // TODO implement some mechanism to ignore files
         if (err) return reject(err)
         return resolve(files.map((f) => filePathService.joinPaths(folderPath, f)))

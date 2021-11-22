@@ -5,11 +5,11 @@ import { Generate } from 'src/service/cli/command/generate'
 import { PrintHelp } from 'src/service/cli/command/print-help'
 import { PrintVersion } from 'src/service/cli/command/print-version'
 
-export const cliInitUseCase = {
+const _self = {
   execArgsAsCommand: async (args: string[]): Promise<void> => {
-    cliInitUseCase.ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args)
-    // cliInitUseCase.ifNoCommandSelectedThrowErrorAndPrintHelp(args)
-    const command = cliInitUseCase.createCommandFromCliArgs(args)
+    _self.ifMoreThenOneCommandSelectedThrowErrorAndPrintHelp(args)
+    // _self.ifNoCommandSelectedThrowErrorAndPrintHelp(args)
+    const command = _self.createCommandFromCliArgs(args)
     await command.execute()
   },
   createCommandFromCliArgs: (args: string[]): Executable => {
@@ -36,3 +36,4 @@ export const cliInitUseCase = {
     throw new Error('ERROR !!! - CLI needs one command to be selected')
   },
 }
+export const cliInitUseCase = _self

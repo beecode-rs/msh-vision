@@ -9,8 +9,8 @@ import { ConsoleLogger } from '@beecode/msh-node-log/lib/console-logger'
 import { CliApp } from 'src/app/cli-app'
 import { logger } from 'src/util/logger'
 
-process.on('uncaughtException', (error) => logger.error('Uncaught Exception', { error }))
-process.on('unhandledRejection', (error) => logger.error('Unhandled Rejection', { error }))
+process.on('uncaughtException', (error) => logger().error('Uncaught Exception', { error }))
+process.on('unhandledRejection', (error) => logger().error('Unhandled Rejection', { error }))
 
 NodeAppLogger(new ConsoleLogger({ logLevel: LogLevelType.DEBUG }))
 

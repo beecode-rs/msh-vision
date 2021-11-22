@@ -55,7 +55,7 @@ const _self = {
           return fi.name === ei.name
         })
         if (!fileImport) {
-          logger.warn(`Import not found for ${JSON.stringify(ei)}`)
+          logger().warn(`Import not found for ${JSON.stringify(ei)}`)
           return
         }
         return new Reference({

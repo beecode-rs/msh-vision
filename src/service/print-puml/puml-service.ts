@@ -25,7 +25,7 @@ export const pumlService = {
       case EntityTypes.ENUM:
         return new PumlPrintableEnum({ entity })
       default:
-        logger.warn(`Unknown entity type ${entity.constructor.name}`)
+        logger().warn(`Unknown entity type ${entity.constructor.name}`)
       // typeUtil.exhaustiveCheck(entity)
     }
   },

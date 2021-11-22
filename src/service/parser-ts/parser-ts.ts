@@ -7,21 +7,21 @@ import { TsParserFile } from 'src/service/parser-ts/parser/ts-parser-file'
 import { tsConfigFileService } from 'src/service/parser-ts/ts-config-file-service'
 import { TsEntityParser } from 'src/service/parser-ts/ts-entity-parser'
 import { tsParserService } from 'src/service/parser-ts/ts-parser-service'
-import { visionConfig } from 'src/util/config'
 
 export class ParserTs implements ConvertStrategy {
   protected readonly _filePath: string
-  protected readonly _folderPath: string
+  protected readonly _projectPath: string
 
-  constructor({ filePath, folderPath }: { filePath: string; folderPath: string }) {
+  constructor(params: { filePath: string; projectPath: string }) {
+    const { filePath, projectPath } = params
     this._filePath = filePath
-    this._folderPath = folderPath
+    this._projectPath = projectPath
   }
 
   public async convert(): Promise<Entity[]> {
     await tsConfigFileService.init()
     const fileName = filePathService.fileNameFromPath(this._filePath, { withExtension: true })
-    const parsedSource = await this._parseFile({ filePath: this._filePath, fileName })
+    const parsedSource = await this._parseFile({ filePath: this._filePath, fileName, folderPath: this._projectPath })
 
     const hasExportsInFile = tsParserService.checkIfThereAreAnyExports(parsedSource)
     const inProjectPath = filePathService.cleanupPath(this._filePath)
@@ -44,9 +44,9 @@ export class ParserTs implements ConvertStrategy {
    *
    * https://ts-ast-viewer.com/#code/JYWwDg9gTgLgBAbzgYQuCA7Aph+BfOAMyjTgHIABAQwwHMBXAGyqgHoBjaLMgbgCgKqdNlwAKBHzhwAzlkZZ2MaAC5yIAJ5kANJLgws4ZvtVkAFnMYQ4ILADoyfPAEo+WAB6RYcds2nS4ALLqQpAi8BJ4QA
    */
-  protected async _parseFile(params: { filePath: string; fileName: string }): Promise<ts.SourceFile> {
-    const { filePath, fileName } = params
-    const fileSource = await fileDao.readFile(filePathService.joinPaths(visionConfig().projectRootPath, filePath))
+  protected async _parseFile(params: { filePath: string; fileName: string; folderPath: string }): Promise<ts.SourceFile> {
+    const { filePath, fileName, folderPath } = params
+    const fileSource = await fileDao.readFile(filePathService.joinPaths(folderPath, filePath))
     return ts.createSourceFile(fileName, fileSource, ts.ScriptTarget.ES2020) // TODO implement param for script target
   }
 }

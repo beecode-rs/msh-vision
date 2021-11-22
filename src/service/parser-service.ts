@@ -7,11 +7,11 @@ export interface ConvertStrategy {
 }
 
 export const parserService = {
-  strategyByFile: (params: { filePath: string; folderPath: string }): ConvertStrategy | undefined => {
-    const { filePath, folderPath } = params
-    if (filePath.endsWith('.ts')) return new ParserTs({ filePath, folderPath })
+  strategyByFile: (params: { filePath: string; projectPath: string }): ConvertStrategy | undefined => {
+    const { filePath, projectPath } = params
+    if (filePath.endsWith('.ts')) return new ParserTs({ filePath, projectPath })
 
-    logger.debug(`Strategy not found for filePath: ${filePath}`)
+    logger().debug(`Strategy not found for filePath: ${filePath}`)
     return undefined
   },
 }

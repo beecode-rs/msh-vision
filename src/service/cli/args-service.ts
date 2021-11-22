@@ -8,22 +8,7 @@ export type ArgsServiceParams = {
 
 export type CliCommands = minimist.ParsedArgs & {
   help: boolean
-  h: boolean
   version: boolean
-  v: boolean
-}
-
-export type CmdGenerateParams = minimist.ParsedArgs & {
-  src: string
-  projectRootPath: string
-  dest: string
-  destName: string
-  appName: string
-  tsConfig: string
-  printIgnorePaths: string
-  printIgnoreExternal: boolean
-  printIgnoreTypes: boolean
-  printSimplifyEntities: string
 }
 
 export const argsService = {
@@ -35,38 +20,6 @@ export const argsService = {
     version: {
       type: 'boolean',
       alias: 'v',
-    },
-  } as Options,
-  cmdGenerateParams: {
-    src: {
-      type: 'string',
-    },
-    projectRootPath: {
-      type: 'string',
-    },
-    dest: {
-      type: 'string',
-    },
-    destName: {
-      type: 'string',
-    },
-    appName: {
-      type: 'string',
-    },
-    tsConfig: {
-      type: 'string',
-    },
-    printIgnorePaths: {
-      type: 'string',
-    },
-    printIgnoreExternal: {
-      type: 'boolean',
-    },
-    printIgnoreTypes: {
-      type: 'boolean',
-    },
-    printSimplifyEntities: {
-      type: 'string',
     },
   } as Options,
   selectedCommandCount: ({ args, options }: ArgsServiceParams): number => {
