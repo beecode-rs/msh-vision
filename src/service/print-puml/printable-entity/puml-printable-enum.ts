@@ -12,7 +12,7 @@ export class PumlPrintableEnum extends PumlEntity {
     return `enum "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityTypes.ENUM> }) {
+  public constructor(params: { entity: Entity<EntityTypes.ENUM> }) {
     const { entity } = params
     super()
     this._entity = entity

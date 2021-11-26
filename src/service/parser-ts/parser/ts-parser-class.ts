@@ -15,7 +15,7 @@ export class TsParserClass implements Parsable {
   protected readonly _parsedSource: ts.SourceFile
   protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: {
+  public constructor(params: {
     parsedSource: ts.SourceFile
     statement: ts.Statement
     inProjectPath: string

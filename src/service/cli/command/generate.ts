@@ -6,8 +6,8 @@ import { config } from 'src/util/config'
 
 export class Generate implements Executable {
   public async execute(): Promise<void> {
-    const { projectSrcFolderPath: projectPath } = config().vision
-    const entities = await visionUseCase.parseFolder({ projectPath })
+    const { projectRootPath, projectSrcFolderPath } = config().vision
+    const entities = await visionUseCase.parseFolder({ projectRootPath, projectSrcFolderPath })
     const processedEntities = processingService.process(entities)
     await printService.print(processedEntities)
   }

@@ -9,7 +9,7 @@ export class Property {
   // TODO implement readonly
   // TODO implement getter/setter
 
-  constructor(params: {
+  public constructor(params: {
     name: string
     returnType: string
     accessLevel?: PropertyAccessLevelType

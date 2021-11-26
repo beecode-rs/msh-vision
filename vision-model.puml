@@ -6,31 +6,31 @@
           + Properties: Property[]
           # _isAbstract: boolean
           # _properties: Property[]
-          constructor(params: {\n isAbstract?: boolean;\n properties?: Property[] \n})
+         + constructor(params: {\n isAbstract?: boolean;\n properties?: Property[] \n})
         }
         class "EntityEnum" as entity_enum_f7c58024 {
           + Properties: string[]
           # _properties: string[]
-          constructor(params: { properties: string[] })
+         + constructor(params: { properties: string[] })
         }
         class "EntityInterface" as entity_interface_590b4132 {
           + Properties: Property[]
           + References: Reference[]
           # _properties: Property[]
           # _references: Reference[]
-          constructor(params: {\n references?: Reference[];\n properties?: Property[] \n})
+         + constructor(params: {\n references?: Reference[];\n properties?: Property[] \n})
         }
         class "EntityObject" as entity_object_784a4022 {
           + AliasReference: string
           + Properties: Property[]
           # _aliasReference: string
           # _properties: Property[]
-          constructor(params: {\n properties?: Property[];\n aliasReference?: string \n})
+         + constructor(params: {\n properties?: Property[];\n aliasReference?: string \n})
         }
         class "EntityType" as entity_type_a3fb7caf {
           + ReturnType: string
           # _returnType: string
-          constructor(params: { returnType: string })
+         + constructor(params: { returnType: string })
         }
         card entity_meta_9581579a [
           EntityMeta
@@ -72,7 +72,7 @@
           # _references: Reference[]
           # _type: T
           + cloneAndModify(toClone: Entity<T>,\n overrideParams: Partial<EntityParams> = {\n\n}): Entity<T>
-          constructor({\n type,\n name,\n inProjectPath,\n isExported,\n references,\n meta \n}: EntityParams<T>)
+         + constructor({\n type,\n name,\n inProjectPath,\n isExported,\n references,\n meta \n}: EntityParams<T>)
           + removeIgnoredReferences(ignoredPaths: string[]): void
         }
         interface "Locatable" as locatable_b011d3de {
@@ -92,7 +92,7 @@
           # _isAbstract: boolean
           # _name: string
           # _returnType: string
-          constructor(params: {\n    name: string\n    returnType: string\n    accessLevel?: PropertyAccessLevelType\n    isAbstract?: boolean\n    functionParams?: string\n  })
+         + constructor(params: {\n    name: string\n    returnType: string\n    accessLevel?: PropertyAccessLevelType\n    isAbstract?: boolean\n    functionParams?: string\n  })
         }
         card reference_direction_aaef6aea [
           ReferenceDirection
@@ -115,7 +115,7 @@
           # _name: string
           # _type: ReferenceType
           + cloneAndModify(toClone: Reference,\n overrideParams: Partial<ReferenceParams> = {\n\n}): Reference
-          constructor({\n name,\n inProjectPath,\n type,\n direction \n}: ReferenceParams)
+         + constructor({\n name,\n inProjectPath,\n type,\n direction \n}: ReferenceParams)
         }
       }
       folder "enum" as enum_1eea471b {

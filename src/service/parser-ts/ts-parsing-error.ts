@@ -1,5 +1,5 @@
 export class TsParsingError extends Error {
-  constructor(error: Error, message: string, protected _statement: any) {
+  public constructor(error: Error, message: string, protected _statement: any) {
     super(error.message)
     this.message = message
     this.stack = error.stack

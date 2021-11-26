@@ -1,6 +1,7 @@
 import { ParserTs } from '../../../../src/service/parser-ts/parser-ts'
 
-const filePath = './src/util/logger.ts'
+const projectRootPath = process.cwd() + '/test/simple'
+const filePath = 'src/util/logger.ts'
 const result = [
   {
     _inProjectPath: 'src/util/logger.ts',
@@ -33,6 +34,7 @@ const result = [
     _type: 'object',
   },
 ]
+
 it('should pass ' + filePath, async () => {
-  expect(await new ParserTs({ filePath, projectPath: process.cwd() + '/test/simple' }).convert()).toEqual(result)
+  expect(await new ParserTs({ filePath, projectRootPath }).convert()).toEqual(result)
 })

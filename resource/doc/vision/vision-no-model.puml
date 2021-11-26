@@ -42,7 +42,7 @@
             # _filePath: string
             # _folderPath: string
             # _parseFile(params: {\n filePath: string;\n fileName: string \n}): Promise<ts.SourceFile>
-            constructor({\n filePath,\n folderPath \n}: {\n filePath: string;\n folderPath: string \n})
+           + constructor({\n filePath,\n folderPath \n}: {\n filePath: string;\n folderPath: string \n})
             + convert: Promise<Entity[]>
           }
           object "___tsConfigFileJson" as ts_config_file_json_7e5eaca {
@@ -63,7 +63,7 @@
             # _parseStatements: Entity[]
             # _parsedSource: ts.SourceFile
             # _parserByStatementKind(statement: ts.Statement): Parsable | undefined
-            constructor(params: {\n    parsedSource: ts.SourceFile\n    fileName: string\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+           + constructor(params: {\n    parsedSource: ts.SourceFile\n    fileName: string\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
             + parsedEntities: Entity[]
           }
           object "tsParserImportRelations" as ts_parser_import_relations_a116d5d4 {
@@ -88,7 +88,7 @@
           class "TsParsingError" as ts_parsing_error_b4de97fe {
             + CanPrintCode: boolean
             + Statement: any
-            constructor(error: Error,\n message: string,\n protected _statement: any)
+           + constructor(error: Error,\n message: string,\n protected _statement: any)
           }
           folder "parser" as parser_4077a3ff {
             interface "Parsable" as parsable_77cdce3 {
@@ -102,14 +102,14 @@
               # _propertiesToString(parameters?: any[]): string
               # _returnTypeValue(member: any): string
               # _statement: ts.Statement
-              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+             + constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
               + parse: Entity<EntityTypes.CLASS>[]
             }
             class "TsParserEnum" as ts_parser_enum_37d0bb6a {
               # _inProjectPath: string
               # _parsedSource: ts.SourceFile
               # _statement: ts.Statement
-              constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
+             + constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
               + parse: Entity<EntityTypes.ENUM>[]
             }
             class "TsParserFile" as ts_parser_file_6f5991bf {
@@ -117,7 +117,7 @@
               # _importParseResults: TsParserImportParseResult[]
               # _inProjectPath: string
               # _parsedSource: ts.SourceFile
-              constructor(params: {\n    parsedSource: ts.SourceFile\n    inProjectPath: string\n    fileName: string\n    importParseResults: TsParserImportParseResult[]\n  })
+             + constructor(params: {\n    parsedSource: ts.SourceFile\n    inProjectPath: string\n    fileName: string\n    importParseResults: TsParserImportParseResult[]\n  })
               + parse: Entity<EntityTypes.FILE>[]
             }
             class "TsParserImport" as ts_parser_import_6ba10304 {
@@ -128,7 +128,7 @@
               # _parseDefaultImport(importClause: any): string[]
               # _parseElements(elements: any): string[]
               # _statement: ts.Statement
-              constructor(params: {\n statement: ts.Statement;\n inProjectPath: string \n})
+             + constructor(params: {\n statement: ts.Statement;\n inProjectPath: string \n})
               + parse: TsParserImportParseResult[]
             }
             class "TsParserInterface" as ts_parser_interface_6a86ffc {
@@ -136,7 +136,7 @@
               # _inProjectPath: string
               # _parsedSource: ts.SourceFile
               # _statement: ts.Statement
-              constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
+             + constructor(params: {\n parsedSource: ts.SourceFile;\n statement: ts.Statement;\n inProjectPath: string \n})
               + parse: Entity<EntityTypes.INTERFACE>[]
             }
             class "TsParserObject" as ts_parser_object_356082ec {
@@ -149,7 +149,7 @@
               # _parsedSource: ts.SourceFile
               # _returnTypeValue(property: any): string
               # _statement: ts.Statement
-              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+             + constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
               + parse: Entity<EntityTypes.OBJECT>[]
             }
             class "TsParserType" as ts_parser_type_b98711e1 {
@@ -161,7 +161,7 @@
               # _statement: ts.Statement
               # _stepIntoArray(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
               # _stepIntoNode(identifierName: string,\n statement: any,\n blockNames: string[]): boolean
-              constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
+             + constructor(params: {\n    parsedSource: ts.SourceFile\n    statement: ts.Statement\n    inProjectPath: string\n    importParseResults: TsParserImportParseResult[]\n  })
               + parse: Entity<EntityTypes.TYPE>[]
             }
           }
@@ -191,14 +191,14 @@
             # _rootGroup: PumlGroup
             # _svgPromiseGenerator(source,\n dest): Promise<void>
             # _writeToFile(data: string): Promise<void>
-            constructor(params: {\n appName?: string;\n destinationPath: string;\n fileName: string \n})
+           + constructor(params: {\n appName?: string;\n destinationPath: string;\n fileName: string \n})
             + print(params: { entities: Entity[] }): Promise<void>
           }
           class "PumlRelation" as puml_relation_ddbc15eb {
             # _fromEntity: Entity
             # _linkByReferenceType: string
             # _reference: Reference
-            constructor(params: {\n reference: Reference;\n fromEntity: Entity \n})
+           + constructor(params: {\n reference: Reference;\n fromEntity: Entity \n})
             + print: string
           }
           object "pumlService" as puml_service_f506c030 {
@@ -239,7 +239,7 @@
               # _templateEnd: string
               # _templateStart: string
               # _type: PumlGroupType
-              constructor(params: {\n name: string;\n type: PumlGroupType;\n groupPath: string \n})
+             + constructor(params: {\n name: string;\n type: PumlGroupType;\n groupPath: string \n})
               + groups: { [k: string]: PumlGroup }
             }
           }
@@ -255,21 +255,21 @@
               # _printProperty(property: Property): string
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { entity: Entity<EntityTypes.CLASS> })
+             + constructor(params: { entity: Entity<EntityTypes.CLASS> })
             }
             class "PumlPrintableEnum" as puml_printable_enum_1725040a {
               # _entity: Entity<EntityTypes.ENUM>
               # _print: string[]
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { entity: Entity<EntityTypes.ENUM> })
+             + constructor(params: { entity: Entity<EntityTypes.ENUM> })
             }
             class "PumlPrintableFile" as puml_printable_file_3f271d9f {
               # _entity: Entity<EntityTypes.FILE>
               # _print: string[]
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { entity: Entity<EntityTypes.FILE> })
+             + constructor(params: { entity: Entity<EntityTypes.FILE> })
             }
             class "PumlPrintableInterface" as puml_printable_interface_2621ae9c {
               # _entity: Entity<EntityTypes.INTERFACE>
@@ -277,7 +277,7 @@
               # _printProperty(property: Property): string
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { entity: Entity<EntityTypes.INTERFACE> })
+             + constructor(params: { entity: Entity<EntityTypes.INTERFACE> })
             }
             class "PumlPrintableObject" as puml_printable_object_736b458c {
               # _entity: Entity<EntityTypes.OBJECT>
@@ -285,7 +285,7 @@
               # _printProperty(property: Property): string
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { entity: Entity<EntityTypes.OBJECT> })
+             + constructor(params: { entity: Entity<EntityTypes.OBJECT> })
             }
             class "PumlPrintableProperty" as puml_printable_property_2d23f5de {
               # _abstractAttribute: string
@@ -296,7 +296,7 @@
               # _propertyName: string
               # _templateEnd: string
               # _templateStart: string
-              constructor(params: { property: Property })
+             + constructor(params: { property: Property })
             }
             class "PumlPrintableType" as puml_printable_type_f482c241 {
               # _entity: Entity<EntityTypes.TYPE>
@@ -304,13 +304,13 @@
               # _templateEnd: string
               # _templateStart: string
               # _wrapWithDoubleQuotesIfItStartsWithSingleQuote(text: string): string
-              constructor(params: { entity: Entity<EntityTypes.TYPE> })
+             + constructor(params: { entity: Entity<EntityTypes.TYPE> })
             }
             class "PumlPrintableWrapper" as puml_printable_wrapper_e6265aaa {
               # _print: string[]
               # _templateEnd: string
               # _templateStart: string
-              constructor(protected readonly _string: string)
+             + constructor(protected readonly _string: string)
             }
           }
         }
@@ -325,7 +325,7 @@
             + process(entities: Entity[]): Entity[]
           }
           class "RemoveIgnoredPaths" as remove_ignored_paths_548c5253 {
-            constructor(protected _ignorePaths: string[])
+           + constructor(protected _ignorePaths: string[])
             + process(entities: Entity[]): Entity[]
           }
           class "RemoveTypes" as remove_types_81d79677 {
@@ -337,7 +337,7 @@
             # _removeDuplicatedReferences(references: Reference[]): Reference[]
             # _simplifyConfig: { [k: string]: string }
             # _simplifyEntities(entities: Entity[]): Entity[]
-            constructor(simplifyConfig: [string,\n string][])
+           + constructor(simplifyConfig: [string,\n string][])
             + process(entities: Entity[]): Entity[]
           }
         }

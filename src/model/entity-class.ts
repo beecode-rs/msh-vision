@@ -4,7 +4,7 @@ export class EntityClass {
   protected readonly _isAbstract: boolean
   protected readonly _properties: Property[]
 
-  constructor(params: { isAbstract?: boolean; properties?: Property[] }) {
+  public constructor(params: { isAbstract?: boolean; properties?: Property[] }) {
     const { isAbstract, properties } = params
     this._isAbstract = isAbstract ?? false
     this._properties = properties ?? []

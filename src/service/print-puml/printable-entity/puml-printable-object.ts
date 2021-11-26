@@ -15,7 +15,7 @@ export class PumlPrintableObject extends PumlEntity {
     return `object "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityTypes.OBJECT> }) {
+  public constructor(params: { entity: Entity<EntityTypes.OBJECT> }) {
     const { entity } = params
     super()
     this._entity = entity

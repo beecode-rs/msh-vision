@@ -15,7 +15,7 @@ export class PumlPrintableClass extends PumlEntity {
     return `${this._entity.Meta.IsAbstract ? 'abstract' : 'class'} "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityTypes.CLASS> }) {
+  public constructor(params: { entity: Entity<EntityTypes.CLASS> }) {
     const { entity } = params
     super()
     this._entity = entity

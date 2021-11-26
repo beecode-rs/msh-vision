@@ -13,7 +13,7 @@ export class PumlPrintableFile extends PumlEntity {
     return `artifact "${this._entity.Name}" as ${this._entity.Id} {`
   }
 
-  constructor(params: { entity: Entity<EntityTypes.FILE> }) {
+  public constructor(params: { entity: Entity<EntityTypes.FILE> }) {
     const { entity } = params
     super()
     this._entity = entity

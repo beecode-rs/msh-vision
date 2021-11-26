@@ -8,7 +8,7 @@ export class PumlPrintableWrapper extends PumlEntity {
     return this._string
   }
 
-  constructor(protected readonly _string: string) {
+  public constructor(protected readonly _string: string) {
     super()
   }
 

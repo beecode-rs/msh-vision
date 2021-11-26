@@ -13,7 +13,7 @@ export class PumlPrintableProperty extends PumlEntity {
     return [template, this._addNewRows(this._property.ReturnType)].filter(Boolean).join(': ')
   }
 
-  constructor(params: { property: Property }) {
+  public constructor(params: { property: Property }) {
     const { property } = params
     super()
     this._property = property

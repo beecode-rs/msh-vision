@@ -35,7 +35,7 @@ export class PumlGroup extends PumlEntity {
       .join(constant.newRow)
   }
 
-  constructor(params: { name: string; type: PumlGroupType; groupPath: string; groups?: { [k: string]: PumlGroup } }) {
+  public constructor(params: { name: string; type: PumlGroupType; groupPath: string; groups?: { [k: string]: PumlGroup } }) {
     const { name, type, groupPath, groups = {} } = params
     super()
     this._name = name

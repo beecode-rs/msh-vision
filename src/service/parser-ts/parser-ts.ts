@@ -10,18 +10,18 @@ import { tsParserService } from 'src/service/parser-ts/ts-parser-service'
 
 export class ParserTs implements ConvertStrategy {
   protected readonly _filePath: string
-  protected readonly _projectPath: string
+  protected readonly _projectRootPath: string
 
-  constructor(params: { filePath: string; projectPath: string }) {
-    const { filePath, projectPath } = params
+  public constructor(params: { filePath: string; projectRootPath: string }) {
+    const { filePath, projectRootPath } = params
     this._filePath = filePath
-    this._projectPath = projectPath
+    this._projectRootPath = projectRootPath
   }
 
   public async convert(): Promise<Entity[]> {
     await tsConfigFileService.init()
     const fileName = filePathService.fileNameFromPath(this._filePath, { withExtension: true })
-    const parsedSource = await this._parseFile({ filePath: this._filePath, fileName, folderPath: this._projectPath })
+    const parsedSource = await this._parseFile({ filePath: this._filePath, fileName, projectRootPath: this._projectRootPath })
 
     const hasExportsInFile = tsParserService.checkIfThereAreAnyExports(parsedSource)
     const inProjectPath = filePathService.cleanupPath(this._filePath)
@@ -44,9 +44,9 @@ export class ParserTs implements ConvertStrategy {
    *
    * https://ts-ast-viewer.com/#code/JYWwDg9gTgLgBAbzgYQuCA7Aph+BfOAMyjTgHIABAQwwHMBXAGyqgHoBjaLMgbgCgKqdNlwAKBHzhwAzlkZZ2MaAC5yIAJ5kANJLgws4ZvtVkAFnMYQ4ILADoyfPAEo+WAB6RYcds2nS4ALLqQpAi8BJ4QA
    */
-  protected async _parseFile(params: { filePath: string; fileName: string; folderPath: string }): Promise<ts.SourceFile> {
-    const { filePath, fileName, folderPath } = params
-    const fileSource = await fileDao.readFile(filePathService.joinPaths(folderPath, filePath))
+  protected async _parseFile(params: { filePath: string; fileName: string; projectRootPath: string }): Promise<ts.SourceFile> {
+    const { filePath, fileName, projectRootPath } = params
+    const fileSource = await fileDao.readFile(filePathService.joinPaths(projectRootPath, filePath))
     return ts.createSourceFile(fileName, fileSource, ts.ScriptTarget.ES2020) // TODO implement param for script target
   }
 }

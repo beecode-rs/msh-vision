@@ -35,7 +35,7 @@ export class Entity<T extends EntityTypes = any> implements Locatable {
   protected _references: Reference[]
   protected readonly _meta: EntityMeta<T>
 
-  constructor({ type, name, inProjectPath, isExported, references, meta }: EntityParams<T>) {
+  public constructor({ type, name, inProjectPath, isExported, references, meta }: EntityParams<T>) {
     this._type = type
     this._name = name
     this._inProjectPath = inProjectPath

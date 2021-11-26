@@ -5,7 +5,7 @@ export class EntityInterface {
   protected readonly _references: Reference[]
   protected readonly _properties: Property[]
 
-  constructor(params: { references?: Reference[]; properties?: Property[] }) {
+  public constructor(params: { references?: Reference[]; properties?: Property[] }) {
     const { references, properties } = params
     this._references = references ?? []
     this._properties = properties ?? []

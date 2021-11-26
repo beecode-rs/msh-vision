@@ -19,7 +19,7 @@ export class TsEntityParser {
   protected readonly _inProjectPath: string
   protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: {
+  public constructor(params: {
     parsedSource: ts.SourceFile
     fileName: string
     inProjectPath: string

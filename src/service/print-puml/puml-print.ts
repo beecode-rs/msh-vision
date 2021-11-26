@@ -22,7 +22,7 @@ export class PumlPrint implements PrintStrategy {
     await fileDao.mkdirAndWriteToFile({ folderPath: this._destinationPath, fileName: this._fileName, data })
   }
 
-  constructor(params: { appName?: string; destinationPath: string; fileName: string }) {
+  public constructor(params: { appName?: string; destinationPath: string; fileName: string }) {
     const { appName, destinationPath, fileName } = params
     const fallbackAppName = appName ?? ''
     this._destinationPath = destinationPath

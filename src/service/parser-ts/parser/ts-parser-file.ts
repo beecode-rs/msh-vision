@@ -12,7 +12,7 @@ export class TsParserFile implements Parsable {
   protected readonly _fileName: string
   protected readonly _importParseResults: TsParserImportParseResult[]
 
-  constructor(params: {
+  public constructor(params: {
     parsedSource: ts.SourceFile
     inProjectPath: string
     fileName: string

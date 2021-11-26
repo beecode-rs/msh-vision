@@ -4,9 +4,10 @@ import { filePathService } from 'src/service/file-path-service'
 import { config } from 'src/util/config'
 
 const _self = {
-  fileListFromFolder: async (folderPath: string): Promise<string[]> => {
+  fileListFromFolder: async (params: { rootFolder: string; folderPath: string }): Promise<string[]> => {
+    const { rootFolder, folderPath } = params
     return new Promise<string[]>((resolve, reject) => {
-      const cwd = filePathService.relativeToAbsPath(filePathService.joinPaths(config().vision.projectRootPath, folderPath))
+      const cwd = filePathService.relativeToAbsPath(filePathService.joinPaths(rootFolder, folderPath))
       glob('**/*', { cwd, dot: true, nodir: true, ignore: config().vision.ignoreGlobPaths }, (err, files) => {
         // TODO implement some mechanism to ignore files
         if (err) return reject(err)

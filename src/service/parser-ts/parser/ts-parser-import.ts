@@ -10,7 +10,7 @@ export class TsParserImport implements Parsable<TsParserImportParseResult[]> {
   protected readonly _statement: ts.Statement
   protected readonly _inProjectPath: string
 
-  constructor(params: { statement: ts.Statement; inProjectPath: string }) {
+  public constructor(params: { statement: ts.Statement; inProjectPath: string }) {
     const { statement, inProjectPath } = params
     this._statement = statement
     this._inProjectPath = inProjectPath

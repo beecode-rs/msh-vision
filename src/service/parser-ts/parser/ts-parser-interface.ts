@@ -12,7 +12,7 @@ export class TsParserInterface implements Parsable {
   protected readonly _inProjectPath: string
   protected readonly _parsedSource: ts.SourceFile
 
-  constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string }) {
+  public constructor(params: { parsedSource: ts.SourceFile; statement: ts.Statement; inProjectPath: string }) {
     const { parsedSource, statement, inProjectPath } = params
     this._statement = statement
     this._inProjectPath = inProjectPath

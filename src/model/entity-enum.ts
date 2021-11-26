@@ -1,7 +1,7 @@
 export class EntityEnum {
   protected readonly _properties: string[]
 
-  constructor(params: { properties: string[] }) {
+  public constructor(params: { properties: string[] }) {
     const { properties } = params
     this._properties = properties ?? []
   }
