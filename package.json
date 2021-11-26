@@ -151,5 +151,5 @@
     "tsc:watch": "tsc-watch -p tsconfig-build.json",
     "watch": "npm run build:watch"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

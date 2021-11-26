@@ -1,3 +1,11 @@
+## [0.1.1](https://github.com/beecode-rs/msh-vision/compare/v0.1.0...v0.1.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* package-lock.json ([7ec66cf](https://github.com/beecode-rs/msh-vision/commit/7ec66cf4b609f44a0ff6d0c1d2c06333177b4569))
+* path problem, fix tests, syntax update ([3d27c11](https://github.com/beecode-rs/msh-vision/commit/3d27c1150ac14d64d9f0ea595144986c6e1e1469))
+
 # [0.1.0](https://github.com/beecode-rs/msh-vision/compare/v0.0.2...v0.1.0) (2021-11-22)
 
 
