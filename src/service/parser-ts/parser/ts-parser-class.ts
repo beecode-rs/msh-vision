@@ -90,9 +90,9 @@ export class TsParserClass implements Parsable {
     if ((parameters ?? []).length === 0) return ''
     return (parameters ?? [])
       .map((p) => p.getText(this._parsedSource))
-      .map((p) => p.split(constant.newRow).join('\\n'))
+      .map((p) => p.split(constant().newRow).join('\\n'))
       .join(', ')
-      .split(constant.newRow)
+      .split(constant().newRow)
       .join('')
   }
 }

@@ -19,15 +19,15 @@ export abstract class PumlEntity {
     template.push(...this._indentRows(bodyTemplate))
     if (this._templateEnd()) template.push(this._templateEnd())
 
-    return template.join(constant.newRow)
+    return template.join(constant().newRow)
   }
 
   protected _indentRows(templates: string[]): string[] {
     return templates.map((template) =>
       template
-        .split(constant.newRow)
+        .split(constant().newRow)
         .map((row) => `  ${row}`)
-        .join(constant.newRow)
+        .join(constant().newRow)
     )
   }
 
@@ -42,6 +42,6 @@ export abstract class PumlEntity {
   public printRelations(): string {
     const template: string[] = []
     template.push(...this._relations.map((r) => r.print()).filter(Boolean))
-    return template.join(constant.newRow)
+    return template.join(constant().newRow)
   }
 }

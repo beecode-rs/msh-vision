@@ -24,6 +24,11 @@ export class SomeClass extends AbstractClass implements SomeInterface, OtherInte
   protected readonly _constParam: string
   protected readonly _constParam1: string
 
+  protected _cache: {
+    singleton?: any
+    resolvers?: ((value: any | PromiseLike<any>) => void)[]
+  } = {}
+
   public constructor(params: { test: string; test1: SomeType }) {
     const { test, test1 } = params
     super()

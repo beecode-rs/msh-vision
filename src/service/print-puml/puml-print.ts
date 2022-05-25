@@ -70,7 +70,7 @@ export class PumlPrint implements PrintStrategy {
 
   protected _generateGroups(entities: Entity[]): void {
     entities.forEach((e) => {
-      const paths = e.InProjectPath.split(constant.folderSep)
+      const paths = e.InProjectPath.split(constant().folderSep)
       let prevGroup: PumlGroup | undefined
       paths.forEach((p, ix, list) => {
         const parentGroup = prevGroup ?? this._rootGroup
@@ -83,7 +83,7 @@ export class PumlPrint implements PrintStrategy {
           return
         }
         if (list.length === 1) return
-        const groupPath = [parentGroup.GroupPath, p].filter(Boolean).join(constant.folderSep)
+        const groupPath = [parentGroup.GroupPath, p].filter(Boolean).join(constant().folderSep)
         const newGroup = parentGroup.groups[p] ?? new PumlGroup({ name: p, groupPath, type: PumlGroupType.FOLDER })
         parentGroup.groups[p] = newGroup
         prevGroup = newGroup
@@ -103,7 +103,7 @@ export class PumlPrint implements PrintStrategy {
     if (groups.length === 0) return
     const childGroup = groups[0]
     const flatGroup = new PumlGroup({
-      name: [group.Name, childGroup.Name].join(constant.folderSep),
+      name: [group.Name, childGroup.Name].join(constant().folderSep),
       type: group.Type,
       groupPath: childGroup.GroupPath,
       groups: childGroup.groups,

@@ -11,6 +11,6 @@ export const helpService = {
       '   -v | --version          Display version',
       '',
       '   -h | --help             Display this help',
-    ].join(constant.newRow)
+    ].join(constant().newRow)
   },
 }

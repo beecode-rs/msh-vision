@@ -13,8 +13,8 @@ export const shellService = {
     const messages = shellService._joinResults(messageArgs)
     for (const [key, execResult] of Object.entries(messages)) {
       shellService.print(chalk.cyan(key))
-      for (const msg of execResult.stdout.split(constant.newRow)) shellService.print(msg)
-      for (const msg of execResult.stderr.split(constant.newRow)) shellService.printError(msg)
+      for (const msg of execResult.stdout.split(constant().newRow)) shellService.print(msg)
+      for (const msg of execResult.stderr.split(constant().newRow)) shellService.printError(msg)
     }
   },
   _joinResults: (results: PrintStdMessage[]): PrintStdMessage => {

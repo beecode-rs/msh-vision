@@ -32,7 +32,7 @@ export class PumlGroup extends PumlEntity {
     return Object.values(groups)
       .map((pg) => pg.print())
       .filter(Boolean)
-      .join(constant.newRow)
+      .join(constant().newRow)
   }
 
   public constructor(params: { name: string; type: PumlGroupType; groupPath: string; groups?: { [k: string]: PumlGroup } }) {

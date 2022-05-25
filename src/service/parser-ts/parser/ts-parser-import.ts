@@ -51,14 +51,14 @@ export class TsParserImport implements Parsable<TsParserImportParseResult[]> {
     const { filePathImportedFrom, importPath } = params
     const resolvedImportPath = tsConfigFileService.moduleAliasResolve(importPath)
     const importedFromPath = filePathService.lastFolderFromPath(filePathImportedFrom)
-    const importPathSplit = resolvedImportPath.split(constant.folderSep)
-    const importedFromPathReverseSplit = importedFromPath.split(constant.folderSep).reverse()
+    const importPathSplit = resolvedImportPath.split(constant().folderSep)
+    const importedFromPathReverseSplit = importedFromPath.split(constant().folderSep).reverse()
     let equalPathSplitCount = 0
     for (const [ix, split] of Object.entries(importPathSplit)) {
       if (importedFromPathReverseSplit[ix] !== split) break
       equalPathSplitCount = +ix + 1
     }
-    const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join(constant.folderSep)
+    const cleanImportPath = importPathSplit.slice(equalPathSplitCount).join(constant().folderSep)
     return filePathService.joinPaths(importedFromPath, cleanImportPath)
   }
 }

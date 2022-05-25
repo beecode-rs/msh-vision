@@ -79,11 +79,11 @@ export class TsParserObject implements Parsable {
       return properties
         .map((property) => {
           if (!property.name) return // TODO solve the spread operator problem in objects, skipping for now
-          const name = property.name.escapedText
+          const name = property.name.escapedText ?? property.name.text
           const accessLevel = this._accessLevel(name)
           const returnType = this._returnTypeValue(property)
           const functionParams =
-            (property.initializer.parameters ?? []).length === 0
+            (property.initializer?.parameters ?? []).length === 0
               ? undefined
               : property.initializer.parameters.map((p) => p.getText(this._parsedSource)).join(', ')
           return new Property({

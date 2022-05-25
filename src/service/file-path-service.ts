@@ -6,7 +6,7 @@ const _self = {
     return path.join(...paths)
   },
   isAbsPath: (relativeOrAbsPath: string): boolean => {
-    return relativeOrAbsPath.startsWith(constant.folderSep)
+    return relativeOrAbsPath.startsWith(constant().folderSep)
   },
   isDotPath: (path: string): boolean => {
     return path.startsWith('.')
@@ -18,7 +18,7 @@ const _self = {
     return path.join(relativeOrAbsPath)
   },
   fileNameFromPath: (filePath: string, options: { withExtension?: boolean } = {}): string => {
-    const parts = filePath.split(constant.folderSep)
+    const parts = filePath.split(constant().folderSep)
     const lastPart = parts[parts.length - 1]
     if (options.withExtension) return lastPart
     const nameParts = lastPart.split('.')
@@ -27,9 +27,9 @@ const _self = {
     return nameParts.join('.')
   },
   lastFolderFromPath: (filePath: string): string => {
-    const pathSplit = filePath.split(constant.folderSep)
+    const pathSplit = filePath.split(constant().folderSep)
     if (pathSplit[pathSplit.length - 1].includes('.')) pathSplit.pop()
-    return pathSplit.join(constant.folderSep)
+    return pathSplit.join(constant().folderSep)
   },
 }
 

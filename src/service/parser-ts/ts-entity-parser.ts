@@ -47,7 +47,7 @@ export class TsEntityParser {
       if (!parser) return []
       return parser.parse()
     } catch (error) {
-      logger().error(`Error in file ${[this._inProjectPath, this._fileName].join(constant.folderSep)}`)
+      logger().error(`Error in file ${[this._inProjectPath, this._fileName].join(constant().folderSep)}`)
       if (error instanceof TsParsingError && error.CanPrintCode) logger().error(error.Statement.getText(this._parsedSource))
       throw error
     }
